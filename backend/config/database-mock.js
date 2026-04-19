@@ -35,18 +35,18 @@ async function seedData() {
 
   // Elders
   const elders = [
-    { id: 'a1000000-0000-0000-0000-000000000001', full_name: 'Gakwaya', email: 'gakwaya@inkomoko.rw', phone: '+250788000001', password_hash: hash, role: 'elder', region: 'Northern Province', province: 'Musanze', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda', 'Abagabo'], bio: 'A storyteller and keeper of oral traditions from the hills of Musanze.', clan: 'Abanyiginya', age: 78, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-01-15').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'a1000000-0000-0000-0000-000000000002', full_name: 'Mzee Karekezi', email: 'karekezi@inkomoko.rw', phone: '+250788000002', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Keeper of 12 Traditions, master of the weaving arts.', clan: 'Abega', age: 82, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-02-10').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'a1000000-0000-0000-0000-000000000003', full_name: 'Mzee Kanyamahanga', email: 'kanyamahanga@inkomoko.rw', phone: '+250788000003', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda', 'Inyambo'], bio: 'Master storyteller and keeper of oral traditions of the Nyanza royal court.', clan: 'Abanyiginya', age: 84, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-01-20').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'a1000000-0000-0000-0000-000000000004', full_name: 'Nyirahirwa', email: 'nyirahirwa@inkomoko.rw', phone: '+250788000004', password_hash: hash, role: 'elder', region: 'Eastern Province', province: 'Kayonza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Grandmother and keeper of recipes and songs.', clan: 'Abagesera', age: 74, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-03-05').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'a1000000-0000-0000-0000-000000000005', full_name: 'Munyana', email: 'munyana@inkomoko.rw', phone: '+250788000005', password_hash: hash, role: 'elder', region: 'Western Province', province: 'Rubavu', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Great uncle, teller of cattle and kings.', clan: 'Abanyiginya', age: 80, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-02-20').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'a1000000-0000-0000-0000-000000000006', full_name: 'Mzee Mutabazi', email: 'mutabazi@inkomoko.rw', phone: '+250788000006', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Chronicler of the nomadic cattle herding cycles.', clan: 'Abega', age: 76, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-03-15').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000001', full_name: 'Gakwaya', email: 'gakwaya@inkomoko.rw', phone: '+250788000001', password_hash: hash, role: 'elder', region: 'Northern Province', province: 'Musanze', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda', 'Abagabo'], bio: 'A storyteller and keeper of oral traditions from the hills of Musanze.', clan: 'Abanyiginya', age: 78, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-01-15').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000002', full_name: 'Mzee Karekezi', email: 'karekezi@inkomoko.rw', phone: '+250788000002', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Keeper of 12 Traditions, master of the weaving arts.', clan: 'Abega', age: 82, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-02-10').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000003', full_name: 'Mzee Kanyamahanga', email: 'kanyamahanga@inkomoko.rw', phone: '+250788000003', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda', 'Inyambo'], bio: 'Master storyteller and keeper of oral traditions of the Nyanza royal court.', clan: 'Abanyiginya', age: 84, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-01-20').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000004', full_name: 'Nyirahirwa', email: 'nyirahirwa@inkomoko.rw', phone: '+250788000004', password_hash: hash, role: 'elder', region: 'Eastern Province', province: 'Kayonza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Grandmother and keeper of recipes and songs.', clan: 'Abagesera', age: 74, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-03-05').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000005', full_name: 'Munyana', email: 'munyana@inkomoko.rw', phone: '+250788000005', password_hash: hash, role: 'elder', region: 'Western Province', province: 'Rubavu', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Great uncle, teller of cattle and kings.', clan: 'Abanyiginya', age: 80, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-02-20').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'a1000000-0000-0000-0000-000000000006', full_name: 'Mzee Mutabazi', email: 'mutabazi@inkomoko.rw', phone: '+250788000006', password_hash: hash, role: 'elder', region: 'Southern Province', province: 'Nyanza', language_pref: 'kinyarwanda', cultural_background: ['Umuco w\'u Rwanda'], bio: 'Chronicler of the nomadic cattle herding cycles.', clan: 'Abega', age: 76, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-03-15').toISOString(), updated_at: new Date().toISOString() },
   ];
 
   // Youth
   const youth = [
-    { id: 'b1000000-0000-0000-0000-000000000001', full_name: 'Keza', email: 'keza@inkomoko.rw', phone: '+250788100001', password_hash: hash, role: 'youth', region: 'Kigali', province: 'Kigali', language_pref: 'english', cultural_background: [], bio: 'Young listener passionate about preserving family stories.', clan: null, age: 22, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: ['Stories', 'Songs'], created_at: new Date('2024-04-01').toISOString(), updated_at: new Date().toISOString() },
-    { id: 'b1000000-0000-0000-0000-000000000002', full_name: 'Balthazar Mugisha', email: 'b.mugisha@livingarchive.rw', phone: '+250788100002', password_hash: hash, role: 'youth', region: 'Kigali', province: 'Kigali', language_pref: 'english', cultural_background: [], bio: null, clan: null, age: 28, is_onboarded: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-05-10').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'b1000000-0000-0000-0000-000000000001', full_name: 'Keza', email: 'keza@inkomoko.rw', phone: '+250788100001', password_hash: hash, role: 'youth', region: 'Kigali', province: 'Kigali', language_pref: 'english', cultural_background: [], bio: 'Young listener passionate about preserving family stories.', clan: null, age: 22, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: ['Stories', 'Songs'], created_at: new Date('2024-04-01').toISOString(), updated_at: new Date().toISOString() },
+    { id: 'b1000000-0000-0000-0000-000000000002', full_name: 'Balthazar Mugisha', email: 'b.mugisha@livingarchive.rw', phone: '+250788100002', password_hash: hash, role: 'youth', region: 'Kigali', province: 'Kigali', language_pref: 'english', cultural_background: [], bio: null, clan: null, age: 28, onboarding_status: true, avatar_url: null, voice_intro_url: null, interests: [], created_at: new Date('2024-05-10').toISOString(), updated_at: new Date().toISOString() },
   ];
 
   store.users = [...elders, ...youth];
@@ -414,7 +414,7 @@ function handleInsert(sql, params) {
   const lower = sql.toLowerCase();
 
   if (lower.includes('into users')) {
-    const user = { id: uuid(), full_name: params[0], email: params[1], phone: params[2], password_hash: params[3], role: params[4] || 'youth', avatar_url: null, region: null, province: null, language_pref: 'kinyarwanda', cultural_background: [], voice_intro_url: null, interests: [], bio: null, clan: null, age: null, is_onboarded: false, created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+    const user = { id: uuid(), full_name: params[0], email: params[1], phone: params[2], password_hash: params[3], role: params[4] || 'youth', avatar_url: null, region: null, province: null, language_pref: 'kinyarwanda', cultural_background: [], voice_intro_url: null, interests: [], bio: null, clan: null, age: null, onboarding_status: false, created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
     store.users.push(user);
     return { rows: [{ ...user }], rowCount: 1 };
   }
@@ -481,7 +481,7 @@ function handleInsert(sql, params) {
 function handleUpdate(sql, params) {
   const lower = sql.toLowerCase();
 
-  if (lower.includes('update users set') && lower.includes('is_onboarded = true')) {
+  if (lower.includes('update users set') && lower.includes('onboarding_status = true')) {
     const userId = params[params.length - 1];
     const user = store.users.find(u => u.id === userId);
     if (user) {
@@ -492,7 +492,7 @@ function handleUpdate(sql, params) {
       if (params[4]) user.language_pref = params[4];
       if (params[5]) user.cultural_background = params[5];
       if (params[6]) user.interests = params[6];
-      user.is_onboarded = true;
+      user.onboarding_status = true;
       user.updated_at = new Date().toISOString();
       return { rows: [{ ...user }], rowCount: 1 };
     }

@@ -27,7 +27,7 @@ CREATE TABLE users (
     bio             TEXT,
     clan            VARCHAR(255),
     age             INTEGER,
-    is_onboarded    BOOLEAN DEFAULT FALSE,
+    onboarding_status BOOLEAN DEFAULT FALSE,
     created_at      TIMESTAMPTZ DEFAULT NOW(),
     updated_at      TIMESTAMPTZ DEFAULT NOW()
 );

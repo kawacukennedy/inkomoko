@@ -8,7 +8,7 @@
 -- ============================================================
 -- USERS
 -- ============================================================
-INSERT INTO users (id, full_name, email, phone, role, region, province, language_pref, cultural_background, bio, clan, age, is_onboarded, avatar_url) VALUES
+INSERT INTO users (id, full_name, email, phone, role, region, province, language_pref, cultural_background, bio, clan, age, onboarding_status, avatar_url) VALUES
 -- Elders
 ('a1000000-0000-0000-0000-000000000001', 'Gakwaya', 'gakwaya@inkomoko.rw', '+250788000001', 'elder', 'Northern Province', 'Musanze', 'kinyarwanda', ARRAY['Umuco w''u Rwanda', 'Abagabo'], 'A storyteller and keeper of oral traditions from the hills of Musanze.', 'Abanyiginya', 78, true, '/uploads/avatars/gakwaya.jpg'),
 ('a1000000-0000-0000-0000-000000000002', 'Mzee Karekezi', 'karekezi@inkomoko.rw', '+250788000002', 'elder', 'Southern Province', 'Nyanza', 'kinyarwanda', ARRAY['Umuco w''u Rwanda'], 'Keeper of 12 Traditions, master of the weaving arts.', 'Abega', 82, true, '/uploads/avatars/karekezi.jpg'),

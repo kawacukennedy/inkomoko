@@ -10,7 +10,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
     const result = await db.query(
       `SELECT id, full_name, email, phone, role, avatar_url, region, province,
               language_pref, cultural_background, voice_intro_url, interests,
-              bio, clan, age, is_onboarded, created_at
+              bio, clan, age, onboarding_status, created_at
        FROM users WHERE id = $1`,
       [req.user.id]
     );
@@ -40,7 +40,7 @@ router.put('/profile', authenticateToken, async (req, res) => {
         age = COALESCE($8, age)
        WHERE id = $9
        RETURNING id, full_name, email, phone, role, avatar_url, region, province,
-                 language_pref, cultural_background, bio, clan, age, is_onboarded`,
+                 language_pref, cultural_background, bio, clan, age, onboarding_status`,
       [full_name, region, province, language_pref, cultural_background, bio, clan, age, req.user.id]
     );
     res.json(result.rows[0]);
@@ -63,7 +63,7 @@ router.put('/onboarding', authenticateToken, async (req, res) => {
         language_pref = COALESCE($5, language_pref),
         cultural_background = COALESCE($6, cultural_background),
         interests = COALESCE($7, interests),
-        is_onboarded = true
+        onboarding_status = true
        WHERE id = $8
        RETURNING *`,
       [full_name, role, region, province, language_pref, cultural_background, interests, req.user.id]

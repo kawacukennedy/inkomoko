@@ -9,7 +9,7 @@ const App = {
   init() {
     // Global Error Safety Net
     window.onerror = function(msg, url, line, col, error) {
-      if (msg.includes('is_onboarded') || msg.includes('undefined')) {
+      if (msg.includes('onboarding_status') || msg.includes('undefined')) {
         console.warn('Caught and suppressed potential auth-state crash:', msg);
         return true; // Prevent the error from crashing the app
       }
@@ -32,7 +32,7 @@ const App = {
           return;
         }
         // Safety: Ensure user object has essential properties
-        if (this.currentUser && (!this.currentUser.role || this.currentUser.is_onboarded === undefined)) {
+        if (this.currentUser && (!this.currentUser.role || this.currentUser.onboarding_status === undefined)) {
           console.warn('Corrupt user session detected. Logging out.');
           this.logout();
           return;
@@ -52,8 +52,8 @@ const App = {
     // 🚨 Nuclear Reset: Detect and purge "poisoned" localStorage data
     try {
       const raw = localStorage.getItem('inkomoko_user');
-      if (raw === 'undefined' || raw === 'null' || (raw && raw.includes('"is_onboarded":undefined'))) {
-        console.warn('Poisoned app state detected. Purging session.');
+      if (raw === 'undefined' || raw === 'null' || (raw && raw.includes('"onboarding_status":undefined'))) {
+        console.warn('Poisoned app state detected (onboarding_status). Purging session.');
         localStorage.removeItem('inkomoko_user');
         localStorage.removeItem('inkomoko_token');
         this.currentUser = null;
