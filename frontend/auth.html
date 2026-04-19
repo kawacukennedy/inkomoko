@@ -255,9 +255,22 @@
     let otpContext = null; // { identifier, purpose }
 
     // Init
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('mode') === 'signup' || params.get('role')) switchMode('signup');
-    if (params.get('role')) selectRole(params.get('role'));
+    document.addEventListener('DOMContentLoaded', () => {
+      // 🛡️ Final Auth Shield: If we somehow hit this page with a corrupted object, clear it.
+      if (localStorage.getItem('inkomoko_user') === 'undefined') {
+        localStorage.clear();
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const isSignupParam = params.get('mode') === 'signup' || params.get('role');
+      if (isSignupParam) switchMode('signup');
+      if (params.get('role')) selectRole(params.get('role'));
+      
+      // Safety: ensure default state is consistent
+      if (!isSignupParam && currentMode !== 'login') {
+        switchMode('login');
+      }
+    });
 
     function switchMode(mode) {
       currentMode = mode;

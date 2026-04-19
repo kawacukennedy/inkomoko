@@ -49,6 +49,18 @@ const App = {
   },
 
   loadUser() {
+    // 🚨 Nuclear Reset: Detect and purge "poisoned" localStorage data
+    try {
+      const raw = localStorage.getItem('inkomoko_user');
+      if (raw === 'undefined' || raw === 'null' || (raw && raw.includes('"is_onboarded":undefined'))) {
+        console.warn('Poisoned app state detected. Purging session.');
+        localStorage.removeItem('inkomoko_user');
+        localStorage.removeItem('inkomoko_token');
+        this.currentUser = null;
+        return;
+      }
+    } catch(e) {}
+
     const userData = localStorage.getItem('inkomoko_user');
     if (userData && userData !== 'undefined' && userData !== 'null') {
       try { 
