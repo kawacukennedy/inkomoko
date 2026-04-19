@@ -26,7 +26,7 @@ This guide covers the deployment of the Inkomoko application across three platfo
    - `JWT_SECRET`: Generate a random string. (You can generate one by running `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` in your terminal).
    - `JWT_EXPIRES_IN`: `30d`
 5. Click **Deploy Web Service**.
-6. Once deployed, note down the URL of your deployed backend service (e.g., `https://inkomoko-backend.onrender.com`).
+6. Once deployed, note down the URL of your deployed backend service (e.g., `https://inkomoko-api.onrender.com`).
 
 ## Part 3: Vercel (Frontend PWA)
 
@@ -39,7 +39,7 @@ This guide covers the deployment of the Inkomoko application across three platfo
    - **Output Directory**: (Leave empty)
 4. Add an **Environment Variable** so the frontend knows where the backend is:
    - Name: `API_URL`
-   - Value: The URL from your Render backend (e.g., `https://inkomoko-backend.onrender.com/api`)
+   - Value: `https://inkomoko-api.onrender.com/api`
 5. Unfurl the configuration and hit **Deploy**.
 6. When the deployment finishes, you will receive your live frontend URL!
 
@@ -48,3 +48,9 @@ This guide covers the deployment of the Inkomoko application across three platfo
 - Access your frontend URL via Vercel.
 - The web app should automatically connect to your Render backend, which in turn interacts with your Supabase PostgreSQL database.
 - You can create an account and ensure stories post properly to confirm the database tables map correctly.
+
+## Active Deployments 🚀
+
+As of the latest deployment, the services are live at:
+- **Backend API**: `https://inkomoko-api.onrender.com`
+- **Frontend App**: *(Pending Vercel setup)*
