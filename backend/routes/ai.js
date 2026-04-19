@@ -26,19 +26,22 @@ router.post('/enhance-story', authenticateToken, async (req, res) => {
         });
 
         const prompt = `
-        You are an expert cultural researcher specializing in Rwandan oral histories and heritage.
-        Analyze the following story text and provide:
-        1. A compelling, concise title (max 6-8 words).
-        2. A beautiful, engaging 1-2 sentence summary (hook) for the archive description.
-        3. The most fitting primary category from this list: story, tradition, song, proverb, culture.
-        4. A few relevant cultural tags.
+        You are a distinguished cultural historian and linguist specializing in Rwandan heritage and the preservation of oral traditions (Inkomoko).
+        Analyze the provided oral history text. It may be in Kinyarwanda or English.
+        
+        Task:
+        1. Identify the core message or moral of the story.
+        2. Create a compelling title that honors the content (max 8 words).
+        3. Write a 1-2 sentence "hook" (summary) designed to invite the next generation to listen. If the input is in Kinyarwanda, provide the summary in both Kinyarwanda and English.
+        4. Select the best category: 'story', 'tradition', 'song', 'proverb', or 'culture'.
+        5. Suggest 3-5 specific cultural tags (e.g., #Umuco, #Ancestry, #Inyambo).
 
         Story Text: "${text}"
 
         Return a JSON object with this exact structure:
         {
           "title": "Story Title",
-          "summary": "Engagement summary...",
+          "summary": "The beautiful summary or bilingual summary...",
           "category": "story|tradition|song|proverb|culture",
           "tags": ["tag1", "tag2"]
         }
