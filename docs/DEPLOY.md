@@ -7,8 +7,8 @@ This guide covers the deployment of the Inkomoko application across three platfo
 1. Go to [Supabase](https://supabase.com/) and create a new project.
 2. Provide a name (e.g., `inkomoko`) and a strong database password. **Save this password**.
 3. Once the database is provisioned, go to the **SQL Editor** and run your schema SQL queries (from `database/001_schema.sql` and `database/002_seed.sql`).
-4. Go to **Project Settings > Database** and locate the **Connection String** (URI format).
-5. It will look like this: `postgresql://postgres:[YOUR-PASSWORD]@db...supabase.co:5432/postgres`. Replace `[YOUR-PASSWORD]` with your actual password. This is your `DATABASE_URL`.
+4. Go to **Project Settings > Database**. Under the "Connection string" section, **make sure to check "Use connection pooling"** (set to "Transaction" mode), because the default connection string uses IPv6 and Render's free tier **does not support IPv6**.
+5. The correct URL will likely use port **6543** and look like this: `postgresql://postgres.[your-project-ref]:[YOUR-PASSWORD]@aws-0-region.pooler.supabase.com:6543/postgres`. Replace `[YOUR-PASSWORD]` with your password (URL-encoded if it has special characters!). This is your `DATABASE_URL`.
 
 ## Part 2: Render (Backend API)
 
