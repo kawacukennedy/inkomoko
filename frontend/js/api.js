@@ -136,6 +136,11 @@ const API = {
 
   // Dashboard
   async getElderDashboard() { return this.get('/dashboard/elder'); },
+
+  // AI Assistance
+  AI: {
+    enhanceStory: (text) => API.post('/ai/enhance-story', { text })
+  }
 };
 
 // Process offline queue when back online

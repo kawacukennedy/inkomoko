@@ -195,7 +195,13 @@
 
         <!-- Description -->
         <div>
-          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Description</label>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Description / Hook</label>
+            <button type="button" onclick="enhanceWithAI()" id="aiBtn" style="font-size:0.75rem;color:var(--primary);font-weight:700;display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0.75rem;background:var(--primary-fixed);border-radius:9999px;border:none;cursor:pointer;transition:all 0.3s">
+              <span class="material-symbols-outlined" style="font-size:1rem" id="aiIcon">magic_button</span>
+              <span id="aiText">Enhance with AI</span>
+            </button>
+          </div>
           <textarea id="storyDesc" class="form-input" style="height:100px;resize:none;padding:1rem 1.5rem" placeholder="Briefly describe this story"></textarea>
         </div>
 
@@ -411,6 +417,52 @@
         App.showToast(err.message || 'Failed to publish', 'error');
       }
     }
+
+    async function enhanceWithAI() {
+      const text = document.getElementById('textContent').value;
+      if (!text || text.length < 50) {
+        App.showToast('Please write more of your story first so the AI can understand it!', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('aiBtn');
+      const icon = document.getElementById('aiIcon');
+      const textSpan = document.getElementById('aiText');
+
+      try {
+        // Loading state
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        icon.classList.add('rotating');
+        textSpan.textContent = 'AI is listening...';
+
+        const result = await API.AI.enhanceStory(text);
+        
+        // Auto-fill
+        if (result.title) document.getElementById('storyTitle').value = result.title;
+        if (result.summary) document.getElementById('storyDesc').value = result.summary;
+        if (result.category) {
+          const chip = document.querySelector(`#categoryChips [data-cat="${result.category}"]`);
+          if (chip) selectCategory(chip, result.category);
+        }
+        if (result.tags) {
+          document.getElementById('storyEra').value = result.tags.join(', ');
+        }
+
+        App.showToast('Story enhanced! ✨', 'success');
+      } catch (err) {
+        App.showToast(err.message || 'AI Enhancement failed', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        icon.classList.remove('rotating');
+        textSpan.textContent = 'Enhance with AI';
+      }
+    }
   </script>
+  <style>
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .rotating { animation: rotate 2s linear infinite; }
+  </style>
 </body>
 </html>
