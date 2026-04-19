@@ -105,26 +105,35 @@
   </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
 <!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5">
+<header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
 <div class="flex justify-between items-center w-full px-6 py-4">
 <div class="flex items-center gap-4">
-<button class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
+<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
 <span class="material-symbols-outlined">menu</span>
 </button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight">The Living Archive</h1>
+<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
 </div>
 <div class="hidden md:flex items-center gap-8">
 <nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-primary" href="/">Home</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
 </nav>
 <div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of an elderly African person with wise expression and traditional attire, warm golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY"/>
+<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
 </div>
 </div>
 </div>
 </header>
+<script>
+  setTimeout(() => {
+    try {
+      if(window.App && App.currentUser) {
+        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
+      }
+    }catch(e){}
+  }, 100);
+</script>
 <main class="relative min-h-screen pt-24 pb-32">
 <!-- Decorative Waveform Background Element -->
 <div class="absolute inset-0 waveform-bg pointer-events-none"></div>

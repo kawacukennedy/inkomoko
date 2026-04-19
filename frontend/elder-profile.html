@@ -8,18 +8,123 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#9b2f00">
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+        .leaf-radius {
+            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+        }
+        .terracotta-glow {
+            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
+        }
+        .glass-header {
+            background: rgba(253, 249, 233, 0.8);
+            backdrop-filter: blur(12px);
+        }
+</style>
 </head>
 <body>
-  <header class="top-app-bar" style="background:transparent;box-shadow:none" id="profileHeader">
-    <div class="top-app-bar-inner">
-      <button onclick="history.back()" style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
-        <span class="material-symbols-outlined">arrow_back</span>
-      </button>
-      <button style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
-        <span class="material-symbols-outlined">share</span>
-      </button>
-    </div>
-  </header>
+  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
+</nav>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
+<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
+</div>
+</div>
+</div>
+</header>
+<script>
+  setTimeout(() => {
+    try {
+      if(window.App && App.currentUser) {
+        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
+      }
+    }catch(e){}
+  }, 100);
+</script>
 
   <main style="min-height:100vh;padding-bottom:120px">
     <!-- Hero Portrait -->

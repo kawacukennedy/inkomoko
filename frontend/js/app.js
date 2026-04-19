@@ -9,6 +9,17 @@ const App = {
   init() {
     this.loadUser();
     this.setupOnlineIndicator();
+    
+    // Global Authentication Guard
+    const publicPages = ['/', '/index.html', '/auth.html', '/welcome.html'];
+    const path = window.location.pathname;
+    const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
+
+    if (!publicPages.includes(normalizedPath) && !this.isLoggedIn()) {
+      window.location.href = '/welcome.html';
+      return;
+    }
+
     // Register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
