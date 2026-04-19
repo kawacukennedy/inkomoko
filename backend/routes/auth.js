@@ -40,7 +40,7 @@ router.post('/signup', async (req, res) => {
 
     const otpCode = OTP.generateCode();
     await OTP.save(identifier, otpCode, 'signup');
-    await OTP.send(identifier, otpCode);
+    await OTP.send(identifier, otpCode, 'signup');
 
     res.status(201).json({ 
       message: 'Signup successful. Please verify your OTP.',
@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
 
     const otpCode = OTP.generateCode();
     await OTP.save(identifier, otpCode, 'login');
-    await OTP.send(identifier, otpCode);
+    await OTP.send(identifier, otpCode, 'login');
 
     res.json({ 
       message: 'OTP sent for verification',
@@ -165,7 +165,7 @@ router.post('/forgot-password', async (req, res) => {
 
     const otpCode = OTP.generateCode();
     await OTP.save(identifier, otpCode, 'reset');
-    await OTP.send(identifier, otpCode);
+    await OTP.send(identifier, otpCode, 'reset');
 
     res.json({ message: 'Password reset OTP sent', otp_required: true, identifier, purpose: 'reset' });
   } catch (err) {

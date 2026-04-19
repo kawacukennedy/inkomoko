@@ -31,12 +31,23 @@ const OTP = {
     return false;
   },
 
-  // Mock send OTP
-  async send(identifier, code) {
-    console.log(`\n==========================================`);
-    console.log(`[OTP SENT] To: ${identifier}`);
-    console.log(`[CODE]: ${code}`);
-    console.log(`==========================================\n`);
+  // Send real email OTP
+  async send(identifier, code, purpose = 'login') {
+    const { sendEmail } = require('./email');
+    const otpTemplate = require('../templates/otp-template');
+
+    // Only send if it's an email identifier
+    if (identifier.includes('@')) {
+      const html = otpTemplate(code, purpose);
+      const subject = purpose === 'signup' ? 'Welcome to Inkomoko — Verify Your Account' : 'Inkomoko Verification Code';
+      await sendEmail(identifier, subject, html);
+    } else {
+      // Fallback for SMS if needed later
+      console.log(`\n==========================================`);
+      console.log(`[PHONE OTP SENT] To: ${identifier}`);
+      console.log(`[CODE]: ${code}`);
+      console.log(`==========================================\n`);
+    }
   }
 };
 
