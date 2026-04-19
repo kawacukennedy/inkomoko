@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Inkomoko</title>
+  <meta name="description" content="Sign in or create an account to start preserving or discovering oral histories.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">The Living Archive</h1>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:100px 1.5rem 120px;max-width:28rem;margin:0 auto;display:flex;flex-direction:column;align-items:center">
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:3rem;width:100%">
+      <div style="width:80px;height:80px;background:var(--primary-fixed);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center">
+        <span class="material-symbols-outlined filled" style="color:var(--primary);font-size:2rem">local_fire_department</span>
+      </div>
+      <h2 style="font-family:var(--font-headline);font-size:1.875rem;font-weight:900;color:var(--on-surface);margin-bottom:0.5rem" id="authTitle">Welcome Back</h2>
+      <p style="color:var(--on-surface-variant);font-size:0.875rem" id="authSubtitle">Sign in to continue your journey</p>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem;width:100%" id="modeToggle">
+      <button onclick="switchMode('login')" id="loginTab"
+              style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s">
+        Sign In
+      </button>
+      <button onclick="switchMode('signup')" id="signupTab"
+              style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">
+        Create Account
+      </button>
+    </div>
+
+    <!-- Auth Form -->
+    <form id="authForm" style="width:100%;display:flex;flex-direction:column;gap:1.5rem" onsubmit="handleAuth(event)">
+      <!-- Name (signup only) -->
+      <div id="nameGroup" style="display:none">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">
+          Full Name
+        </label>
+        <input type="text" id="fullName" class="input-field" placeholder="Enter your full name">
+      </div>
+
+      <!-- Email / Phone -->
+      <div>
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">
+          Email or Phone
+        </label>
+        <input type="text" id="emailPhone" class="input-field" placeholder="email@example.com or +250..." required>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">
+          Password
+        </label>
+        <div style="position:relative">
+          <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+          <button type="button" onclick="togglePassword()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--on-surface-variant)">
+            <span class="material-symbols-outlined" id="passToggle">visibility_off</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Role Selection (signup only) -->
+      <div id="roleGroup" style="display:none">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">
+          I am joining as...
+        </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <button type="button" onclick="selectRole('elder')" id="roleElder"
+                  style="padding:1.25rem;border-radius:1.5rem 0.5rem 1.5rem 0.5rem;background:var(--surface-container-highest);text-align:center;transition:all 0.3s;border:2px solid transparent">
+            <span class="material-symbols-outlined" style="font-size:2rem;color:var(--primary);margin-bottom:0.5rem;display:block">record_voice_over</span>
+            <span style="font-family:var(--font-label);font-weight:700;font-size:0.875rem;color:var(--on-surface)">Elder</span>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);margin-top:0.25rem">Share Stories</p>
+          </button>
+          <button type="button" onclick="selectRole('youth')" id="roleYouth"
+                  style="padding:1.25rem;border-radius:0.5rem 1.5rem 0.5rem 1.5rem;background:var(--surface-container-highest);text-align:center;transition:all 0.3s;border:2px solid transparent">
+            <span class="material-symbols-outlined" style="font-size:2rem;color:var(--secondary);margin-bottom:0.5rem;display:block">headphones</span>
+            <span style="font-family:var(--font-label);font-weight:700;font-size:0.875rem;color:var(--on-surface)">Youth</span>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);margin-top:0.25rem">Listen & Learn</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div id="errorMsg" style="display:none;padding:1rem;background:var(--error-container);color:var(--on-error-container);border-radius:0.75rem;font-size:0.875rem;text-align:center"></div>
+
+      <!-- Submit -->
+      <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;height:56px;font-size:1rem">
+        Sign In
+      </button>
+    </form>
+
+    <!-- Bottom Link -->
+    <p style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--on-surface-variant)">
+      <span id="switchText">Don't have an account?</span>
+      <a href="#" onclick="switchMode(currentMode === 'login' ? 'signup' : 'login'); return false;" style="color:var(--primary);font-weight:700;margin-left:0.25rem" id="switchLink">Create one</a>
+    </p>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    let currentMode = 'login';
+    let selectedRole = 'youth';
+
+    // Check URL params
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mode') === 'signup' || params.get('role')) {
+      switchMode('signup');
+    }
+    if (params.get('role')) {
+      selectRole(params.get('role'));
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      const isLogin = mode === 'login';
+
+      document.getElementById('loginTab').style.background = isLogin ? 'var(--primary)' : 'transparent';
+      document.getElementById('loginTab').style.color = isLogin ? 'white' : 'var(--on-surface-variant)';
+      document.getElementById('signupTab').style.background = isLogin ? 'transparent' : 'var(--primary)';
+      document.getElementById('signupTab').style.color = isLogin ? 'var(--on-surface-variant)' : 'white';
+
+      document.getElementById('nameGroup').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('roleGroup').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('authTitle').textContent = isLogin ? 'Welcome Back' : 'Create Account';
+      document.getElementById('authSubtitle').textContent = isLogin ? 'Sign in to continue your journey' : 'Join the Living Archive community';
+      document.getElementById('submitBtn').textContent = isLogin ? 'Sign In' : 'Create Account';
+      document.getElementById('switchText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
+      document.getElementById('switchLink').textContent = isLogin ? 'Create one' : 'Sign in';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    function selectRole(role) {
+      selectedRole = role;
+      const elderBtn = document.getElementById('roleElder');
+      const youthBtn = document.getElementById('roleYouth');
+
+      elderBtn.style.borderColor = role === 'elder' ? 'var(--primary)' : 'transparent';
+      elderBtn.style.background = role === 'elder' ? 'var(--primary-fixed)' : 'var(--surface-container-highest)';
+      youthBtn.style.borderColor = role === 'youth' ? 'var(--secondary)' : 'transparent';
+      youthBtn.style.background = role === 'youth' ? 'var(--secondary-fixed)' : 'var(--surface-container-highest)';
+    }
+
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const icon = document.getElementById('passToggle');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility_off';
+      }
+    }
+
+    async function handleAuth(e) {
+      e.preventDefault();
+      const errorEl = document.getElementById('errorMsg');
+      errorEl.style.display = 'none';
+
+      const emailPhone = document.getElementById('emailPhone').value.trim();
+      const password = document.getElementById('password').value;
+
+      const isEmail = emailPhone.includes('@');
+      const data = {
+        password,
+        [isEmail ? 'email' : 'phone']: emailPhone
+      };
+
+      try {
+        let result;
+        if (currentMode === 'login') {
+          result = await API.login(data);
+        } else {
+          data.full_name = document.getElementById('fullName').value.trim();
+          data.role = selectedRole;
+          if (!data.full_name) {
+            errorEl.textContent = 'Please enter your full name';
+            errorEl.style.display = 'block';
+            return;
+          }
+          result = await API.signup(data);
+        }
+
+        API.setToken(result.token);
+        App.setUser(result.user);
+
+        // Redirect based on onboarding status and role
+        if (!result.user.is_onboarded) {
+          window.location.href = '/onboarding.html';
+        } else if (result.user.role === 'elder') {
+          window.location.href = '/elder-dashboard.html';
+        } else {
+          window.location.href = '/youth-dashboard.html';
+        }
+      } catch (err) {
+        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+        errorEl.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

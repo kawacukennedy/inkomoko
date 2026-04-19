@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome — Inkomoko</title>
+  <meta name="description" content="Join Inkomoko - preserve your family's oral history as an Elder or discover ancestral stories as Youth.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">The Living Archive</h1>
+      </div>
+      <a href="/auth.html" style="font-family:var(--font-label);font-weight:600;color:var(--primary);font-size:0.875rem">
+        Sign In
+      </a>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 1.5rem 120px;max-width:64rem;margin:0 auto">
+    <!-- Welcome Header -->
+    <section style="text-align:center;padding:3rem 0 2rem">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.25rem;background:var(--primary-fixed);border-radius:9999px;margin-bottom:2rem">
+        <span class="material-symbols-outlined filled" style="color:var(--primary);font-size:18px">local_fire_department</span>
+        <span style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--on-primary-fixed)">Begin Your Journey</span>
+      </div>
+      <h2 style="font-family:var(--font-headline);font-size:clamp(2rem,5vw,2.5rem);font-weight:900;color:var(--on-surface);margin-bottom:1rem">
+        Every Elder Carries a Library
+      </h2>
+      <p style="font-size:1.125rem;color:var(--on-surface-variant);max-width:30rem;margin:0 auto;line-height:1.8">
+        Choose your role to begin preserving or discovering your family's oral heritage.
+      </p>
+    </section>
+
+    <!-- Role Selection Cards -->
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem 0" id="roleCards">
+      <!-- Elder Card -->
+      <a href="/auth.html?role=elder" id="elderCard" style="display:block;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;box-shadow:0 1px 3px rgba(28,28,19,0.05);border:1px solid rgba(225,191,181,0.15);transition:all 0.3s ease-in-out">
+        <div style="width:96px;height:96px;border-radius:50%;margin:0 auto 1.5rem;overflow:hidden;border:3px solid var(--primary-container)">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZxsQ0wz8WnWlZqxMb5mF9BfkiL9YfxthB54gP-fLx3O1FD7h7hkdA6WKHt2MOnJC2LuXNqCqH_bHnR1lSYQoLzGIFMrxnGoxNJbXXXjxxQg" alt="Elder" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+        </div>
+        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--primary-fixed-dim);color:var(--on-primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem">Storyteller</span>
+        <h3 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--on-surface)">I Am an Elder</h3>
+        <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1.5rem;line-height:1.7">Share your wisdom, record oral histories, and preserve your legacy for future generations.</p>
+        <span style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:0.875rem">Start Sharing →</span>
+      </a>
+
+      <!-- Youth Card -->
+      <a href="/auth.html?role=youth" id="youthCard" style="display:block;background:var(--surface-container-lowest);border-radius:0.5rem 1.5rem 0.5rem 1.5rem;padding:2rem;text-align:center;box-shadow:0 1px 3px rgba(28,28,19,0.05);border:1px solid rgba(225,191,181,0.15);transition:all 0.3s ease-in-out">
+        <div style="width:96px;height:96px;border-radius:50%;margin:0 auto 1.5rem;overflow:hidden;border:3px solid var(--secondary-container)">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHJ2fAlbfPIW3IBMQ3SMQfUf4f1eZmR03J0BKEzRR8B3BjI3_RNCIJ-_VO1G0hqmhBhKON-33u8c_Y9eCbIJLDo0R0Ax1eK1g_FPD-xYGqzg" alt="Youth" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+        </div>
+        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--secondary-fixed-dim);color:var(--on-secondary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem">Listener</span>
+        <h3 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--on-surface)">I Am Youth</h3>
+        <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1.5rem;line-height:1.7">Discover your roots, listen to ancestral stories, and connect with the keepers of tradition.</p>
+        <span style="color:var(--secondary);font-family:var(--font-label);font-weight:700;font-size:0.875rem">Start Listening →</span>
+      </a>
+    </section>
+
+    <!-- Quick Sign Up -->
+    <section style="text-align:center;padding:3rem 0 2rem">
+      <p style="font-size:0.875rem;color:var(--on-surface-variant);margin-bottom:0.5rem">Already have an account?</p>
+      <a href="/auth.html?mode=login" style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:1rem">Sign In →</a>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/record.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">mic_none</span>
+      <span class="nav-label">Record</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    // Hover effects for role cards
+    document.querySelectorAll('#roleCards a').forEach(card => {
+      card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-4px)');
+      card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
+    });
+  </script>
+</body>
+</html>
