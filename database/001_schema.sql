@@ -16,6 +16,7 @@ CREATE TABLE users (
     email           VARCHAR(255) UNIQUE,
     phone           VARCHAR(20) UNIQUE,
     password_hash   VARCHAR(255) NOT NULL,
+    is_verified     BOOLEAN DEFAULT FALSE,
     role            VARCHAR(10) NOT NULL CHECK (role IN ('elder', 'youth')) DEFAULT 'youth',
     avatar_url      TEXT,
     region          VARCHAR(255),
@@ -214,6 +215,20 @@ CREATE TABLE user_settings (
     family_tree_visible     BOOLEAN DEFAULT TRUE,
     updated_at              TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- ============================================================
+-- 13. OTP VERIFICATIONS
+-- ============================================================
+CREATE TABLE otp_verifications (
+    id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    identifier      VARCHAR(255) NOT NULL,
+    otp_code        VARCHAR(10) NOT NULL,
+    purpose         VARCHAR(50) NOT NULL,
+    expires_at      TIMESTAMPTZ NOT NULL,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_otp_identifier ON otp_verifications(identifier);
 
 -- ============================================================
 -- TRIGGER: Auto-update updated_at
