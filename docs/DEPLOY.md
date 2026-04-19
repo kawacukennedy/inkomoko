@@ -34,12 +34,10 @@ This guide covers the deployment of the Inkomoko application across three platfo
 2. Import the `inkomoko` repository.
 3. Configure the following project settings:
    - **Framework Preset**: `Other`
-   - **Root Directory**: (Leave blank or set to `frontend` if your frontend code is entirely isolated there)
-   - **Build Command**: (Leave empty, as this is vanilla HTML/JS/CSS)
+   - **Root Directory**: `frontend` (Very important so it knows to serve the right folder)
+   - **Build Command**: (Leave empty)
    - **Output Directory**: (Leave empty)
-4. Add an **Environment Variable** so the frontend knows where the backend is:
-   - Name: `API_URL`
-   - Value: `https://inkomoko-api.onrender.com/api`
+4. *You do NOT need to configure any Environment Variables on Vercel or modify `api.js`*. The repository includes a `vercel.json` file which automatically proxies all API requests securely to your Render backend.
 5. Unfurl the configuration and hit **Deploy**.
 6. When the deployment finishes, you will receive your live frontend URL!
 
