@@ -107,8 +107,8 @@
 <div class="hidden md:flex items-center gap-8">
 <nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
 </nav>
 <div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
 <img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
@@ -244,7 +244,7 @@
         isBookmarked = story.is_bookmarked || false;
         renderStory();
       } catch(e) {
-        document.getElementById('storyMain').innerHTML = '<div style="padding:120px 1.5rem;text-align:center"><h2>Story not found</h2><a href="/explore.html" class="btn-primary" style="margin-top:1rem">Explore Stories</a></div>';
+        document.getElementById('storyMain').innerHTML = '<div style="padding:120px 1.5rem;text-align:center"><h2>Story not found</h2><a href="/explore" class="btn-primary" style="margin-top:1rem">Explore Stories</a></div>';
       }
     }
 
@@ -263,10 +263,10 @@
       document.getElementById('elderRow').innerHTML = `
         <img src="${authorAvatar}" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover" loading="lazy">
         <div style="flex:1">
-          <a href="/elder-profile.html?id=${story.author_id}" style="font-family:var(--font-headline);font-weight:700;color:var(--on-surface);font-size:1rem">${story.author_name}</a>
+          <a href="/elder-profile?id=${story.author_id}" style="font-family:var(--font-headline);font-weight:700;color:var(--on-surface);font-size:1rem">${story.author_name}</a>
           <p style="font-size:0.75rem;color:var(--on-surface-variant)">${story.author_clan ? story.author_clan + ' · ' : ''}${story.author_region || ''}</p>
         </div>
-        <a href="/elder-profile.html?id=${story.author_id}" class="btn-secondary" style="min-height:40px;padding:0 1.25rem;font-size:0.75rem">View Profile</a>
+        <a href="/elder-profile?id=${story.author_id}" class="btn-secondary" style="min-height:40px;padding:0 1.25rem;font-size:0.75rem">View Profile</a>
       `;
 
       // Engagement

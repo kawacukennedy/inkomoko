@@ -107,8 +107,8 @@
 <div class="hidden md:flex items-center gap-8">
 <nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
 </nav>
 <div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
 <img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
@@ -175,7 +175,7 @@
           <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">
             <span style="margin-right:0.5rem">🔥</span>Family Fireplace
           </h3>
-          <a href="/record.html" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">Add Story +</a>
+          <a href="/record" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">Add Story +</a>
         </div>
 
         <div id="familyFeed" style="display:flex;flex-direction:column;gap:1.5rem">
@@ -188,10 +188,10 @@
           <h4 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:0.5rem">Your Fireplace is Empty</h4>
           <p style="color:var(--on-surface-variant);margin-bottom:1.5rem">Be the first to share a family story</p>
           <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem">
-            <a href="/record.html" class="btn-primary">
+            <a href="/record" class="btn-primary">
               <span class="material-symbols-outlined">mic</span> Record
             </a>
-            <a href="/record.html?tab=write" class="btn-secondary">
+            <a href="/record?tab=write" class="btn-secondary">
               <span class="material-symbols-outlined">edit_note</span> Write
             </a>
           </div>
@@ -205,15 +205,15 @@
       <span class="material-symbols-outlined">history_edu</span>
       <span class="nav-label">Home</span>
     </a>
-    <a href="/library.html" class="bottom-nav-item">
+    <a href="/library" class="bottom-nav-item">
       <span class="material-symbols-outlined">menu_book</span>
       <span class="nav-label">Library</span>
     </a>
-    <a href="/record.html" class="bottom-nav-item">
+    <a href="/record" class="bottom-nav-item">
       <span class="material-symbols-outlined">mic_none</span>
       <span class="nav-label">Record</span>
     </a>
-    <a href="/settings.html" class="bottom-nav-item">
+    <a href="/settings" class="bottom-nav-item">
       <span class="material-symbols-outlined">person</span>
       <span class="nav-label">Profile</span>
     </a>
@@ -236,7 +236,7 @@
             <span class="material-symbols-outlined" style="font-size:4rem;color:var(--outline);display:block;margin-bottom:1rem">groups</span>
             <h4 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:0.5rem">Join Your Family Circle</h4>
             <p style="color:var(--on-surface-variant);margin-bottom:1.5rem">Enter a family code or create a new family space</p>
-            <a href="/family-manager.html" class="btn-primary">Get Started</a>
+            <a href="/family-manager" class="btn-primary">Get Started</a>
           `;
           return;
         }
@@ -285,7 +285,7 @@
 
       // Add "+" button
       childrenEl.innerHTML += `
-        <a href="/family-manager.html" style="display:flex;flex-direction:column;align-items:center">
+        <a href="/family-manager" style="display:flex;flex-direction:column;align-items:center">
           <div style="width:44px;height:44px;border-radius:50%;border:2px dashed var(--outline-variant);display:flex;align-items:center;justify-content:center">
             <span class="material-symbols-outlined" style="font-size:1.25rem;color:var(--outline)">add</span>
           </div>

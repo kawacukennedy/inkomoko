@@ -107,8 +107,8 @@
 <div class="hidden md:flex items-center gap-8">
 <nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
 </nav>
 <div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
 <img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
@@ -144,32 +144,32 @@
     <!-- Role Selection Cards -->
     <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem 0" id="roleCards">
       <!-- Elder Card -->
-      <a href="/auth.html?role=elder" id="elderCard" style="display:block;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;box-shadow:0 1px 3px rgba(28,28,19,0.05);border:1px solid rgba(225,191,181,0.15);transition:all 0.3s ease-in-out">
-        <div style="width:96px;height:96px;border-radius:50%;margin:0 auto 1.5rem;overflow:hidden;border:3px solid var(--primary-container)">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZxsQ0wz8WnWlZqxMb5mF9BfkiL9YfxthB54gP-fLx3O1FD7h7hkdA6WKHt2MOnJC2LuXNqCqH_bHnR1lSYQoLzGIFMrxnGoxNJbXXXjxxQg" alt="Elder" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+      <a href="/auth?role=elder" id="elderCard" style="display:block;background:var(--surface-container-lowest);border-radius:2rem 0.5rem 2rem 0.5rem;padding:1.5rem;text-align:center;box-shadow:0 2px 12px rgba(28,28,19,0.06);border:1px solid rgba(225,191,181,0.15);transition:all 0.4s ease-in-out;overflow:hidden">
+        <div style="width:100%;aspect-ratio:3/4;margin:0 auto 1.5rem;overflow:hidden;border-radius:1.5rem 0.4rem 1.5rem 0.4rem">
+          <img src="/assets/images/elder.png" alt="Elder" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1)" loading="lazy">
         </div>
-        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--primary-fixed-dim);color:var(--on-primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem">Storyteller</span>
+        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--primary-fixed-dim);color:var(--on-primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Storyteller</span>
         <h3 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--on-surface)">I Am an Elder</h3>
         <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1.5rem;line-height:1.7">Share your wisdom, record oral histories, and preserve your legacy for future generations.</p>
-        <span style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:0.875rem">Start Sharing →</span>
+        <span style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em">Start Sharing →</span>
       </a>
 
       <!-- Youth Card -->
-      <a href="/auth.html?role=youth" id="youthCard" style="display:block;background:var(--surface-container-lowest);border-radius:0.5rem 1.5rem 0.5rem 1.5rem;padding:2rem;text-align:center;box-shadow:0 1px 3px rgba(28,28,19,0.05);border:1px solid rgba(225,191,181,0.15);transition:all 0.3s ease-in-out">
-        <div style="width:96px;height:96px;border-radius:50%;margin:0 auto 1.5rem;overflow:hidden;border:3px solid var(--secondary-container)">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHJ2fAlbfPIW3IBMQ3SMQfUf4f1eZmR03J0BKEzRR8B3BjI3_RNCIJ-_VO1G0hqmhBhKON-33u8c_Y9eCbIJLDo0R0Ax1eK1g_FPD-xYGqzg" alt="Youth" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+      <a href="/auth?role=youth" id="youthCard" style="display:block;background:var(--surface-container-lowest);border-radius:0.5rem 2rem 0.5rem 2rem;padding:1.5rem;text-align:center;box-shadow:0 2px 12px rgba(28,28,19,0.06);border:1px solid rgba(225,191,181,0.15);transition:all 0.4s ease-in-out;overflow:hidden">
+        <div style="width:100%;aspect-ratio:3/4;margin:0 auto 1.5rem;overflow:hidden;border-radius:0.4rem 1.5rem 0.4rem 1.5rem">
+          <img src="/assets/images/youth.png" alt="Youth" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1)" loading="lazy">
         </div>
-        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--secondary-fixed-dim);color:var(--on-secondary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem">Listener</span>
+        <span style="display:inline-block;padding:0.25rem 0.75rem;background:var(--secondary-fixed-dim);color:var(--on-secondary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Listener</span>
         <h3 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--on-surface)">I Am Youth</h3>
         <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1.5rem;line-height:1.7">Discover your roots, listen to ancestral stories, and connect with the keepers of tradition.</p>
-        <span style="color:var(--secondary);font-family:var(--font-label);font-weight:700;font-size:0.875rem">Start Listening →</span>
+        <span style="color:var(--secondary);font-family:var(--font-label);font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em">Start Listening →</span>
       </a>
     </section>
 
     <!-- Quick Sign Up -->
     <section style="text-align:center;padding:3rem 0 2rem">
       <p style="font-size:0.875rem;color:var(--on-surface-variant);margin-bottom:0.5rem">Already have an account?</p>
-      <a href="/auth.html?mode=login" style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:1rem">Sign In →</a>
+      <a href="/auth?mode=login" style="color:var(--primary);font-family:var(--font-label);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.05em">Sign In →</a>
     </section>
   </main>
 
@@ -178,15 +178,15 @@
       <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
       <span class="nav-label">Home</span>
     </a>
-    <a href="/library.html" class="bottom-nav-item">
+    <a href="/library" class="bottom-nav-item">
       <span class="material-symbols-outlined">menu_book</span>
       <span class="nav-label">Library</span>
     </a>
-    <a href="/record.html" class="bottom-nav-item">
+    <a href="/record" class="bottom-nav-item">
       <span class="material-symbols-outlined">mic_none</span>
       <span class="nav-label">Record</span>
     </a>
-    <a href="/settings.html" class="bottom-nav-item">
+    <a href="/settings" class="bottom-nav-item">
       <span class="material-symbols-outlined">person</span>
       <span class="nav-label">Profile</span>
     </a>

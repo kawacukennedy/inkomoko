@@ -107,8 +107,8 @@
 <div class="hidden md:flex items-center gap-8">
 <nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
 <a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library.html">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome.html">Family Tree</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
 </nav>
 <div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
 <img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
@@ -165,7 +165,7 @@
       <section>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
           <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">Trending Now</h3>
-          <a href="/explore.html" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">See All</a>
+          <a href="/explore" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">See All</a>
         </div>
         <div style="display:flex;overflow-x:auto;gap:1rem;padding-bottom:0.5rem" class="hide-scrollbar" id="trendingScroll">
           <!-- Loading -->
@@ -175,19 +175,19 @@
   </main>
 
   <nav class="bottom-nav">
-    <a href="/youth-dashboard.html" class="bottom-nav-item active">
+    <a href="/youth-dashboard" class="bottom-nav-item active">
       <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
       <span class="nav-label">Home</span>
     </a>
-    <a href="/library.html" class="bottom-nav-item">
+    <a href="/library" class="bottom-nav-item">
       <span class="material-symbols-outlined">menu_book</span>
       <span class="nav-label">Library</span>
     </a>
-    <a href="/explore.html" class="bottom-nav-item">
+    <a href="/explore" class="bottom-nav-item">
       <span class="material-symbols-outlined">explore</span>
       <span class="nav-label">Explore</span>
     </a>
-    <a href="/settings.html" class="bottom-nav-item">
+    <a href="/settings" class="bottom-nav-item">
       <span class="material-symbols-outlined">person</span>
       <span class="nav-label">Profile</span>
     </a>
@@ -230,7 +230,7 @@
         const stories = await API.getFeed();
         const feedEl = document.getElementById('storyFeed');
         if (stories.length === 0) {
-          feedEl.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--on-surface-variant)"><span class="material-symbols-outlined" style="font-size:3rem;color:var(--outline);display:block;margin-bottom:1rem">library_music</span><p>No stories yet. Start exploring!</p><a href="/explore.html" class="btn-primary" style="margin-top:1rem;display:inline-flex">Explore Stories</a></div>`;
+          feedEl.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--on-surface-variant)"><span class="material-symbols-outlined" style="font-size:3rem;color:var(--outline);display:block;margin-bottom:1rem">library_music</span><p>No stories yet. Start exploring!</p><a href="/explore" class="btn-primary" style="margin-top:1rem;display:inline-flex">Explore Stories</a></div>`;
         } else {
           feedEl.innerHTML = stories.map(s => {
             const avatar = App.avatarUrl({ full_name: s.author_name });

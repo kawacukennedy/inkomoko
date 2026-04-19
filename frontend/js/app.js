@@ -11,7 +11,7 @@ const App = {
     this.setupOnlineIndicator();
     
     // Global Authentication Guard
-    const publicPages = ['/', '/index.html', '/auth.html', '/welcome.html'];
+    const publicPages = ['/', '/index', '/auth', '/welcome'];
     const path = window.location.pathname;
     const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
