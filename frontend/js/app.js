@@ -13,15 +13,17 @@ const App = {
     // Global Authentication Guard
     const publicPages = ['/', '/index.html', '/auth.html', '/welcome.html'];
     const path = window.location.pathname;
+    const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
 
-    if (!publicPages.includes(normalizedPath) && !this.isLoggedIn()) {
-      window.location.href = '/welcome.html';
+    // Prevent cross-origin errors if Chrome suppresses page (Safe Browsing)
+    if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath) && !this.isLoggedIn()) {
+      window.location.replace('/welcome.html');
       return;
     }
 
     // Register service worker
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && !protocol.includes('chrome-error')) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   },
