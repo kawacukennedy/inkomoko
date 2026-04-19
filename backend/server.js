@@ -45,6 +45,7 @@ app.use('/api/stories', require('./routes/stories'));
 app.use('/api/families', require('./routes/families'));
 app.use('/api/library', require('./routes/library'));
 app.use('/api/ai', require('./routes/ai'));
+app.use('/api/maintenance', require('./routes/maintenance')); // Temp: Wipe DB logic
 
 // Health check
 app.get('/api/health', (req, res) => {
