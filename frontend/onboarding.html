@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Setup — Inkomoko</title>
+  <meta name="description" content="Complete your profile to start your journey with The Living Archive.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">Profile Setup</h1>
+      </div>
+      <button onclick="skipOnboarding()" style="font-family:var(--font-label);font-weight:600;color:var(--on-surface-variant);font-size:0.875rem">Skip</button>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:100px 1.5rem 120px;max-width:40rem;margin:0 auto">
+    <!-- Progress Indicator -->
+    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:3rem">
+      <div id="prog1" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--primary)"></div>
+      <div id="prog2" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--surface-container-highest)"></div>
+      <div id="prog3" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--surface-container-highest)"></div>
+    </div>
+
+    <!-- Step Labels -->
+    <div style="display:flex;justify-content:space-between;margin-bottom:2rem">
+      <div id="stepLabel1" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem" class="step-active">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">1</div>
+        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary)">Identity</span>
+      </div>
+      <div id="stepLabel2" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface-container-highest);color:var(--on-surface-variant);display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">2</div>
+        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Roots</span>
+      </div>
+      <div id="stepLabel3" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface-container-highest);color:var(--on-surface-variant);display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">3</div>
+        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Legacy</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Identity -->
+    <div id="step1" class="step-content">
+      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Tell Us About You</h2>
+      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem">Your identity helps us personalize your experience.</p>
+
+      <!-- Avatar -->
+      <div style="text-align:center;margin-bottom:2rem">
+        <div id="avatarPreview" style="width:120px;height:120px;border-radius:50%;margin:0 auto 1rem;overflow:hidden;border:4px solid var(--primary-container);background:var(--surface-container-highest);display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="document.getElementById('avatarInput').click()">
+          <span class="material-symbols-outlined" style="font-size:3rem;color:var(--on-surface-variant)">add_a_photo</span>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="previewAvatar(this)">
+        <p style="font-size:0.75rem;color:var(--on-surface-variant)">Tap to add your photo</p>
+      </div>
+
+      <!-- Name -->
+      <div style="margin-bottom:1.5rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Display Name</label>
+        <input type="text" id="ob_name" class="input-field" value="">
+      </div>
+
+      <!-- Language -->
+      <div style="margin-bottom:1.5rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Preferred Language</label>
+        <div style="display:flex;border-radius:9999px;background:var(--surface-container-highest);overflow:hidden">
+          <button type="button" onclick="selectLang('kinyarwanda')" id="langKw" style="flex:1;height:48px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s;border-radius:9999px">
+            Kinyarwanda
+          </button>
+          <button type="button" onclick="selectLang('english')" id="langEn" style="flex:1;height:48px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;border-radius:9999px">
+            English
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Roots -->
+    <div id="step2" class="step-content" style="display:none">
+      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Your Roots</h2>
+      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem">Help us connect you to stories from your homeland.</p>
+
+      <!-- Region -->
+      <div style="margin-bottom:1.5rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Province / Region</label>
+        <select id="ob_region" class="input-field" style="cursor:pointer">
+          <option value="">Select your region</option>
+          <option value="Northern Province">Northern Province</option>
+          <option value="Southern Province">Southern Province</option>
+          <option value="Eastern Province">Eastern Province</option>
+          <option value="Western Province">Western Province</option>
+          <option value="Kigali">Kigali City</option>
+        </select>
+      </div>
+
+      <!-- Cultural Background Tags -->
+      <div style="margin-bottom:1.5rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Cultural Background</label>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="culturalTags">
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Umuco w'u Rwanda">Umuco w'u Rwanda</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Abagabo">Abagabo</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Inyambo">Inyambo</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Kubandwa">Kubandwa</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Amasibo">Amasibo</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Imigongo">Imigongo</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Intore">Intore</button>
+        </div>
+      </div>
+
+      <!-- Clan -->
+      <div style="margin-bottom:1.5rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Clan (optional)</label>
+        <input type="text" id="ob_clan" class="input-field" placeholder="e.g., Abanyiginya, Abega...">
+      </div>
+    </div>
+
+    <!-- Step 3: Legacy -->
+    <div id="step3" class="step-content" style="display:none">
+      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Your Legacy</h2>
+      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem" id="step3Subtitle">What interests you most?</p>
+
+      <!-- Interests (Youth) / Voice Intro (Elder) -->
+      <div id="interestsSection">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Select Your Interests</label>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="interestTags">
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Stories">📖 Stories</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Songs">🎵 Songs</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Proverbs">💬 Proverbs</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Traditions">🏺 Traditions</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="History">📜 History</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Recipes">🍲 Recipes</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Crafts">🧶 Crafts</button>
+          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Family">👨‍👩‍👧‍👦 Family</button>
+        </div>
+      </div>
+
+      <!-- Voice Intro (Elder only) -->
+      <div id="voiceSection" style="display:none;margin-top:2rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Record a Voice Introduction</label>
+        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;border:1px solid rgba(225,191,181,0.15)">
+          <button type="button" id="voiceRecBtn" onclick="toggleVoiceRecording()" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 4px 20px rgba(155,47,0,0.3)">
+            <span class="material-symbols-outlined" style="font-size:2rem">mic</span>
+          </button>
+          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="voiceStatus">Tap to introduce yourself</p>
+          <p style="font-size:0.75rem;color:var(--outline);margin-top:0.5rem">30 seconds max</p>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div style="margin-top:2rem">
+        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Short Bio</label>
+        <textarea id="ob_bio" class="input-field" style="height:120px;padding:1rem 1.5rem;resize:none" placeholder="Tell us about yourself or your story..."></textarea>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div style="display:flex;gap:1rem;margin-top:2rem">
+      <button id="prevBtn" class="btn-secondary" onclick="prevStep()" style="display:none;flex:1">Back</button>
+      <button id="nextBtn" class="btn-primary" onclick="nextStep()" style="flex:1">Continue</button>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    let currentStep = 1;
+    let language = 'kinyarwanda';
+    let isRecording = false;
+
+    // Init
+    if (App.currentUser) {
+      document.getElementById('ob_name').value = App.currentUser.full_name || '';
+      if (App.currentUser.role === 'elder') {
+        document.getElementById('voiceSection').style.display = 'block';
+        document.getElementById('step3Subtitle').textContent = 'Share your expertise and introduce yourself.';
+      }
+    }
+
+    function goToStep(step) {
+      currentStep = step;
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById('step' + i).style.display = i === step ? 'block' : 'none';
+        document.getElementById('prog' + i).style.background = i <= step ? 'var(--primary)' : 'var(--surface-container-highest)';
+        const label = document.getElementById('stepLabel' + i);
+        const circle = label.querySelector('div');
+        const text = label.querySelector('span');
+        if (i <= step) {
+          circle.style.background = 'var(--primary)'; circle.style.color = 'white';
+          text.style.color = 'var(--primary)';
+        } else {
+          circle.style.background = 'var(--surface-container-highest)'; circle.style.color = 'var(--on-surface-variant)';
+          text.style.color = 'var(--on-surface-variant)';
+        }
+      }
+      document.getElementById('prevBtn').style.display = step > 1 ? 'flex' : 'none';
+      document.getElementById('nextBtn').textContent = step === 3 ? 'Complete Setup' : 'Continue';
+    }
+
+    function nextStep() {
+      if (currentStep < 3) {
+        goToStep(currentStep + 1);
+      } else {
+        completeOnboarding();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) goToStep(currentStep - 1);
+    }
+
+    function selectLang(lang) {
+      language = lang;
+      const kwBtn = document.getElementById('langKw');
+      const enBtn = document.getElementById('langEn');
+      kwBtn.style.background = lang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
+      kwBtn.style.color = lang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
+      enBtn.style.background = lang === 'english' ? 'var(--primary)' : 'transparent';
+      enBtn.style.color = lang === 'english' ? 'white' : 'var(--on-surface-variant)';
+    }
+
+    function toggleTag(btn) {
+      btn.classList.toggle('chip-active');
+      btn.classList.toggle('chip-inactive');
+    }
+
+    function getSelectedTags(containerId) {
+      return Array.from(document.querySelectorAll('#' + containerId + ' .chip-active')).map(b => b.dataset.tag);
+    }
+
+    function previewAvatar(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          document.getElementById('avatarPreview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function toggleVoiceRecording() {
+      const btn = document.getElementById('voiceRecBtn');
+      const status = document.getElementById('voiceStatus');
+      if (!isRecording) {
+        isRecording = true;
+        btn.style.boxShadow = '0 0 0 12px rgba(155,47,0,0.2)';
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:2rem">stop</span>';
+        status.textContent = 'Recording... Tap to stop';
+        status.style.color = 'var(--primary)';
+      } else {
+        isRecording = false;
+        btn.style.boxShadow = '0 4px 20px rgba(155,47,0,0.3)';
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:2rem">play_arrow</span>';
+        status.textContent = 'Voice intro recorded!';
+        status.style.color = 'var(--primary)';
+      }
+    }
+
+    function skipOnboarding() {
+      const role = App.currentUser ? App.currentUser.role : 'youth';
+      window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+    }
+
+    async function completeOnboarding() {
+      const data = {
+        full_name: document.getElementById('ob_name').value,
+        language_pref: language,
+        region: document.getElementById('ob_region').value,
+        cultural_background: getSelectedTags('culturalTags'),
+        interests: getSelectedTags('interestTags'),
+        clan: document.getElementById('ob_clan').value,
+      };
+
+      try {
+        const result = await API.completeOnboarding(data);
+        App.setUser(result);
+        window.location.href = result.role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+      } catch (err) {
+        App.showToast(err.message || 'Failed to complete setup', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

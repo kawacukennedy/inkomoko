@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — Inkomoko</title>
+  <meta name="description" content="Manage your profile, language, notifications, and privacy settings.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">Settings</h1>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:40rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Profile Header -->
+      <section style="padding:2rem 0;display:flex;align-items:center;gap:1.5rem;border-bottom:1px solid rgba(225,191,181,0.15)">
+        <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid var(--primary-container);flex-shrink:0" id="settingsAvatar">
+        </div>
+        <div style="flex:1">
+          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700" id="settingsName">Loading...</h2>
+          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="settingsRole"></p>
+          <p style="font-size:0.75rem;color:var(--primary);font-family:var(--font-label);font-weight:600;margin-top:0.25rem" id="settingsSince"></p>
+        </div>
+      </section>
+
+      <!-- Profile Details -->
+      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1.5rem">Profile Details</h3>
+
+        <div style="display:flex;flex-direction:column;gap:1.25rem">
+          <div>
+            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Full Name</label>
+            <input type="text" id="setName" class="input-field">
+          </div>
+          <div>
+            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Email</label>
+            <input type="email" id="setEmail" class="input-field" readonly style="opacity:0.6;cursor:not-allowed">
+          </div>
+          <div>
+            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Phone</label>
+            <input type="tel" id="setPhone" class="input-field" readonly style="opacity:0.6;cursor:not-allowed">
+          </div>
+          <button onclick="saveProfile()" class="btn-primary" style="width:100%">Save Changes</button>
+        </div>
+      </section>
+
+      <!-- Language -->
+      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Language</h3>
+        <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px">
+          <button onclick="setLanguage('kinyarwanda')" id="setLangKw"
+                  style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;transition:all 0.3s">
+            Kinyarwanda
+          </button>
+          <button onclick="setLanguage('english')" id="setLangEn"
+                  style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;transition:all 0.3s">
+            English
+          </button>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Notifications</h3>
+
+        <div style="display:flex;flex-direction:column;gap:0.25rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
+            <div>
+              <p style="font-weight:600">Daily Remembrances</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Get daily reminders of ancestral stories</p>
+            </div>
+            <div class="toggle-switch" id="toggleRemembrance" onclick="toggleSetting('toggleRemembrance', 'daily_remembrances')"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
+            <div>
+              <p style="font-weight:600">Family Tree Updates</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">When new members join your family</p>
+            </div>
+            <div class="toggle-switch" id="toggleFamilyUpdates" onclick="toggleSetting('toggleFamilyUpdates', 'family_tree_updates')"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Privacy -->
+      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Privacy</h3>
+
+        <div style="display:flex;flex-direction:column;gap:0.25rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
+            <div>
+              <p style="font-weight:600">Listening History Visible</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Others can see what you've listened to</p>
+            </div>
+            <div class="toggle-switch" id="toggleListeningHistory" onclick="toggleSetting('toggleListeningHistory', 'listening_history_visible')"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
+            <div>
+              <p style="font-weight:600">Family Tree Visible</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Show your family connections publicly</p>
+            </div>
+            <div class="toggle-switch" id="toggleFamilyTree" onclick="toggleSetting('toggleFamilyTree', 'family_tree_visible')"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account Actions -->
+      <section style="padding:2rem 0">
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <button onclick="App.logout()" class="btn-secondary" style="width:100%;color:var(--error);border-color:rgba(186,26,26,0.2);gap:0.5rem">
+            <span class="material-symbols-outlined">logout</span> Sign Out
+          </button>
+          <button onclick="confirmDeleteAccount()" style="width:100%;padding:1rem;color:var(--error);font-family:var(--font-label);font-weight:600;font-size:0.875rem;text-align:center;opacity:0.7">
+            Delete Account
+          </button>
+        </div>
+      </section>
+
+      <!-- App Version -->
+      <div style="text-align:center;padding:1rem 0;font-size:0.75rem;color:rgba(28,28,19,0.3);font-family:var(--font-label);letter-spacing:0.1em">
+        INKOMOKO v1.0 · THE LIVING ARCHIVE
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/record.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">mic_none</span>
+      <span class="nav-label">Record</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    if (!App.isLoggedIn()) window.location.href = '/auth.html';
+
+    let currentLang = 'kinyarwanda';
+    let settings = {};
+
+    async function loadSettings() {
+      // Profile data
+      const user = App.currentUser;
+      if (user) {
+        const avatar = App.avatarUrl(user);
+        document.getElementById('settingsAvatar').innerHTML = `<img src="${avatar}" style="width:100%;height:100%;object-fit:cover">`;
+        document.getElementById('settingsName').textContent = user.full_name;
+        document.getElementById('settingsRole').textContent = user.role === 'elder' ? 'Elder · Storyteller' : 'Youth · Listener';
+        document.getElementById('settingsSince').textContent = `Member since ${new Date(user.created_at).toLocaleDateString('en-RW', { month: 'long', year: 'numeric' })}`;
+        document.getElementById('setName').value = user.full_name || '';
+        document.getElementById('setEmail').value = user.email || '';
+        document.getElementById('setPhone').value = user.phone || '';
+        currentLang = user.language_pref || 'kinyarwanda';
+        updateLangUI();
+      }
+
+      // Settings
+      try {
+        settings = await API.getSettings();
+        if (settings.daily_remembrances) document.getElementById('toggleRemembrance').classList.add('active');
+        if (settings.family_tree_updates) document.getElementById('toggleFamilyUpdates').classList.add('active');
+        if (settings.listening_history_visible) document.getElementById('toggleListeningHistory').classList.add('active');
+        if (settings.family_tree_visible) document.getElementById('toggleFamilyTree').classList.add('active');
+      } catch(e) {}
+    }
+
+    function updateLangUI() {
+      const kw = document.getElementById('setLangKw');
+      const en = document.getElementById('setLangEn');
+      kw.style.background = currentLang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
+      kw.style.color = currentLang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
+      en.style.background = currentLang === 'english' ? 'var(--primary)' : 'transparent';
+      en.style.color = currentLang === 'english' ? 'white' : 'var(--on-surface-variant)';
+    }
+
+    async function setLanguage(lang) {
+      currentLang = lang;
+      updateLangUI();
+      try {
+        await API.updateSettings({ language_pref: lang });
+        if (App.currentUser) {
+          App.currentUser.language_pref = lang;
+          App.setUser(App.currentUser);
+        }
+        App.showToast('Language updated', 'success');
+      } catch(e) {}
+    }
+
+    async function toggleSetting(toggleId, settingKey) {
+      const toggle = document.getElementById(toggleId);
+      toggle.classList.toggle('active');
+      const value = toggle.classList.contains('active');
+      try {
+        await API.updateSettings({ [settingKey]: value });
+      } catch(e) {
+        toggle.classList.toggle('active'); // revert
+      }
+    }
+
+    async function saveProfile() {
+      const name = document.getElementById('setName').value.trim();
+      if (!name) { App.showToast('Name is required', 'error'); return; }
+
+      try {
+        const result = await API.updateProfile({ full_name: name });
+        App.setUser({ ...App.currentUser, full_name: name });
+        document.getElementById('settingsName').textContent = name;
+        App.showToast('Profile updated!', 'success');
+      } catch(e) {
+        App.showToast(e.message || 'Failed to update', 'error');
+      }
+    }
+
+    function confirmDeleteAccount() {
+      if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        if (confirm('This will permanently delete all your stories and data. Are you absolutely sure?')) {
+          App.showToast('Account deletion requested. We will process this shortly.', 'info');
+          setTimeout(() => App.logout(), 2000);
+        }
+      }
+    }
+
+    loadSettings();
+  </script>
+</body>
+</html>

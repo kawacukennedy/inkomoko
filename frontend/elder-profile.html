@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elder Profile — Inkomoko</title>
+  <meta name="description" content="Explore the stories and legacy of a community elder.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar" style="background:transparent;box-shadow:none" id="profileHeader">
+    <div class="top-app-bar-inner">
+      <button onclick="history.back()" style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <button style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
+        <span class="material-symbols-outlined">share</span>
+      </button>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding-bottom:120px">
+    <!-- Hero Portrait -->
+    <div style="position:relative;height:60vh;min-height:400px;max-height:560px;overflow:hidden;background:linear-gradient(135deg,#351000,#832600)" id="heroPortrait">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(53,16,0,0.95) 0%,rgba(53,16,0,0.4) 50%,transparent 100%)"></div>
+      <div style="position:absolute;bottom:0;left:0;width:100%;padding:2rem 1.5rem;z-index:1">
+        <div style="display:flex;align-items:end;gap:1.5rem;max-width:48rem;margin:0 auto">
+          <div style="width:100px;height:100px;border-radius:50%;border:4px solid var(--primary-fixed);overflow:hidden;flex-shrink:0" id="elderAvatar">
+          </div>
+          <div style="flex:1;padding-bottom:0.5rem">
+            <span style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(255,181,157,0.2);color:var(--primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.5rem">Keeper of Tradition</span>
+            <h1 style="font-family:var(--font-headline);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:900;color:white;margin-bottom:0.25rem" id="elderName">Loading...</h1>
+            <p style="color:rgba(255,255,255,0.7);font-size:0.875rem" id="elderMeta"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Follow Button + Stats -->
+      <section style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15);gap:1rem">
+        <button onclick="toggleFollow()" id="followBtn" class="btn-primary" style="gap:0.5rem">
+          <span class="material-symbols-outlined" id="followIcon">person_add</span>
+          <span id="followText">Follow Elder</span>
+        </button>
+        <div style="display:flex;gap:2rem" id="profileStats">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Bio -->
+      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="bioSection">
+        <!-- Populated by JS -->
+      </section>
+
+      <!-- Stories -->
+      <section style="padding:1.5rem 0">
+        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1rem">Shared Archives</h3>
+        <div style="display:grid;gap:1.5rem" id="elderStories">
+          <!-- Loading -->
+          <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
+            <div class="skeleton" style="height:16px;width:50%;margin-bottom:1rem"></div>
+            <div class="skeleton" style="height:24px;width:80%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preservation Indicator -->
+      <section style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;border:1px solid rgba(225,191,181,0.15);margin-top:1rem">
+        <span class="material-symbols-outlined filled" style="font-size:2rem;color:var(--primary);margin-bottom:0.5rem;display:block">verified</span>
+        <h4 style="font-family:var(--font-headline);font-weight:700;margin-bottom:0.25rem">Verified Elder</h4>
+        <p style="font-size:0.875rem;color:var(--on-surface-variant)">This elder's stories are preserved in the Living Archive</p>
+      </section>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/explore.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">explore</span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    const elderId = new URLSearchParams(window.location.search).get('id');
+    let isFollowing = false;
+
+    async function loadProfile() {
+      if (!elderId) { window.location.href = '/explore.html'; return; }
+
+      try {
+        const elder = await API.getUserPublic(elderId);
+        const avatar = App.avatarUrl(elder);
+
+        document.title = `${elder.full_name} — Inkomoko`;
+        document.getElementById('elderAvatar').innerHTML = `<img src="${avatar}" style="width:100%;height:100%;object-fit:cover" loading="lazy">`;
+        document.getElementById('elderName').textContent = elder.full_name;
+        document.getElementById('elderMeta').textContent = [elder.clan, elder.region, elder.age ? `Age ${elder.age}` : ''].filter(Boolean).join(' · ');
+
+        // Stats
+        document.getElementById('profileStats').innerHTML = `
+          <div style="text-align:center">
+            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.story_count || 0}</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Stories</p>
+          </div>
+          <div style="text-align:center">
+            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.follower_count || 0}</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Followers</p>
+          </div>
+          <div style="text-align:center">
+            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.total_plays || 0}</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Plays</p>
+          </div>
+        `;
+
+        // Bio
+        document.getElementById('bioSection').innerHTML = elder.bio
+          ? `<blockquote style="font-family:var(--font-headline);font-size:1.125rem;font-style:italic;color:var(--on-surface);line-height:1.8;border-left:4px solid var(--primary);padding-left:1.5rem">${elder.bio}</blockquote>`
+          : '';
+
+        // Stories
+        const storiesResult = await API.getStories({ author_id: elderId, limit: 20 });
+        const grid = document.getElementById('elderStories');
+        if (window.innerWidth >= 768) grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+
+        if (storiesResult.stories.length === 0) {
+          grid.innerHTML = '<p style="text-align:center;color:var(--on-surface-variant);padding:2rem">No stories published yet</p>';
+        } else {
+          grid.innerHTML = storiesResult.stories.map(s => Components.storyCard(s)).join('');
+        }
+      } catch(e) {
+        document.getElementById('elderName').textContent = 'Elder not found';
+      }
+    }
+
+    async function toggleFollow() {
+      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      try {
+        if (isFollowing) {
+          await API.unfollowUser(elderId);
+          isFollowing = false;
+        } else {
+          await API.followUser(elderId);
+          isFollowing = true;
+        }
+        updateFollowBtn();
+      } catch(e) {}
+    }
+
+    function updateFollowBtn() {
+      const btn = document.getElementById('followBtn');
+      const icon = document.getElementById('followIcon');
+      const text = document.getElementById('followText');
+      if (isFollowing) {
+        btn.style.background = 'var(--surface-container-highest)';
+        btn.style.color = 'var(--on-surface)';
+        btn.style.boxShadow = 'none';
+        icon.textContent = 'check';
+        text.textContent = 'Following';
+      } else {
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.boxShadow = '';
+        icon.textContent = 'person_add';
+        text.textContent = 'Follow Elder';
+      }
+    }
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('profileHeader');
+      if (window.scrollY > 300) {
+        header.style.background = 'rgba(253,249,233,0.8)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.querySelectorAll('button').forEach(b => { b.style.color = 'var(--primary)'; b.style.background = 'transparent'; });
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.querySelectorAll('button').forEach(b => { b.style.color = 'white'; b.style.background = 'rgba(0,0,0,0.3)'; });
+      }
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>
