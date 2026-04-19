@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Record a Story — Inkomoko</title>
+  <meta name="description" content="Record, upload, or write a new oral history for The Living Archive.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">New Story</h1>
+      </div>
+      <button onclick="saveDraft()" style="font-family:var(--font-label);font-weight:600;color:var(--primary);font-size:0.875rem">Save Draft</button>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:40rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Tab Switcher -->
+      <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem">
+        <button onclick="switchTab('record')" id="tabRecord"
+                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
+          <span class="material-symbols-outlined" style="font-size:1.25rem">mic</span> Record
+        </button>
+        <button onclick="switchTab('upload')" id="tabUpload"
+                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
+          <span class="material-symbols-outlined" style="font-size:1.25rem">upload_file</span> Upload
+        </button>
+        <button onclick="switchTab('write')" id="tabWrite"
+                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
+          <span class="material-symbols-outlined" style="font-size:1.25rem">edit_note</span> Write
+        </button>
+      </div>
+
+      <!-- Record Tab -->
+      <div id="recordPanel" class="tab-panel">
+        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:3rem 2rem;text-align:center;border:1px solid rgba(225,191,181,0.15)">
+          <!-- Timer -->
+          <div style="font-family:var(--font-headline);font-size:3rem;font-weight:300;color:var(--on-surface);margin-bottom:2rem;letter-spacing:0.05em" id="timer">0:00</div>
+
+          <!-- Waveform Visualization -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:3px;height:64px;margin-bottom:2rem" id="waveformVis">
+            ${Array.from({length: 30}, (_, i) => `<div style="width:4px;height:${8 + Math.random() * 24}px;background:var(--outline-variant);border-radius:2px;transition:height 0.15s" class="wave-bar"></div>`).join('')}
+          </div>
+
+          <!-- Record Button -->
+          <button id="recordBtn" onclick="toggleRecording()"
+                  style="width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(155,47,0,0.3);transition:all 0.3s;position:relative">
+            <span class="material-symbols-outlined filled" style="font-size:2.5rem" id="recordIcon">mic</span>
+          </button>
+          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="recordStatus">Tap to start recording</p>
+        </div>
+      </div>
+
+      <!-- Upload Tab -->
+      <div id="uploadPanel" class="tab-panel" style="display:none">
+        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:3rem 2rem;text-align:center;border:2px dashed var(--outline-variant);cursor:pointer" onclick="document.getElementById('audioFile').click()">
+          <span class="material-symbols-outlined" style="font-size:4rem;color:var(--outline);margin-bottom:1rem;display:block">cloud_upload</span>
+          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:0.5rem">Upload Audio File</h3>
+          <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1rem">MP3, WAV, OGG, M4A, AAC — Max 50MB</p>
+          <div id="uploadedFile" style="display:none;padding:1rem;background:var(--surface-container-highest);border-radius:0.75rem;margin-top:1rem"></div>
+          <input type="file" id="audioFile" accept="audio/*" style="display:none" onchange="handleFileUpload(this)">
+        </div>
+      </div>
+
+      <!-- Write Tab -->
+      <div id="writePanel" class="tab-panel" style="display:none">
+        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;border:1px solid rgba(225,191,181,0.15)">
+          <textarea id="textContent" class="input-field" style="height:240px;resize:none;padding:1.5rem;background:transparent;border:none;font-size:1.125rem;line-height:1.8"
+                    placeholder="Write your story here... Let the words carry the memories of your ancestors."></textarea>
+        </div>
+      </div>
+
+      <!-- Story Details -->
+      <section style="margin-top:2rem;display:flex;flex-direction:column;gap:1.5rem">
+        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Story Details</h3>
+
+        <!-- Title -->
+        <div>
+          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Title</label>
+          <input type="text" id="storyTitle" class="input-field" placeholder="Give your story a title">
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Description</label>
+          <textarea id="storyDesc" class="input-field" style="height:100px;resize:none;padding:1rem 1.5rem" placeholder="Briefly describe this story"></textarea>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Category</label>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="categoryChips">
+            <button type="button" class="chip chip-active" onclick="selectCategory(this, 'story')" data-cat="story">📖 Story</button>
+            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'tradition')" data-cat="tradition">🏺 Tradition</button>
+            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'song')" data-cat="song">🎵 Song</button>
+            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'proverb')" data-cat="proverb">💬 Proverb</button>
+            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'culture')" data-cat="culture">🏛 Culture</button>
+          </div>
+        </div>
+
+        <!-- Language -->
+        <div>
+          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Language</label>
+          <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px">
+            <button type="button" onclick="selectLanguage('kinyarwanda')" id="recLangKw" style="flex:1;height:44px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s">Kinyarwanda</button>
+            <button type="button" onclick="selectLanguage('english')" id="recLangEn" style="flex:1;height:44px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">English</button>
+          </div>
+        </div>
+
+        <!-- Visibility -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-top:1px solid rgba(225,191,181,0.15)">
+          <div>
+            <p style="font-weight:600">Family Only</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Only family members can listen</p>
+          </div>
+          <div class="toggle-switch" id="visibilityToggle" onclick="toggleVisibility()"></div>
+        </div>
+
+        <!-- Era -->
+        <div>
+          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Time Period / Era (optional)</label>
+          <input type="text" id="storyEra" class="input-field" placeholder="e.g., 1974, Pre-colonial, 1960s">
+        </div>
+      </section>
+
+      <!-- Publish Button -->
+      <button onclick="publishStory()" class="btn-primary" style="width:100%;margin-top:2rem;height:56px;font-size:1rem">
+        <span class="material-symbols-outlined">publish</span>
+        Publish Story
+      </button>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/elder-dashboard.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/record.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">mic_none</span>
+      <span class="nav-label">Record</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    let currentTab = 'record';
+    let selectedCategory = 'story';
+    let selectedLanguage = 'kinyarwanda';
+    let visibility = 'public';
+    let isRecording = false;
+    let recordingSeconds = 0;
+    let timerInterval = null;
+    let uploadedAudioFile = null;
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ['record', 'upload', 'write'].forEach(t => {
+        document.getElementById(t + 'Panel').style.display = t === tab ? 'block' : 'none';
+        const tabBtn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+        tabBtn.style.background = t === tab ? 'var(--primary)' : 'transparent';
+        tabBtn.style.color = t === tab ? 'white' : 'var(--on-surface-variant)';
+      });
+    }
+
+    function selectCategory(btn, cat) {
+      selectedCategory = cat;
+      document.querySelectorAll('#categoryChips .chip').forEach(c => {
+        c.classList.remove('chip-active');
+        c.classList.add('chip-inactive');
+      });
+      btn.classList.remove('chip-inactive');
+      btn.classList.add('chip-active');
+    }
+
+    function selectLanguage(lang) {
+      selectedLanguage = lang;
+      document.getElementById('recLangKw').style.background = lang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
+      document.getElementById('recLangKw').style.color = lang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
+      document.getElementById('recLangEn').style.background = lang === 'english' ? 'var(--primary)' : 'transparent';
+      document.getElementById('recLangEn').style.color = lang === 'english' ? 'white' : 'var(--on-surface-variant)';
+    }
+
+    function toggleVisibility() {
+      const toggle = document.getElementById('visibilityToggle');
+      toggle.classList.toggle('active');
+      visibility = toggle.classList.contains('active') ? 'family' : 'public';
+    }
+
+    function toggleRecording() {
+      const btn = document.getElementById('recordBtn');
+      const icon = document.getElementById('recordIcon');
+      const status = document.getElementById('recordStatus');
+
+      if (!isRecording) {
+        isRecording = true;
+        icon.textContent = 'stop';
+        btn.style.boxShadow = '0 0 0 16px rgba(155,47,0,0.15), 0 8px 30px rgba(155,47,0,0.3)';
+        status.textContent = 'Recording... Tap to stop';
+        status.style.color = 'var(--primary)';
+
+        // Animate waveform
+        const bars = document.querySelectorAll('.wave-bar');
+        timerInterval = setInterval(() => {
+          recordingSeconds++;
+          const m = Math.floor(recordingSeconds / 60);
+          const s = recordingSeconds % 60;
+          document.getElementById('timer').textContent = `${m}:${String(s).padStart(2, '0')}`;
+          bars.forEach(bar => {
+            bar.style.height = (8 + Math.random() * 48) + 'px';
+            bar.style.background = 'var(--primary)';
+          });
+        }, 1000);
+      } else {
+        isRecording = false;
+        clearInterval(timerInterval);
+        icon.textContent = 'play_arrow';
+        btn.style.boxShadow = '0 8px 30px rgba(155,47,0,0.3)';
+        status.textContent = `Recorded ${App.formatDuration(recordingSeconds)}`;
+        status.style.color = 'var(--primary)';
+        document.querySelectorAll('.wave-bar').forEach((bar, i) => {
+          bar.style.height = (8 + (i % 5) * 10) + 'px';
+          bar.style.background = i < 15 ? 'var(--primary)' : 'var(--outline-variant)';
+        });
+      }
+    }
+
+    function handleFileUpload(input) {
+      if (input.files && input.files[0]) {
+        uploadedAudioFile = input.files[0];
+        document.getElementById('uploadedFile').style.display = 'block';
+        document.getElementById('uploadedFile').innerHTML = `
+          <div style="display:flex;align-items:center;gap:1rem">
+            <span class="material-symbols-outlined" style="color:var(--primary)">audio_file</span>
+            <div style="flex:1;text-align:left">
+              <p style="font-weight:600;font-size:0.875rem">${uploadedAudioFile.name}</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${(uploadedAudioFile.size / 1048576).toFixed(1)} MB</p>
+            </div>
+            <span class="material-symbols-outlined" style="color:var(--primary)">check_circle</span>
+          </div>`;
+      }
+    }
+
+    async function saveDraft() {
+      const title = document.getElementById('storyTitle').value || 'Untitled Draft';
+      try {
+        const story = await API.createStory({
+          title,
+          description: document.getElementById('storyDesc').value,
+          text_content: document.getElementById('textContent').value,
+          category: selectedCategory,
+          language: selectedLanguage,
+          visibility,
+          status: 'draft',
+          era: document.getElementById('storyEra').value,
+        });
+        App.showToast('Draft saved!', 'success');
+      } catch (err) {
+        App.showToast(err.message || 'Failed to save draft', 'error');
+      }
+    }
+
+    async function publishStory() {
+      const title = document.getElementById('storyTitle').value;
+      if (!title) { App.showToast('Please add a title', 'error'); return; }
+
+      try {
+        const story = await API.createStory({
+          title,
+          description: document.getElementById('storyDesc').value,
+          text_content: document.getElementById('textContent').value,
+          category: selectedCategory,
+          language: selectedLanguage,
+          visibility,
+          status: 'published',
+          era: document.getElementById('storyEra').value,
+        });
+
+        if (uploadedAudioFile) {
+          const formData = new FormData();
+          formData.append('audio', uploadedAudioFile);
+          await API.uploadAudio(story.id, formData);
+        }
+
+        App.showToast('Story published! 🎉', 'success');
+        setTimeout(() => window.location.href = '/elder-dashboard.html', 1000);
+      } catch (err) {
+        App.showToast(err.message || 'Failed to publish', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

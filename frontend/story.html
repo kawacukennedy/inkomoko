@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story — Inkomoko</title>
+  <meta name="description" content="Listen to an oral history from The Living Archive.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar" style="background:transparent;box-shadow:none" id="storyHeader">
+    <div class="top-app-bar-inner">
+      <button onclick="history.back()" style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <div class="flex items-center gap-3">
+        <button onclick="shareStory()" style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
+          <span class="material-symbols-outlined">share</span>
+        </button>
+        <button onclick="toggleBookmark()" id="bookmarkBtn" style="color:white;padding:8px;border-radius:50%;background:rgba(0,0,0,0.3)">
+          <span class="material-symbols-outlined" id="bookmarkIcon">bookmark_border</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding-bottom:180px" id="storyMain">
+    <!-- Hero Image -->
+    <div style="position:relative;height:50vh;min-height:320px;max-height:480px;overflow:hidden;background:var(--surface-container-high)" id="heroSection">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(53,16,0,0.3),rgba(53,16,0,0.8))"></div>
+      <div style="position:absolute;bottom:0;left:0;padding:2rem 1.5rem;width:100%;z-index:1" id="heroContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Elder Info Row -->
+      <section style="display:flex;align-items:center;gap:1rem;padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="elderRow">
+        <!-- Populated by JS -->
+      </section>
+
+      <!-- Engagement Stats -->
+      <section style="display:flex;justify-content:space-around;padding:1.25rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="engagementRow">
+        <!-- Populated by JS -->
+      </section>
+
+      <!-- Gratitude Button -->
+      <section style="padding:1.5rem 0;display:flex;justify-content:center">
+        <button onclick="toggleGratitude()" id="gratitudeBtn"
+                style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 2rem;border-radius:9999px;background:var(--surface-container-lowest);border:2px solid var(--outline-variant);font-family:var(--font-label);font-weight:700;font-size:1rem;color:var(--on-surface);transition:all 0.3s">
+          <span id="gratitudeEmoji">🙏</span>
+          <span id="gratitudeText">Murakoze</span>
+          <span id="gratitudeCount" style="color:var(--primary);font-size:0.875rem">0</span>
+        </button>
+      </section>
+
+      <!-- Transcript -->
+      <section style="padding:1rem 0 2rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Transcript</h3>
+          <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:3px">
+            <button onclick="switchTranscript('kw')" id="transcriptKw"
+                    style="padding:0.5rem 1rem;border-radius:9999px;font-family:var(--font-label);font-size:0.75rem;font-weight:600;background:var(--primary);color:white;transition:all 0.3s">
+              Kinyarwanda
+            </button>
+            <button onclick="switchTranscript('en')" id="transcriptEn"
+                    style="padding:0.5rem 1rem;border-radius:9999px;font-family:var(--font-label);font-size:0.75rem;font-weight:600;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">
+              English
+            </button>
+          </div>
+        </div>
+
+        <div id="transcriptContent" style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;border:1px solid rgba(225,191,181,0.1)">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Comments -->
+      <section style="padding:1rem 0">
+        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1.5rem" id="commentsTitle">Comments</h3>
+        <div id="commentsList" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Add Comment -->
+        <div style="display:flex;gap:0.75rem;align-items:start" id="addComment">
+          <div style="flex:1;position:relative">
+            <textarea id="commentInput" class="input-field" style="height:56px;resize:none;padding:1rem 1.5rem" placeholder="Share your gratitude..."></textarea>
+          </div>
+          <button onclick="postComment()" class="btn-primary" style="min-height:56px;width:56px;padding:0;border-radius:50%">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Sticky Bottom Player -->
+  <div id="stickyPlayer" style="position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(253,249,233,0.95);backdrop-filter:blur(24px);border-radius:2rem 2rem 0 0;box-shadow:0 -8px 30px rgba(28,28,19,0.1);padding:1.25rem 1.5rem 2rem">
+    <!-- Progress -->
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+      <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)" id="playerCurrentTime">0:00</span>
+      <div style="flex:1;height:6px;background:var(--surface-container-highest);border-radius:9999px;overflow:hidden;cursor:pointer">
+        <div style="width:0%;height:100%;background:var(--primary);border-radius:9999px;transition:width 0.1s" id="playerProgress"></div>
+      </div>
+      <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)" id="playerDuration">0:00</span>
+    </div>
+
+    <!-- Controls -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:2rem">
+      <button style="color:var(--on-surface-variant);padding:8px">
+        <span class="material-symbols-outlined">replay_10</span>
+      </button>
+      <button onclick="togglePlay()" id="playBtn"
+              style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(155,47,0,0.3)">
+        <span class="material-symbols-outlined filled" style="font-size:2rem" id="playIcon">play_arrow</span>
+      </button>
+      <button style="color:var(--on-surface-variant);padding:8px">
+        <span class="material-symbols-outlined">forward_10</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    let story = null;
+    let isPlaying = false;
+    let isGrateful = false;
+    let isBookmarked = false;
+    let currentTranscript = 'kw';
+
+    const storyId = new URLSearchParams(window.location.search).get('id');
+
+    async function loadStory() {
+      if (!storyId) { window.location.href = '/explore.html'; return; }
+
+      try {
+        story = await API.getStory(storyId);
+        isGrateful = story.is_grateful || false;
+        isBookmarked = story.is_bookmarked || false;
+        renderStory();
+      } catch(e) {
+        document.getElementById('storyMain').innerHTML = '<div style="padding:120px 1.5rem;text-align:center"><h2>Story not found</h2><a href="/explore.html" class="btn-primary" style="margin-top:1rem">Explore Stories</a></div>';
+      }
+    }
+
+    function renderStory() {
+      document.title = `${story.title} — Inkomoko`;
+      const authorAvatar = App.avatarUrl({ full_name: story.author_name });
+
+      // Hero
+      document.getElementById('heroContent').innerHTML = `
+        <span style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(255,181,157,0.3);color:var(--primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">${story.category || 'Story'}${story.era ? ` · ${story.era}` : ''}</span>
+        <h1 style="font-family:var(--font-headline);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:900;color:white;margin-bottom:0.5rem">${story.title}</h1>
+        ${story.description ? `<p style="color:rgba(255,255,255,0.8);font-size:1rem;max-width:36rem">${story.description}</p>` : ''}
+      `;
+
+      // Elder Info
+      document.getElementById('elderRow').innerHTML = `
+        <img src="${authorAvatar}" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover" loading="lazy">
+        <div style="flex:1">
+          <a href="/elder-profile.html?id=${story.author_id}" style="font-family:var(--font-headline);font-weight:700;color:var(--on-surface);font-size:1rem">${story.author_name}</a>
+          <p style="font-size:0.75rem;color:var(--on-surface-variant)">${story.author_clan ? story.author_clan + ' · ' : ''}${story.author_region || ''}</p>
+        </div>
+        <a href="/elder-profile.html?id=${story.author_id}" class="btn-secondary" style="min-height:40px;padding:0 1.25rem;font-size:0.75rem">View Profile</a>
+      `;
+
+      // Engagement
+      document.getElementById('engagementRow').innerHTML = `
+        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${story.play_count || 0}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Plays</p></div>
+        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${story.gratitude_count || 0}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Murakoze</p></div>
+        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${(story.comments || []).length}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Comments</p></div>
+      `;
+
+      // Gratitude button
+      document.getElementById('gratitudeCount').textContent = story.gratitude_count || 0;
+      updateGratitudeBtn();
+      updateBookmarkBtn();
+
+      // Transcript
+      renderTranscript();
+
+      // Comments
+      renderComments();
+
+      // Player
+      document.getElementById('playerDuration').textContent = App.formatDuration(story.duration_seconds);
+    }
+
+    function renderTranscript() {
+      const el = document.getElementById('transcriptContent');
+      const text = currentTranscript === 'kw' ? story.transcript_kinyarwanda : story.transcript_english;
+
+      if (!text) {
+        el.innerHTML = `<p style="color:var(--on-surface-variant);font-style:italic;text-align:center">No transcript available for this language yet.</p>`;
+        return;
+      }
+
+      const paragraphs = text.split('" "').map(t => t.replace(/"/g, ''));
+      el.innerHTML = paragraphs.map((p, i) => `
+        <p style="margin-bottom:1.5rem;font-size:1.125rem;line-height:2;color:var(--on-surface);${i === 0 ? 'border-left:4px solid var(--primary);padding-left:1rem;background:rgba(194,65,12,0.05);border-radius:0 0.5rem 0.5rem 0;padding:1rem' : ''}">${p}</p>
+      `).join('');
+    }
+
+    function switchTranscript(lang) {
+      currentTranscript = lang;
+      document.getElementById('transcriptKw').style.background = lang === 'kw' ? 'var(--primary)' : 'transparent';
+      document.getElementById('transcriptKw').style.color = lang === 'kw' ? 'white' : 'var(--on-surface-variant)';
+      document.getElementById('transcriptEn').style.background = lang === 'en' ? 'var(--primary)' : 'transparent';
+      document.getElementById('transcriptEn').style.color = lang === 'en' ? 'white' : 'var(--on-surface-variant)';
+      renderTranscript();
+    }
+
+    function renderComments() {
+      const comments = story.comments || [];
+      document.getElementById('commentsTitle').textContent = `Comments (${comments.length})`;
+      const list = document.getElementById('commentsList');
+
+      if (comments.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:var(--on-surface-variant);padding:1rem;font-style:italic">No comments yet. Be the first to share your gratitude.</p>';
+        return;
+      }
+
+      list.innerHTML = comments.map(c => {
+        const avatar = App.avatarUrl({ full_name: c.author_name });
+        return `
+        <div style="display:flex;gap:0.75rem;align-items:start">
+          <img src="${avatar}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0" loading="lazy">
+          <div style="flex:1;background:var(--surface-container-low);padding:1rem;border-radius:0 1rem 1rem 1rem">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem">
+              <span style="font-weight:600;font-size:0.875rem">${c.author_name}</span>
+              <span style="font-size:0.75rem;color:var(--on-surface-variant)">${App.timeAgo(c.created_at)}</span>
+            </div>
+            <p style="font-size:0.875rem;color:var(--on-surface);line-height:1.6">${c.content}</p>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    async function toggleGratitude() {
+      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      try {
+        const result = await API.toggleGratitude(storyId);
+        isGrateful = result.grateful;
+        const count = parseInt(document.getElementById('gratitudeCount').textContent);
+        document.getElementById('gratitudeCount').textContent = isGrateful ? count + 1 : count - 1;
+        updateGratitudeBtn();
+      } catch(e) {}
+    }
+
+    function updateGratitudeBtn() {
+      const btn = document.getElementById('gratitudeBtn');
+      if (isGrateful) {
+        btn.style.background = 'var(--primary-fixed)';
+        btn.style.borderColor = 'var(--primary)';
+      } else {
+        btn.style.background = 'var(--surface-container-lowest)';
+        btn.style.borderColor = 'var(--outline-variant)';
+      }
+    }
+
+    async function toggleBookmark() {
+      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      try {
+        const result = await API.toggleBookmark(storyId);
+        isBookmarked = result.bookmarked;
+        updateBookmarkBtn();
+      } catch(e) {}
+    }
+
+    function updateBookmarkBtn() {
+      document.getElementById('bookmarkIcon').textContent = isBookmarked ? 'bookmark' : 'bookmark_border';
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      document.getElementById('playIcon').textContent = isPlaying ? 'pause' : 'play_arrow';
+      if (isPlaying) {
+        // Simulate playback progress
+        simulatePlayback();
+      }
+    }
+
+    let playbackInterval;
+    let playbackTime = 0;
+    function simulatePlayback() {
+      clearInterval(playbackInterval);
+      playbackInterval = setInterval(() => {
+        if (!isPlaying) { clearInterval(playbackInterval); return; }
+        playbackTime++;
+        const duration = story.duration_seconds || 300;
+        const pct = Math.min((playbackTime / duration) * 100, 100);
+        document.getElementById('playerProgress').style.width = pct + '%';
+        document.getElementById('playerCurrentTime').textContent = App.formatDuration(playbackTime);
+        if (playbackTime >= duration) {
+          isPlaying = false;
+          document.getElementById('playIcon').textContent = 'play_arrow';
+          clearInterval(playbackInterval);
+        }
+      }, 1000);
+    }
+
+    async function postComment() {
+      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      const input = document.getElementById('commentInput');
+      const content = input.value.trim();
+      if (!content) return;
+
+      try {
+        await API.addComment(storyId, content);
+        input.value = '';
+        story = await API.getStory(storyId);
+        renderComments();
+      } catch(e) {
+        App.showToast('Failed to post comment', 'error');
+      }
+    }
+
+    function shareStory() {
+      if (navigator.share) {
+        navigator.share({ title: story.title, text: story.description, url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        App.showToast('Link copied!', 'success');
+      }
+    }
+
+    // Scroll effect for header
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('storyHeader');
+      if (window.scrollY > 200) {
+        header.style.background = 'rgba(253,249,233,0.8)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.querySelectorAll('button').forEach(b => { b.style.color = 'var(--primary)'; b.style.background = 'transparent'; });
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.querySelectorAll('button').forEach(b => { b.style.color = 'white'; b.style.background = 'rgba(0,0,0,0.3)'; });
+      }
+    });
+
+    loadStory();
+  </script>
+</body>
+</html>
