@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Manager — Inkomoko</title>
+  <meta name="description" content="Manage your family circle — invite members, approve requests, and assign roles.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">Family Manager</h1>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
+
+      <!-- Create / Join Family (shown if no family) -->
+      <div id="noFamilySection" style="display:none">
+        <section style="padding:2rem 0;text-align:center">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--primary-fixed);margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center">
+            <span class="material-symbols-outlined" style="color:var(--primary);font-size:2rem">groups</span>
+          </div>
+          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Start Your Family Circle</h2>
+          <p style="color:var(--on-surface-variant);margin-bottom:2rem">Create a new family or join an existing one with a code</p>
+
+          <!-- Create -->
+          <div style="background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;margin-bottom:1.5rem;text-align:left;border:1px solid rgba(225,191,181,0.15)">
+            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Create New Family</h3>
+            <input type="text" id="newFamilyName" class="input-field" placeholder="Family name (e.g., Umuryango Wacu)" style="margin-bottom:1rem">
+            <button onclick="createFamily()" class="btn-primary" style="width:100%">Create Family Circle</button>
+          </div>
+
+          <!-- Join -->
+          <div style="background:var(--surface-container-lowest);border-radius:0.5rem 1.5rem 0.5rem 1.5rem;padding:2rem;text-align:left;border:1px solid rgba(225,191,181,0.15)">
+            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Join with Code</h3>
+            <input type="text" id="joinCode" class="input-field" placeholder="Enter family code (e.g., INKOMOKO-AB12)" style="margin-bottom:1rem;text-transform:uppercase">
+            <button onclick="joinFamily()" class="btn-secondary" style="width:100%">Join Family</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Family Management (shown if has family) -->
+      <div id="familyManagement" style="display:none">
+        <!-- Family Info & Code -->
+        <section style="padding:2rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
+          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:1rem" id="mgFamilyName"></h2>
+
+          <!-- Invite Code Card -->
+          <div style="background:linear-gradient(135deg,var(--primary),var(--primary-container));border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;color:white;display:flex;align-items:center;justify-content:space-between;gap:1rem">
+            <div>
+              <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.7;font-family:var(--font-label);margin-bottom:0.25rem">Family Invite Code</p>
+              <p style="font-family:var(--font-headline);font-size:1.5rem;font-weight:900;letter-spacing:0.1em" id="familyCode">----</p>
+            </div>
+            <button onclick="copyCode()" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:white">
+              <span class="material-symbols-outlined">content_copy</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Pending Requests -->
+        <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="pendingSection">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">Pending Requests</h3>
+            <span style="background:var(--primary);color:white;font-size:0.75rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:9999px;font-family:var(--font-label)" id="pendingBadge">0</span>
+          </div>
+          <div id="pendingList" style="display:flex;flex-direction:column;gap:0.75rem">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Members List -->
+        <section style="padding:1.5rem 0">
+          <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Members</h3>
+          <div id="membersList" style="display:flex;flex-direction:column;gap:0.5rem">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Invite More -->
+        <section style="padding:1rem 0">
+          <button onclick="shareInvite()" class="btn-primary" style="width:100%;gap:0.5rem">
+            <span class="material-symbols-outlined">person_add</span>
+            Invite Family Member
+          </button>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/record.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">mic_none</span>
+      <span class="nav-label">Record</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    if (!App.isLoggedIn()) window.location.href = '/auth.html';
+
+    let currentFamily = null;
+
+    async function loadFamilyManager() {
+      try {
+        const families = await API.getMyFamilies();
+        if (families.length === 0) {
+          document.getElementById('noFamilySection').style.display = 'block';
+          document.getElementById('familyManagement').style.display = 'none';
+          return;
+        }
+
+        currentFamily = families[0];
+        document.getElementById('noFamilySection').style.display = 'none';
+        document.getElementById('familyManagement').style.display = 'block';
+        document.getElementById('mgFamilyName').textContent = currentFamily.name;
+        document.getElementById('familyCode').textContent = currentFamily.code;
+
+        loadPending();
+        loadMembers();
+      } catch(e) {
+        document.getElementById('noFamilySection').style.display = 'block';
+      }
+    }
+
+    async function loadPending() {
+      try {
+        const pending = await API.getFamilyPending(currentFamily.id);
+        document.getElementById('pendingBadge').textContent = pending.length;
+
+        if (pending.length === 0) {
+          document.getElementById('pendingList').innerHTML = '<p style="color:var(--on-surface-variant);font-size:0.875rem;padding:0.5rem 0">No pending requests</p>';
+          return;
+        }
+
+        document.getElementById('pendingList').innerHTML = pending.map(m => {
+          const avatar = App.avatarUrl({ full_name: m.full_name });
+          return `
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface-container-lowest);border-radius:1rem;border:1px solid rgba(225,191,181,0.15)">
+            <img src="${avatar}" style="width:44px;height:44px;border-radius:50%;object-fit:cover" loading="lazy">
+            <div style="flex:1">
+              <p style="font-weight:600">${m.full_name}</p>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${m.user_role} · ${App.timeAgo(m.joined_at)}</p>
+            </div>
+            <button onclick="approveMember('${m.id}')" style="width:44px;height:44px;border-radius:50%;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;color:#16a34a">
+              <span class="material-symbols-outlined">check</span>
+            </button>
+            <button onclick="rejectMember('${m.id}')" style="width:44px;height:44px;border-radius:50%;background:rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;color:var(--error)">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>`;
+        }).join('');
+      } catch(e) {}
+    }
+
+    async function loadMembers() {
+      try {
+        const members = await API.getFamilyMembers(currentFamily.id);
+        const approved = members.filter(m => m.status === 'approved');
+
+        document.getElementById('membersList').innerHTML = approved.map(m => {
+          const avatar = App.avatarUrl({ full_name: m.full_name });
+          const isAdmin = m.role === 'admin';
+          const isMe = App.currentUser && m.user_id === App.currentUser.id;
+          return `
+          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface-container-lowest);border-radius:1rem;border:1px solid rgba(225,191,181,0.15)">
+            <img src="${avatar}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid ${isAdmin ? 'var(--primary-container)' : 'transparent'}" loading="lazy">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <p style="font-weight:600">${m.full_name}</p>
+                ${isMe ? '<span style="font-size:0.625rem;background:var(--primary-fixed);color:var(--primary);padding:2px 6px;border-radius:9999px;font-weight:700">YOU</span>' : ''}
+              </div>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${m.user_role} · ${m.email || ''}</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              ${isAdmin ? '<span style="font-size:0.75rem;background:var(--primary);color:white;padding:0.25rem 0.75rem;border-radius:9999px;font-family:var(--font-label);font-weight:700">Admin</span>' : `
+                <select onchange="changeMemberRole('${m.id}', this.value)" style="padding:0.25rem 0.5rem;border-radius:0.5rem;border:1px solid var(--outline-variant);background:var(--surface-container-low);font-size:0.75rem;font-family:var(--font-label)">
+                  <option value="member" ${m.role === 'member' ? 'selected' : ''}>Member</option>
+                  <option value="youth" ${m.role === 'youth' ? 'selected' : ''}>Youth</option>
+                  <option value="admin" ${m.role === 'admin' ? 'selected' : ''}>Admin</option>
+                </select>
+              `}
+            </div>
+          </div>`;
+        }).join('');
+      } catch(e) {}
+    }
+
+    async function createFamily() {
+      const name = document.getElementById('newFamilyName').value.trim();
+      if (!name) { App.showToast('Please enter a family name', 'error'); return; }
+      try {
+        await API.createFamily({ name });
+        App.showToast('Family created! 🎉', 'success');
+        loadFamilyManager();
+      } catch(e) {
+        App.showToast(e.message || 'Failed to create family', 'error');
+      }
+    }
+
+    async function joinFamily() {
+      const code = document.getElementById('joinCode').value.trim();
+      if (!code) { App.showToast('Please enter a family code', 'error'); return; }
+      try {
+        await API.joinFamily(code);
+        App.showToast('Join request sent!', 'success');
+        loadFamilyManager();
+      } catch(e) {
+        App.showToast(e.message || 'Invalid code or already a member', 'error');
+      }
+    }
+
+    async function approveMember(memberId) {
+      try {
+        await API.approveMember(currentFamily.id, memberId);
+        App.showToast('Member approved!', 'success');
+        loadPending();
+        loadMembers();
+      } catch(e) {
+        App.showToast('Failed to approve', 'error');
+      }
+    }
+
+    async function rejectMember(memberId) {
+      try {
+        await API.rejectMember(currentFamily.id, memberId);
+        App.showToast('Request rejected', 'info');
+        loadPending();
+      } catch(e) {
+        App.showToast('Failed to reject', 'error');
+      }
+    }
+
+    async function changeMemberRole(memberId, role) {
+      try {
+        await API.updateMember(currentFamily.id, memberId, { role });
+        App.showToast('Role updated', 'success');
+      } catch(e) {
+        App.showToast('Failed to update role', 'error');
+        loadMembers();
+      }
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText(currentFamily.code);
+      App.showToast('Code copied!', 'success');
+    }
+
+    function shareInvite() {
+      const text = `Join our family on Inkomoko — The Living Archive!\nUse code: ${currentFamily.code}\nhttps://inkomoko.rw`;
+      if (navigator.share) {
+        navigator.share({ title: 'Join our family on Inkomoko', text });
+      } else {
+        navigator.clipboard.writeText(text);
+        App.showToast('Invite text copied!', 'success');
+      }
+    }
+
+    loadFamilyManager();
+  </script>
+</body>
+</html>
