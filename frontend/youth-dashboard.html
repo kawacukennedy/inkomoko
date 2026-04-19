@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youth Dashboard — Inkomoko</title>
+  <meta name="description" content="Discover ancestral stories, follow elders, and explore your heritage.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="Components.toggleDrawer()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1 class="brand">The Living Archive</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/explore.html" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">search</span>
+        </a>
+        <div id="headerAvatar"></div>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:64rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Greeting -->
+      <section style="padding:2rem 0 1.5rem">
+        <h2 style="font-family:var(--font-headline);font-size:clamp(1.5rem,4vw,2rem);font-weight:700;color:var(--on-surface);margin-bottom:0.25rem" id="greeting"></h2>
+        <p style="color:var(--on-surface-variant)">Discover stories from your elders</p>
+      </section>
+
+      <!-- Elders You Follow (Horizontal Scroll) -->
+      <section style="margin-bottom:2.5rem">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Your Elders</h3>
+        <div style="display:flex;overflow-x:auto;gap:1.5rem;padding-bottom:0.5rem" class="hide-scrollbar" id="eldersRow">
+          <!-- El -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;flex-shrink:0;cursor:pointer" onclick="window.location.href='/explore.html'">
+            <div style="width:64px;height:64px;border-radius:50%;border:2px dashed var(--outline-variant);display:flex;align-items:center;justify-content:center">
+              <span class="material-symbols-outlined" style="color:var(--outline)">add</span>
+            </div>
+            <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)">Discover</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Story Feed -->
+      <section style="margin-bottom:2.5rem">
+        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Stories For You</h3>
+        <div style="display:flex;flex-direction:column;gap:1.5rem" id="storyFeed">
+          <!-- Loading skeleton -->
+          <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
+            <div class="skeleton" style="height:16px;width:60%;margin-bottom:1rem"></div>
+            <div class="skeleton" style="height:20px;width:90%;margin-bottom:0.75rem"></div>
+            <div class="skeleton" style="height:14px;width:80%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trending -->
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">Trending Now</h3>
+          <a href="/explore.html" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">See All</a>
+        </div>
+        <div style="display:flex;overflow-x:auto;gap:1rem;padding-bottom:0.5rem" class="hide-scrollbar" id="trendingScroll">
+          <!-- Loading -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="/youth-dashboard.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/explore.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">explore</span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    if (!App.isLoggedIn()) window.location.href = '/auth.html';
+
+    const name = App.currentUser ? App.currentUser.full_name.split(' ')[0] : 'Friend';
+    document.getElementById('greeting').textContent = `Welcome, ${name} 🌱`;
+    document.getElementById('headerAvatar').innerHTML = `<img src="${App.avatarUrl(App.currentUser)}" alt="Profile" style="width:40px;height:40px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover">`;
+
+    // Sample elder data for display
+    const sampleElders = [
+      { name: 'Gakwaya', badge: true },
+      { name: 'Mzee K.', badge: true },
+      { name: 'Nyirahirwa', badge: false },
+      { name: 'Munyana', badge: false },
+      { name: 'Mutabazi', badge: false },
+    ];
+
+    const eldersRow = document.getElementById('eldersRow');
+    sampleElders.forEach(elder => {
+      const avatar = App.avatarUrl({ full_name: elder.name });
+      eldersRow.innerHTML += `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;flex-shrink:0;cursor:pointer;position:relative" onclick="window.location.href='/explore.html'">
+          <div style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:3px solid ${elder.badge ? 'var(--primary-container)' : 'var(--surface-container-highest)'}">
+            <img src="${avatar}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          </div>
+          ${elder.badge ? '<div style="position:absolute;top:-2px;right:4px;width:16px;height:16px;background:var(--primary);border-radius:50%;border:2px solid var(--surface)"></div>' : ''}
+          <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label);max-width:64px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${elder.name}</span>
+        </div>`;
+    });
+
+    async function loadFeed() {
+      try {
+        const stories = await API.getFeed();
+        const feedEl = document.getElementById('storyFeed');
+        if (stories.length === 0) {
+          feedEl.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--on-surface-variant)"><span class="material-symbols-outlined" style="font-size:3rem;color:var(--outline);display:block;margin-bottom:1rem">library_music</span><p>No stories yet. Start exploring!</p><a href="/explore.html" class="btn-primary" style="margin-top:1rem;display:inline-flex">Explore Stories</a></div>`;
+        } else {
+          feedEl.innerHTML = stories.map(s => {
+            const avatar = App.avatarUrl({ full_name: s.author_name });
+            return `
+            <div style="background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;border:1px solid rgba(225,191,181,0.1);cursor:pointer" onclick="window.location.href='/story.html?id=${s.id}'">
+              <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+                <img src="${avatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-container)" loading="lazy">
+                <div style="flex:1">
+                  <p style="font-weight:600;font-size:0.875rem">${s.author_name}</p>
+                  <p style="font-size:0.75rem;color:var(--on-surface-variant)">${App.timeAgo(s.created_at)}</p>
+                </div>
+                <span style="font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em;color:var(--primary-container);font-weight:700;background:var(--primary-fixed);padding:0.25rem 0.75rem;border-radius:9999px">${s.category}</span>
+              </div>
+              <h4 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:0.5rem">${s.title}</h4>
+              ${s.description ? `<p style="color:var(--on-surface-variant);font-size:0.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1rem">${s.description}</p>` : ''}
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="display:flex;align-items:center;gap:1rem">
+                  <button style="width:44px;height:44px;border-radius:50%;background:var(--primary-fixed);display:flex;align-items:center;justify-content:center">
+                    <span class="material-symbols-outlined filled" style="color:var(--primary)">play_arrow</span>
+                  </button>
+                  <div style="display:flex;align-items:center;gap:2px;width:60px;height:20px">
+                    ${[3,5,7,4,6,3,5,4,3,2].map(h => `<div style="width:3px;height:${h*3}px;background:var(--primary);border-radius:2px;opacity:0.5"></div>`).join('')}
+                  </div>
+                  <span style="font-size:0.75rem;color:var(--on-surface-variant)">${App.formatDuration(s.duration_seconds)}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;color:var(--on-surface-variant);font-size:0.75rem">
+                  <span>🙏 ${s.gratitude_count}</span>
+                  <span>▶ ${s.play_count}</span>
+                </div>
+              </div>
+            </div>`;
+          }).join('');
+        }
+      } catch(e) {
+        document.getElementById('storyFeed').innerHTML = '<p style="text-align:center;color:var(--on-surface-variant)">Unable to load stories</p>';
+      }
+    }
+
+    async function loadTrending() {
+      try {
+        const trending = await API.getTrending();
+        const trendEl = document.getElementById('trendingScroll');
+        trendEl.innerHTML = trending.slice(0, 6).map(s => `
+          <div style="min-width:220px;flex-shrink:0;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.25rem;border:1px solid rgba(225,191,181,0.15);cursor:pointer" onclick="window.location.href='/story.html?id=${s.id}'">
+            <span style="font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em;color:var(--primary-container);font-weight:700">${s.category}</span>
+            <h4 style="font-family:var(--font-headline);font-size:1rem;font-weight:700;margin:0.5rem 0">${s.title}</h4>
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--on-surface-variant)">
+              <span>▶ ${s.play_count}</span>
+              <span>·</span>
+              <span>🙏 ${s.gratitude_count}</span>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) {}
+    }
+
+    loadFeed();
+    loadTrending();
+  </script>
+</body>
+</html>

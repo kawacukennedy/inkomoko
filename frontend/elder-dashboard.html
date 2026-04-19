@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elder Dashboard — Inkomoko</title>
+  <meta name="description" content="Your storytelling dashboard. View your stories, drafts, and listeners.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="Components.toggleDrawer()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1 class="brand">The Living Archive</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">notifications_none</span>
+        </button>
+        <div id="headerAvatar"></div>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:64rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Greeting -->
+      <section style="padding:2rem 0">
+        <p style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary-container);margin-bottom:0.5rem" id="dateLabel"></p>
+        <h2 style="font-family:var(--font-headline);font-size:clamp(1.75rem,4vw,2.25rem);font-weight:700;color:var(--on-surface);margin-bottom:0.25rem" id="greeting"></h2>
+        <p style="color:var(--on-surface-variant);font-size:1rem" id="subtitle">Your stories are being heard.</p>
+      </section>
+
+      <!-- Stats Row -->
+      <section style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem" id="statsGrid">
+        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-container));padding:1.5rem;border-radius:1.5rem 0.5rem 1.5rem 0.5rem;color:white">
+          <span class="material-symbols-outlined" style="font-size:1.5rem;opacity:0.7;margin-bottom:0.5rem;display:block">history_edu</span>
+          <p style="font-family:var(--font-headline);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900" id="statStories">0</p>
+          <p style="font-size:0.75rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.1em;font-family:var(--font-label)">Stories Shared</p>
+        </div>
+        <div style="background:var(--surface-container-lowest);padding:1.5rem;border-radius:1.5rem 0.5rem 1.5rem 0.5rem;border:1px solid rgba(225,191,181,0.15)">
+          <span class="material-symbols-outlined" style="font-size:1.5rem;color:var(--primary-container);margin-bottom:0.5rem;display:block">group</span>
+          <p style="font-family:var(--font-headline);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;color:var(--on-surface)" id="statListeners">0</p>
+          <p style="font-size:0.75rem;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:0.1em;font-family:var(--font-label)">Family Listeners</p>
+        </div>
+        <div style="background:var(--surface-container-lowest);padding:1.5rem;border-radius:1.5rem 0.5rem 1.5rem 0.5rem;border:1px solid rgba(225,191,181,0.15)">
+          <span class="material-symbols-outlined" style="font-size:1.5rem;color:var(--primary-container);margin-bottom:0.5rem;display:block">play_circle</span>
+          <p style="font-family:var(--font-headline);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;color:var(--on-surface)" id="statPlays">0</p>
+          <p style="font-size:0.75rem;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:0.1em;font-family:var(--font-label)">Total Plays</p>
+        </div>
+      </section>
+
+      <!-- Recent Drafts (Horizontal Scroll) -->
+      <section style="margin-bottom:2.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Recent Drafts</h3>
+          <a href="/record.html" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">New Story +</a>
+        </div>
+        <div style="display:flex;overflow-x:auto;gap:1rem;padding-bottom:0.5rem" class="hide-scrollbar" id="draftsScroll">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Published Stories (Bento Grid) -->
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Your Published Archive</h3>
+          <span style="font-family:var(--font-label);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)" id="publishedCount">0 stories</span>
+        </div>
+        <div style="display:grid;gap:1.5rem" id="publishedGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Record FAB -->
+  <a href="/record.html" style="position:fixed;bottom:120px;right:1.5rem;z-index:40;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(155,47,0,0.35);">
+    <span class="material-symbols-outlined filled" style="font-size:1.75rem">mic</span>
+  </a>
+
+  <nav class="bottom-nav">
+    <a href="/elder-dashboard.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/record.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">mic_none</span>
+      <span class="nav-label">Record</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    if (!App.isLoggedIn()) window.location.href = '/auth.html';
+
+    // Greeting
+    const now = new Date();
+    const hour = now.getHours();
+    const timeGreet = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+    const name = App.currentUser ? App.currentUser.full_name.split(' ')[0] : 'Elder';
+    document.getElementById('greeting').textContent = `${timeGreet}, ${name} 🌿`;
+    document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-RW', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('headerAvatar').innerHTML = `<img src="${App.avatarUrl(App.currentUser)}" alt="Profile" style="width:40px;height:40px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover">`;
+
+    // Load data
+    async function loadDashboard() {
+      try {
+        // Stats
+        const stats = await API.getElderDashboard();
+        document.getElementById('statStories').textContent = stats.stories_shared || 0;
+        document.getElementById('statListeners').textContent = stats.family_listeners || 0;
+        document.getElementById('statPlays').textContent = stats.total_plays || 0;
+      } catch(e) {}
+
+      try {
+        // Drafts
+        const drafts = await API.getDrafts();
+        const draftsEl = document.getElementById('draftsScroll');
+        if (drafts.length === 0) {
+          draftsEl.innerHTML = `
+            <div style="min-width:240px;background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--outline-variant)">
+              <span class="material-symbols-outlined" style="font-size:2rem;color:var(--outline);margin-bottom:0.5rem">add_circle</span>
+              <p style="color:var(--on-surface-variant);font-size:0.875rem">Start a new story</p>
+            </div>`;
+        } else {
+          draftsEl.innerHTML = drafts.map(d => `
+            <div style="min-width:240px;max-width:280px;flex-shrink:0;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;border:1px solid rgba(225,191,181,0.15);cursor:pointer" onclick="window.location.href='/record.html?edit=${d.id}'">
+              <span style="font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em;color:var(--secondary-container);font-weight:700;padding:0.25rem 0.75rem;background:var(--secondary-fixed);border-radius:9999px">Draft</span>
+              <h4 style="font-family:var(--font-headline);font-size:1rem;font-weight:700;margin-top:0.75rem;margin-bottom:0.5rem">${d.title || 'Untitled'}</h4>
+              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${d.duration_seconds ? App.formatDuration(d.duration_seconds) : 'No recording'} · ${App.timeAgo(d.updated_at)}</p>
+            </div>
+          `).join('');
+        }
+      } catch(e) {}
+
+      try {
+        // Published
+        const published = await API.getMyStories();
+        const pub = published.filter(s => s.status === 'published');
+        document.getElementById('publishedCount').textContent = `${pub.length} stories`;
+        const grid = document.getElementById('publishedGrid');
+
+        if (pub.length === 0) {
+          grid.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--on-surface-variant)"><p>No published stories yet. Record your first one!</p></div>`;
+        } else {
+          grid.style.gridTemplateColumns = window.innerWidth >= 768 ? 'repeat(2, 1fr)' : '1fr';
+          grid.innerHTML = pub.map(s => Components.storyCard(s)).join('');
+        }
+      } catch(e) {}
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>
