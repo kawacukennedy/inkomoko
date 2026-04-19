@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Library — Inkomoko</title>
+  <meta name="description" content="Browse the complete archive of oral histories from across Rwanda.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="Components.toggleDrawer()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1 class="brand">The Living Archive</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/explore.html" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">search</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Featured Hero -->
+      <section style="margin-bottom:3rem;padding-top:1.5rem" id="featuredSection">
+        <div style="position:relative;border-radius:1.5rem 0.5rem 1.5rem 0.5rem;overflow:hidden;min-height:360px;background:linear-gradient(135deg,#351000,#832600);display:flex;flex-direction:column;justify-content:end;padding:2.5rem;cursor:pointer" id="featuredCard">
+          <div style="position:absolute;inset:0;opacity:0.3">
+            <div style="position:absolute;top:20%;right:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.1)"></div>
+            <div style="position:absolute;bottom:10%;left:10%;width:150px;height:150px;border-radius:50%;background:rgba(255,181,157,0.1)"></div>
+          </div>
+          <div style="position:relative;z-index:1">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem">
+              <span class="material-symbols-outlined filled" style="color:var(--primary-fixed);font-size:18px">stars</span>
+              <span style="color:var(--primary-fixed);font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.15em;font-weight:700">Featured Archive</span>
+            </div>
+            <h2 style="font-family:var(--font-headline);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;color:white;margin-bottom:0.75rem" id="featuredTitle">Loading...</h2>
+            <p style="color:rgba(255,255,255,0.7);font-size:1rem;margin-bottom:1.5rem;max-width:32rem" id="featuredDesc"></p>
+            <div style="display:flex;align-items:center;gap:1rem">
+              <button class="btn-primary" style="background:white;color:var(--primary);box-shadow:0 4px 20px rgba(0,0,0,0.3);gap:0.5rem" id="featuredPlayBtn">
+                <span class="material-symbols-outlined filled">play_arrow</span> Listen Now
+              </button>
+              <span style="color:rgba(255,255,255,0.6);font-size:0.875rem" id="featuredMeta"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stories Near Me -->
+      <section style="margin-bottom:3rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Stories Near Me</h3>
+          <a href="/explore.html" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">See all →</a>
+        </div>
+        <div style="display:flex;overflow-x:auto;gap:1rem;padding-bottom:0.5rem" class="hide-scrollbar" id="nearMeScroll">
+          <!-- Loading -->
+          <div style="min-width:240px;flex-shrink:0;background:var(--surface-container-lowest);border-radius:1.5rem;padding:1.5rem">
+            <div class="skeleton" style="height:14px;width:50%;margin-bottom:1rem"></div>
+            <div class="skeleton" style="height:20px;width:80%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Browse Archive (Bento Grid) -->
+      <section style="margin-bottom:3rem">
+        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1rem">From the Archive</h3>
+        <div style="display:grid;gap:1.5rem" id="archiveGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section style="margin-bottom:2rem">
+        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1rem">Browse by Category</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem" id="categoriesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2.5rem;text-align:center;border:1px solid rgba(225,191,181,0.15)">
+        <h3 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Community Projects</h3>
+        <p style="color:var(--on-surface-variant);margin-bottom:2rem">Together we are building the largest oral history archive in Rwanda</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem" id="statsRow">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Player Slot -->
+  <div id="playerSlot"></div>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/explore.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">explore</span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    const categoryIcons = {
+      story: '📖', tradition: '🏺', song: '🎵', proverb: '💬', culture: '🏛'
+    };
+
+    async function loadLibrary() {
+      // Featured
+      try {
+        const featured = await API.getFeatured();
+        if (featured) {
+          document.getElementById('featuredTitle').textContent = featured.title;
+          document.getElementById('featuredDesc').textContent = featured.description || '';
+          document.getElementById('featuredMeta').textContent = `${App.formatDuration(featured.duration_seconds)} · ${featured.play_count} plays`;
+          document.getElementById('featuredCard').onclick = () => window.location.href = `/story.html?id=${featured.id}`;
+          document.getElementById('featuredPlayBtn').onclick = (e) => { e.stopPropagation(); window.location.href = `/story.html?id=${featured.id}`; };
+        }
+      } catch(e) {}
+
+      // Near Me
+      try {
+        const nearMe = await API.getNearMe(App.currentUser ? App.currentUser.region : '');
+        const nearEl = document.getElementById('nearMeScroll');
+        nearEl.innerHTML = nearMe.map(s => `
+          <div style="min-width:260px;flex-shrink:0;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;border:1px solid rgba(225,191,181,0.15);cursor:pointer" onclick="window.location.href='/story.html?id=${s.id}'">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem">
+              <span class="material-symbols-outlined" style="font-size:14px;color:var(--primary-container)">location_on</span>
+              <span style="font-size:0.75rem;color:var(--primary-container);font-family:var(--font-label);font-weight:600">${s.author_region || 'Rwanda'}</span>
+            </div>
+            <h4 style="font-family:var(--font-headline);font-size:1rem;font-weight:700;margin-bottom:0.5rem">${s.title}</h4>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <span style="font-size:0.75rem;color:var(--on-surface-variant)">By ${s.author_name}</span>
+              <span style="font-size:0.75rem;color:var(--on-surface-variant)">· ${App.formatDuration(s.duration_seconds)}</span>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) {}
+
+      // Archive Grid
+      try {
+        const archive = await API.getArchive();
+        const archGrid = document.getElementById('archiveGrid');
+        if (window.innerWidth >= 768) {
+          archGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        }
+
+        archGrid.innerHTML = archive.slice(0, 8).map((s, i) => {
+          if (i === 0) return Components.storyCard(s, 'large');
+          return Components.storyCard(s);
+        }).join('');
+      } catch(e) {}
+
+      // Categories
+      try {
+        const cats = await API.getCategories();
+        const catGrid = document.getElementById('categoriesGrid');
+        catGrid.innerHTML = cats.map(c => `
+          <a href="/explore.html?category=${c.category}" style="background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;text-align:center;border:1px solid rgba(225,191,181,0.15);transition:all 0.3s;display:block">
+            <span style="font-size:2rem;display:block;margin-bottom:0.5rem">${categoryIcons[c.category] || '📚'}</span>
+            <span style="font-family:var(--font-label);font-weight:700;font-size:0.875rem;text-transform:capitalize">${c.category}</span>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);margin-top:0.25rem">${c.count} stories</p>
+          </a>
+        `).join('');
+      } catch(e) {}
+
+      // Stats
+      try {
+        const stats = await API.getStats();
+        document.getElementById('statsRow').innerHTML = `
+          <div>
+            <p style="font-family:var(--font-headline);font-size:2rem;font-weight:900;color:var(--primary)">${stats.total_stories}+</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em">Stories</p>
+          </div>
+          <div>
+            <p style="font-family:var(--font-headline);font-size:2rem;font-weight:900;color:var(--primary)">${stats.total_elders}</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em">Elders</p>
+          </div>
+          <div>
+            <p style="font-family:var(--font-headline);font-size:2rem;font-weight:900;color:var(--primary)">${stats.total_plays}</p>
+            <p style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em">Plays</p>
+          </div>
+        `;
+      } catch(e) {}
+    }
+
+    loadLibrary();
+  </script>
+</body>
+</html>

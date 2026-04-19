@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore — Inkomoko</title>
+  <meta name="description" content="Search and explore oral histories from across Rwanda.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#9b2f00">
+</head>
+<body>
+  <header class="top-app-bar">
+    <div class="top-app-bar-inner">
+      <div class="flex items-center gap-4">
+        <button onclick="history.back()" style="color:var(--primary);padding:8px;border-radius:50%">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="brand">Explore</h1>
+      </div>
+    </div>
+  </header>
+
+  <main style="min-height:100vh;padding:80px 0 120px">
+    <div style="max-width:64rem;margin:0 auto;padding:0 1.5rem">
+      <!-- Header -->
+      <section style="padding:1.5rem 0 2rem">
+        <h2 style="font-family:var(--font-headline);font-size:clamp(2rem,5vw,2.75rem);font-weight:900;letter-spacing:-0.02em;margin-bottom:0.5rem">
+          <span style="background:linear-gradient(135deg,var(--primary),var(--primary-container));-webkit-background-clip:text;background-clip:text;color:transparent">Discover</span>
+          <br>Our Heritage
+        </h2>
+        <p style="color:var(--on-surface-variant);font-size:1rem">Stories, songs, and wisdom from across Rwanda</p>
+      </section>
+
+      <!-- Search Bar -->
+      <div style="position:relative;margin-bottom:1.5rem">
+        <span class="material-symbols-outlined" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:var(--outline)">search</span>
+        <input type="text" id="searchInput" class="input-field" placeholder="Search stories, elders, or topics..."
+               style="padding-left:3.25rem" oninput="debounceSearch()">
+      </div>
+
+      <!-- Filter Chips -->
+      <div style="display:flex;overflow-x:auto;gap:0.5rem;padding-bottom:1rem;margin-bottom:1.5rem" class="hide-scrollbar" id="filterChips">
+        <button class="chip chip-active" onclick="filterBy(this, '')" data-filter="">All</button>
+        <button class="chip chip-inactive" onclick="filterBy(this, 'story')" data-filter="story">📖 Stories</button>
+        <button class="chip chip-inactive" onclick="filterBy(this, 'tradition')" data-filter="tradition">🏺 Traditions</button>
+        <button class="chip chip-inactive" onclick="filterBy(this, 'song')" data-filter="song">🎵 Songs</button>
+        <button class="chip chip-inactive" onclick="filterBy(this, 'proverb')" data-filter="proverb">💬 Proverbs</button>
+        <button class="chip chip-inactive" onclick="filterBy(this, 'culture')" data-filter="culture">🏛 Culture</button>
+      </div>
+
+      <!-- Results Grid -->
+      <div id="resultsGrid" style="display:grid;gap:1.5rem;grid-template-columns:1fr">
+        <!-- Loading skeletons -->
+        <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
+          <div class="skeleton" style="height:16px;width:40%;margin-bottom:1rem"></div>
+          <div class="skeleton" style="height:24px;width:80%;margin-bottom:0.75rem"></div>
+          <div class="skeleton" style="height:14px;width:60%"></div>
+        </div>
+        <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
+          <div class="skeleton" style="height:16px;width:50%;margin-bottom:1rem"></div>
+          <div class="skeleton" style="height:24px;width:70%;margin-bottom:0.75rem"></div>
+          <div class="skeleton" style="height:14px;width:55%"></div>
+        </div>
+      </div>
+
+      <!-- Load More -->
+      <div style="text-align:center;padding:2rem 0" id="loadMore">
+        <button onclick="loadMoreStories()" class="btn-secondary" id="loadMoreBtn" style="display:none">Load More Stories</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Player Slot -->
+  <div id="playerSlot"></div>
+
+  <nav class="bottom-nav">
+    <a href="/" class="bottom-nav-item">
+      <span class="material-symbols-outlined">history_edu</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/library.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="nav-label">Library</span>
+    </a>
+    <a href="/explore.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">explore</span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="/settings.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    let currentFilter = '';
+    let currentSearch = '';
+    let currentOffset = 0;
+    let totalResults = 0;
+    let searchTimer = null;
+
+    function debounceSearch() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        currentSearch = document.getElementById('searchInput').value.trim();
+        currentOffset = 0;
+        loadStories(true);
+      }, 300);
+    }
+
+    function filterBy(btn, filter) {
+      currentFilter = filter;
+      currentOffset = 0;
+      document.querySelectorAll('#filterChips .chip').forEach(c => {
+        c.classList.remove('chip-active');
+        c.classList.add('chip-inactive');
+      });
+      btn.classList.remove('chip-inactive');
+      btn.classList.add('chip-active');
+      loadStories(true);
+    }
+
+    async function loadStories(replace = false) {
+      const params = { limit: 12, offset: currentOffset };
+      if (currentFilter) params.category = currentFilter;
+      if (currentSearch) params.search = currentSearch;
+
+      try {
+        const result = await API.getStories(params);
+        totalResults = result.total;
+        const grid = document.getElementById('resultsGrid');
+
+        if (replace) grid.innerHTML = '';
+
+        if (result.stories.length === 0 && replace) {
+          grid.innerHTML = `
+            <div style="text-align:center;padding:4rem 0;color:var(--on-surface-variant)">
+              <span class="material-symbols-outlined" style="font-size:4rem;color:var(--outline);display:block;margin-bottom:1rem">search_off</span>
+              <h3 style="font-family:var(--font-headline);font-size:1.25rem;margin-bottom:0.5rem">No stories found</h3>
+              <p>Try different keywords or filters</p>
+            </div>`;
+          document.getElementById('loadMoreBtn').style.display = 'none';
+          return;
+        }
+
+        // Masonry-like layout on desktop
+        if (window.innerWidth >= 768) {
+          grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        }
+
+        result.stories.forEach(s => {
+          grid.innerHTML += Components.storyCard(s);
+        });
+
+        currentOffset += result.stories.length;
+        document.getElementById('loadMoreBtn').style.display = currentOffset < totalResults ? 'inline-flex' : 'none';
+      } catch(e) {
+        document.getElementById('resultsGrid').innerHTML = '<p style="text-align:center;color:var(--on-surface-variant)">Unable to load stories</p>';
+      }
+    }
+
+    function loadMoreStories() {
+      loadStories(false);
+    }
+
+    loadStories(true);
+  </script>
+</body>
+</html>
