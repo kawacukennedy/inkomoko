@@ -16,9 +16,8 @@ const App = {
     const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
 
-    // Prevent cross-origin errors if Chrome suppresses page (Safe Browsing)
     if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath) && !this.isLoggedIn()) {
-      window.location.replace('/welcome.html');
+      window.location.replace('/welcome');
       return;
     }
 
@@ -61,7 +60,7 @@ const App = {
 
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = '/auth.html';
+      window.location.href = '/auth';
       return false;
     }
     return true;

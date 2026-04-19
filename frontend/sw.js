@@ -3,23 +3,23 @@
    Caches all static assets for offline access
    ============================================================ */
 
-const CACHE_NAME = 'inkomoko-v1';
+const CACHE_NAME = 'inkomoko-v2';
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
-  '/welcome.html',
-  '/auth.html',
-  '/onboarding.html',
-  '/elder-dashboard.html',
-  '/record.html',
-  '/youth-dashboard.html',
-  '/explore.html',
-  '/story.html',
-  '/library.html',
-  '/family.html',
-  '/elder-profile.html',
-  '/family-manager.html',
-  '/settings.html',
+  '/index',
+  '/welcome',
+  '/auth',
+  '/onboarding',
+  '/elder-dashboard',
+  '/record',
+  '/youth-dashboard',
+  '/explore',
+  '/story',
+  '/library',
+  '/family',
+  '/elder-profile',
+  '/family-manager',
+  '/settings',
   '/css/styles.css',
   '/js/api.js',
   '/js/app.js',

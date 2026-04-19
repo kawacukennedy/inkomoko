@@ -308,11 +308,11 @@
 
         // Redirect based on onboarding status and role
         if (!result.user.is_onboarded) {
-          window.location.href = '/onboarding.html';
+          window.location.href = '/onboarding';
         } else if (result.user.role === 'elder') {
-          window.location.href = '/elder-dashboard.html';
+          window.location.href = '/elder-dashboard';
         } else {
-          window.location.href = '/youth-dashboard.html';
+          window.location.href = '/youth-dashboard';
         }
       } catch (err) {
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
