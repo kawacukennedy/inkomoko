@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Living Archive - Explore</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] p-2 transition-colors duration-300 rounded-full" data-icon="menu">menu</button>
+<h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young person with warm lighting and a soft neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt6Mwz44iTQIhEOTxjdZ6E4JFjiYFpZvkYZ6PI1Ujz42Q0JbeFt7KlhCzfrhH5_pu4y-IQMZABZUxVYOaZ6thLL1UILIYy9_d3XPuByvFUHQQRajHUIoQSV1LahaaiN_EZfjoZERJzHwNkFt29yGRpf2JgNVMGkraEbc-bRCJZlnQBmARe_RVL4iU2KbWOgPRe6C-96aF0X_uWTU1lX-kAaxTRIwApKrxPchUvrWLOu9MfehnjZEqU1bhxDQCG73oBX36efMnOXqT5"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-4xl mx-auto">
+<!-- Hero Search Section -->
+<section class="mb-8">
+<h2 class="font-headline text-3xl font-bold text-primary mb-6 leading-tight">Explore the <span class="bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent italic">Ancestral Echoes</span></h2>
+<!-- Search Bar -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+</div>
+<input class="w-full h-[64px] pl-16 pr-6 bg-surface-container-lowest border-none shadow-sm rounded-full focus:ring-2 focus:ring-primary-container text-lg placeholder:text-outline/60 transition-all duration-300" placeholder="Search by name, place, or proverb..." type="text"/>
+</div>
+</section>
+<!-- Horizontal Filter Row -->
+<section class="mb-10 -mx-6 px-6">
+<div class="flex gap-3 overflow-x-auto hide-scrollbar py-2">
+<button class="flex-shrink-0 px-6 py-3 bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-full font-medium shadow-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+                    All Stories
+                </button>
+<button class="flex-shrink-0 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors text-on-surface-variant rounded-full font-medium flex items-center gap-2">
+                    Culture
+                </button>
+<button class="flex-shrink-0 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors text-on-surface-variant rounded-full font-medium flex items-center gap-2">
+                    Region
+                </button>
+<button class="flex-shrink-0 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors text-on-surface-variant rounded-full font-medium flex items-center gap-2">
+                    Type
+                </button>
+<button class="flex-shrink-0 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors text-on-surface-variant rounded-full font-medium flex items-center gap-2">
+                    Language
+                </button>
+<button class="flex-shrink-0 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest transition-colors text-on-surface-variant rounded-full font-medium flex items-center gap-2">
+                    Time Period
+                </button>
+</div>
+</section>
+<!-- Results Grid (Masonry Concept) -->
+<section class="masonry-grid pb-12">
+<!-- Result Item 1 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[2rem_0.5rem_2rem_0.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-outline-variant/10">
+<div class="relative h-48 overflow-hidden">
+<img alt="Elder Speaker" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A dignified elderly man with deep wisdom in his eyes, soft natural side lighting, earthy tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtH9yA6cqpwSlg-WhpCMiYQi4kQA3CUSuAWoBFbwE2Hj0Hw4DfocWgErMQVkbVIQtfMyCn5oOvLc2I8Va4NGDon0KE9tAKk10g1xKso9ilZdVNqhbSuBBM6H7LWrOrZ32Am6nA52tX78iYnUVFwvhx4SKpkQyKrPSTj4LgGLyixjWGstzhoXc8Xv5nrKEdatGAwfaALTmoftXkSRWzNhEnP6gnbjISkhH-pYVqYLvnpqQ5akzKPO3vm_VVJbnLzPrDOuEEoOtazFWK"/>
+<div class="absolute bottom-4 left-4 bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-white text-xs" data-icon="schedule">schedule</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">12:45</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden flex items-center">
+<div class="h-full bg-primary-container w-1/3 rounded-full"></div>
+<div class="h-full bg-primary-container/40 w-1/4 mx-0.5 rounded-full"></div>
+<div class="h-full bg-primary-container/20 w-1/5 rounded-full"></div>
+</div>
+</div>
+<h3 class="font-headline font-bold text-xl text-primary mb-2">The River's Secret</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 leading-relaxed">Old wisdom regarding the cycles of the Great Lake and the ancestral migration patterns.</p>
+</div>
+</div>
+<!-- Result Item 2 (Asymmetric Height) -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[0.5rem_2rem_0.5rem_2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-outline-variant/10 mt-8">
+<div class="relative h-64 overflow-hidden">
+<img alt="Elder Woman" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An elderly woman laughing, wearing traditional colorful patterned fabric, vibrant sunlight and warm shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlR5g_Cz0FVAz8ROeUcncwd3g8dLD-HdPPjxFlahzLOYQCp3uQfvGloHzSxYKQePByTjXQZkUxcya703FvnPkctOwj0XAxR0JnqadhRvCh84FprkaJKDr_KQyUXK3vcfAGofqt33Q28S0gwt1vw8_KqbfxMTPkDRbdlyzWSq0orcJK5noQ9pDBrstT7ybi-y7kkuct6T51IxzDmeHMlqM3vvD0zPIUwV3VZdVa-UpscrpprPZcdIvQ63BTHAhcTJ63oS7POzgIzyF2"/>
+<div class="absolute bottom-4 left-4 bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-white text-xs" data-icon="schedule">schedule</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">08:20</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<div class="h-3 w-full flex items-end gap-[2px]">
+<div class="bg-primary-container w-1 h-2 rounded-full"></div>
+<div class="bg-primary-container w-1 h-3 rounded-full"></div>
+<div class="bg-primary-container w-1 h-1 rounded-full"></div>
+<div class="bg-primary-container w-1 h-4 rounded-full"></div>
+<div class="bg-primary-container w-1 h-2 rounded-full"></div>
+<div class="bg-primary-container w-1 h-3 rounded-full"></div>
+<div class="bg-primary-container w-1 h-5 rounded-full"></div>
+</div>
+</div>
+<h3 class="font-headline font-bold text-xl text-primary mb-2">Songs of Harvest</h3>
+<p class="text-on-surface-variant text-sm line-clamp-3 leading-relaxed">A rhythmic oral history of communal farming rituals and the songs that made the work lighter.</p>
+</div>
+</div>
+<!-- Result Item 3 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[2rem_2rem_0.5rem_0.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-outline-variant/10 -mt-8">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/20 to-transparent z-10"></div>
+<img alt="Ancestral Lands" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Lush green hills and rolling landscapes at dawn with misty valleys and soft orange sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0YmrRHQHIKkoYgl-gcmDebceOOl6kEQw3sODtF159LEJj_xdEYHDDHtvw-0B9wRAObQnqS3n1Rd61dyRF_8o_Bzhs1ENxpYcUwuufSoVD2-9HgJd-J1Dpx9WQ6ZBZ-7-tVPPuvSIW14zjKhDcSljxbcnlFfu_DXKQij8v9qhivSl0eTTNma9fV1NqANZx3hbNblU0_mbkP8uGvgOuvW8fBks-jTtu0qjr0WMA9gmueXEI131avV3ls68E_L9jlCCSmOeV4Hq1t_nR"/>
+<div class="absolute bottom-4 left-4 bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 z-20">
+<span class="material-symbols-outlined text-white text-xs" data-icon="schedule">schedule</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">24:10</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="graphic_eq">graphic_eq</span>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-3/4 rounded-full"></div>
+</div>
+</div>
+<h3 class="font-headline font-bold text-xl text-primary mb-2">The Lost Dialect</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 leading-relaxed">Preserving the specific terminology of the high mountain shepherds.</p>
+</div>
+</div>
+<!-- Result Item 4 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[0.5rem_0.5rem_2rem_2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-outline-variant/10">
+<div class="relative h-44 overflow-hidden">
+<img alt="Traditional Craft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Close up of weathered hands weaving a complex basket pattern with natural fibers, tactile and focused" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUP30S5GUvw2dmiVanus1rMFzS7owLfMtbRuSlrWWf6lAp_UU4AP-uloMrIJaFRkbAsfMGDabLxUVcHSEU0cq5-NMxE0ersaDj2bRm2vycMnlgMM55g0og0zZcsP2vXHx7Goay1i3cjpcCWzWCje2lScaggN5MnG8_KOg5cPO7pU7Tes9CwtlVKQy952fB7AiqvlOiUkzjAJV_z-spv8rpXG1jB6gQLhF3xhCTolT8SxJmrzzgn-wHcTvyIp40xMwSBzfzlTmKXTVT"/>
+<div class="absolute bottom-4 left-4 bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-white text-xs" data-icon="schedule">schedule</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">05:55</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline font-bold text-xl text-primary mb-2">Proverbs of the Hearth</h3>
+<p class="text-on-surface-variant text-sm line-clamp-3 leading-relaxed">A collection of thirty proverbs regarding family and fire, narrated by Chief Mutara.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#fdf9e9]/90 backdrop-blur-xl rounded-t-[2rem] h-[88px] shadow-[0_-4px_20px_rgba(28,28,19,0.06)] flex justify-around items-center px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-['Lexend'] text-[10px] font-medium uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Lexend'] text-[10px] font-medium uppercase tracking-wider mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="mic_none">mic_none</span>
+<span class="font-['Lexend'] text-[10px] font-medium uppercase tracking-wider mt-1">Record</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-medium uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+<!-- Floating Audio Player Anchor -->
+<div class="fixed bottom-28 left-6 right-6 z-40">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl rounded-2xl shadow-xl p-4 flex items-center gap-4 border border-outline-variant/20">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<div class="flex-grow">
+<p class="text-xs font-bold text-primary uppercase tracking-tighter">Currently Listening</p>
+<p class="text-sm font-semibold truncate text-on-surface">Mzee Kalisa: The Great Migration</p>
+</div>
+<div class="w-16 h-8 flex items-center gap-[2px]">
+<div class="w-1 h-3 bg-primary-container rounded-full animate-pulse"></div>
+<div class="w-1 h-5 bg-primary-container rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+<div class="w-1 h-4 bg-primary-container rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+<div class="w-1 h-6 bg-primary-container rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+<div class="w-1 h-2 bg-primary-container rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .organic-leaf {
+            border-radius: 40px 12px 40px 12px;
+        }
+        .organic-leaf-alt {
+            border-radius: 12px 40px 12px 40px;
+        }
+        .glass-header {
+            background: rgba(253, 249, 233, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="hover:bg-[#f8f4e4] p-2 rounded-full transition-colors duration-300 scale-95 active:scale-90">
+<span class="material-symbols-outlined text-[#9b2f00]">menu</span>
+</button>
+<h1 class="font-headline text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label text-sm uppercase tracking-wider text-[#9b2f00] font-bold" href="#">Family Space</a>
+<a class="font-label text-sm uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="#">Oral Histories</a>
+<a class="font-label text-sm uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="#">Maps</a>
+</div>
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5" data-alt="close-up portrait of a dignified rwandan elder with silver hair and warm eyes, wearing traditional draped cloth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrfWcrMjx-TA0naBDLiHudu4DYT2VbH33sU65LHUkN72gPP5FhjMzG7WeYKfYyPWrm6yf7kGHozVKITGUkGjwib5D3Q516o312OBzSWqHHgD4ayVClthg6vBumN89kpdzq5UrMpTGRXPZsu4kQK0WZ9LMzCtsoqCC6LKFGUxe_VLSnEMN9kGuVH1GdSwW2hBo9fuzAuzQJyFDn8hTVWpTE3P5xNRMucb3UL5qKL4HXM2cnjOP9BG7IVUNCvKoPpSILaOCXLtU5YYz_"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-12">
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-primary mb-2">Umuryango Wacu</h2>
+<p class="text-on-surface-variant font-body text-lg">Inkomoko Private Family Sanctuary</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left 1/3: Mini Family Tree -->
+<section class="lg:col-span-1 space-y-6">
+<div class="bg-surface-container-low organic-leaf p-8 shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline text-xl font-bold text-on-surface">Lineage Tree</h3>
+<span class="material-symbols-outlined text-primary">account_tree</span>
+</div>
+<!-- Visualization Placeholder -->
+<div class="relative min-h-[400px] flex items-center justify-center">
+<!-- Connecting Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewbox="0 0 200 300">
+<path d="M100 50 L100 120 M100 120 L40 180 M100 120 L160 180" fill="none" stroke="#9b2f00" stroke-width="2"></path>
+</svg>
+<!-- Nodes -->
+<div class="relative w-full h-full">
+<!-- Elder Node (Larger) -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center">
+<div class="w-20 h-20 organic-leaf bg-primary-container p-1 shadow-lg">
+<img class="w-full h-full organic-leaf object-cover" data-alt="weathered face of a senior rwandan man with deep laugh lines, warm golden hour lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLcgOUF6kQ_5Ok-8C355qJG93YHhg_rpNuMMYxNWV_sxkKjlkJ_tTdlbS9KFfQ9dpq_gKymXydbPlyzf-TcMIcYM2QE5Z1AlVYGQSJSynbSLBm9tS62f9scL94RYqdnGUiq50_d5_egJl2FJ1rAlGc2Gha2-rOox6wei1TZfzpaTGYw2FvoBnrQ-KJcsV1E2xDaBGQseTihKXEEBplC-zAVggcy5y6_QJbbRTmNaSjBdAOyHgRmXkifywnCUUlUa7IfwDMxqXEwjAv"/>
+</div>
+<p class="mt-2 font-bold text-primary text-sm uppercase">Gakuba</p>
+</div>
+<!-- Member Node Left -->
+<div class="absolute top-[180px] left-4 flex flex-col items-center">
+<div class="w-14 h-14 organic-leaf-alt bg-secondary-container p-1">
+<img class="w-full h-full organic-leaf-alt object-cover" data-alt="smiling rwandan woman in her 30s with braided hair, soft natural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoNSga--NKiLE2QWCbpVtiI7Hbm_qqREFtdMeRqc6qyPi-zqcCJS07_Q6WjbDIpDhtn6Rg2EkrjTBG_Ru_7UAU7P2qRuVqcGiHF0gr1C-97wTEuwwOxrKKbebWL-_gFWMcikIZ9qBubK413_6MijZoWPtOJvYTtnojEEpRyO9byxHPljCEzTXPS2rl8KsdC4IeFUReiRpjB8R5xPGf3rK-QDmnwv5WcPDEkhxAjwJYJbRDYd3l3nl43xstSBY_BCU0FN4-HY7HFEtP"/>
+</div>
+<p class="mt-2 font-medium text-on-surface text-xs">Mutesi</p>
+</div>
+<!-- Member Node Right -->
+<div class="absolute top-[180px] right-4 flex flex-col items-center">
+<div class="w-14 h-14 organic-leaf-alt bg-secondary-container p-1">
+<img class="w-full h-full organic-leaf-alt object-cover" data-alt="young rwandan man with friendly expression, bright morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJWcqcFULKraoFHT4F95mHlyS9Xsa9_0TsBC5mKxUDJy8sA0rMQ0ZS5HAM8ZhitL0xPoIcezRuOneSQx4RgAw3RitI8CA3-5U1DB8Hri80SgtR4kmLzdw4CIV4PTQ8J6HZ6u_yZVhBcXJ8MpoZFkoPNSnLoN1Clxv6B9tWeHsZWnkYJA5VmJCwogAJzvC2uOA6oxtN0WvRzpkbrgdkjX61abdEzydNCV9xXM3xrV1hbmxGDQBAk98qq0VfHdEJikkWNWUDHrbWqjKb"/>
+</div>
+<p class="mt-2 font-medium text-on-surface text-xs">Keza</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 flex items-center justify-center gap-2 py-4 bg-surface-container-high text-primary font-bold organic-leaf-alt hover:bg-primary-fixed transition-colors h-[56px]">
+<span class="material-symbols-outlined">add</span>
+<span>Invite Member</span>
+</button>
+</div>
+</section>
+<!-- Right 2/3: Family Fireplace Feed -->
+<section class="lg:col-span-2">
+<div class="bg-surface-container-low rounded-[2rem] p-8 md:p-12 min-h-[600px] flex flex-col shadow-sm">
+<div class="flex items-center gap-3 mb-10">
+<span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">fireplace</span>
+<h3 class="font-headline text-3xl font-bold text-on-surface">Family Fireplace</h3>
+</div>
+<!-- Empty State -->
+<div class="flex-grow flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-6 py-12">
+<div class="w-24 h-24 bg-surface-container-high organic-leaf flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-5xl opacity-40">lock</span>
+</div>
+<div class="space-y-2">
+<h4 class="font-headline text-2xl font-bold text-on-surface">Private Sanctuary</h4>
+<p class="text-on-surface-variant leading-relaxed">Only family can see what's shared here. Ask an elder to share a memory or start a conversation.</p>
+</div>
+<div class="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+<button class="h-[56px] flex items-center justify-center gap-3 bg-primary-container text-on-primary-container font-bold organic-leaf hover:opacity-90 transition-opacity px-6 shadow-md">
+<span class="material-symbols-outlined">mic</span>
+<span>Record Voice</span>
+</button>
+<button class="h-[56px] flex items-center justify-center gap-3 bg-surface-container-lowest text-primary font-bold organic-leaf-alt border-outline-variant border-2 hover:bg-surface-bright transition-colors px-6">
+<span class="material-symbols-outlined">history_edu</span>
+<span>Write Memory</span>
+</button>
+</div>
+</div>
+<!-- Decorative Tonal Shift Section (Bottom of Feed) -->
+<div class="mt-auto pt-12">
+<div class="p-6 bg-surface-container rounded-3xl border-l-4 border-primary/20">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1">info</span>
+<p class="text-sm italic text-on-surface-variant font-body leading-relaxed">
+                                    "The fire never goes out as long as the wood is replenished. Share your stories to keep our flame burning bright for the next generation."
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- NavigationDrawer (Mobile/Global) - Hidden in main canvas but semantically here -->
+<aside class="hidden fixed left-0 top-0 h-full w-80 bg-[#f8f4e4] shadow-2xl z-[60] flex-col p-8 space-y-6">
+<div class="flex items-center gap-4 mb-12">
+<img class="w-12 h-12 rounded-full" data-alt="stylized basket weave pattern icon in terracotta and gold tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxiCb8SpUx9I_eaCz9H_jcNMwa_-Rb14XVJ85C9CeYARWZr3BR0cTdhmYeXhSbsb9NroF2TZBa-PaxHHmxIWWA3UMG4cbupsUEpXkHqp_p778ykb6lCDlGIYiOfKjPkTS0h1_Dw6twDUEl0zppL8esBQ4Heua-k0afEvTTeVDGG8i2LI4gWixFRUzAqK_n01wQyxhvRYAesie7RuZ3cFJxkaLhOUFCjJJd2mur4lNzz-5uHOftInSqNINDQuYJqohQJ2j-HBdyCvJ9"/>
+<div>
+<h4 class="font-headline font-bold text-[#9b2f00]">Umuryango Wacu</h4>
+<p class="text-xs font-body opacity-60 uppercase tracking-tighter">The Living Archive</p>
+</div>
+</div>
+<nav class="space-y-4">
+<a class="flex items-center gap-4 p-4 text-[#9b2f00] bg-[#c2410c]/10 font-bold rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span>Oral Histories</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Family Tree</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">map</span>
+<span>Cultural Maps</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">translate</span>
+<span>Language Guide</span>
+</a>
+<a class="flex items-center gap-4 p-4 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</aside>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 glass-header rounded-t-[2rem] h-[88px] shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+<div class="flex justify-around items-center px-4 pb-safe h-full">
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label text-[10px] uppercase tracking-wider mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label text-[10px] uppercase tracking-wider mt-1">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg">
+<span class="material-symbols-outlined">mic_none</span>
+<span class="font-label text-[10px] uppercase tracking-wider mt-1">Record</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-[10px] uppercase tracking-wider mt-1">Profile</span>
+</button>
+</div>
+</nav>
+<!-- Floating Record FAB (Contextual) -->
+<button class="hidden md:flex fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] shadow-2xl items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+</body></html>

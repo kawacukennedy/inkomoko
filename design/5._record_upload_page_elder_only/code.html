@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .leaf-shape {
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+        }
+        .waveform-bar {
+            width: 4px;
+            background: #9b2f00;
+            border-radius: 2px;
+            margin: 0 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full active:scale-90" data-icon="menu">menu</button>
+<h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="Elder Portrait" class="w-full h-full object-cover" data-alt="Close-up portrait of a dignified elderly Rwandan man with wise eyes and grey hair, wearing traditional woven cloth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG7R1jtlcqudHKqgOLtFcCmSbuYmQ3ikIXMImso1Pcp1VHVKDcgHzCdYFmlms6-_SIWWj6b7iu6KQcXWo8t5NJ-Os2MkMlOfM4CuHV4ufPYMa1vWdJOjiQWqjo--8Q1WIelGKLrT8ScJwx-CNRpZCeGVSnOZW3KERibO0atYds_8BS4aSsqk7M43Z6vaWEE4uymumf53HczHzCWbrrX7NNIFkXR7E4uykkGtnYld2tGPzF6tzPSGJp5-jW3IWLvdkZ7DCbbd--7StH"/>
+</div>
+</header>
+<main class="pt-24 px-4 max-w-2xl mx-auto">
+<!-- Story Selection Tabs -->
+<div class="flex gap-2 mb-8 bg-surface-container-low p-2 rounded-2xl">
+<button class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white shadow-md active:scale-95 duration-300">
+<span class="material-symbols-outlined" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+<span class="font-label text-xs font-medium uppercase tracking-wider">Record</span>
+</button>
+<button class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-95 duration-300">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="font-label text-xs font-medium uppercase tracking-wider">Upload File</span>
+</button>
+<button class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-95 duration-300">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="font-label text-xs font-medium uppercase tracking-wider">Write Text</span>
+</button>
+</div>
+<!-- Recording Interface -->
+<section class="bg-surface-container-lowest rounded-[3rem] p-8 shadow-xl shadow-on-surface/5 flex flex-col items-center text-center space-y-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-primary-container to-primary"></div>
+<div>
+<h2 class="font-headline text-3xl font-bold text-primary mb-2">Share Your Voice</h2>
+<p class="text-on-surface-variant text-lg">Your story is a gift for the future.</p>
+</div>
+<!-- Timer & Waveform -->
+<div class="space-y-4 w-full">
+<div class="font-mono text-5xl font-black text-on-surface tracking-widest">00:00:00</div>
+<div class="flex items-center justify-center h-16 w-full opacity-60">
+<div class="waveform-bar h-4"></div>
+<div class="waveform-bar h-8"></div>
+<div class="waveform-bar h-12"></div>
+<div class="waveform-bar h-6"></div>
+<div class="waveform-bar h-14"></div>
+<div class="waveform-bar h-10"></div>
+<div class="waveform-bar h-16"></div>
+<div class="waveform-bar h-8"></div>
+<div class="waveform-bar h-12"></div>
+<div class="waveform-bar h-6"></div>
+<div class="waveform-bar h-4"></div>
+</div>
+</div>
+<!-- Central Large Button -->
+<button class="w-32 h-32 rounded-full bg-primary-container flex items-center justify-center shadow-2xl shadow-primary/40 active:scale-90 transition-transform duration-300 border-8 border-surface-container-low group">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+</button>
+<p class="font-label font-bold text-primary tracking-widest uppercase">Tap to Record</p>
+</section>
+<!-- Form Fields -->
+<form class="mt-12 space-y-8">
+<!-- Title -->
+<div class="space-y-3">
+<label class="block font-label text-lg font-bold text-on-surface ml-2">What is this story about?</label>
+<input class="w-full h-16 px-6 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary text-lg font-body placeholder:text-on-surface-variant/40" placeholder="E.g., How we made banana beer in 1960" type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="space-y-3">
+<label class="block font-label text-lg font-bold text-on-surface ml-2">Category</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 rounded-full bg-primary-container text-on-primary-container font-label font-medium shadow-sm active:scale-95 duration-300" type="button">Story</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" type="button">Tradition</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" type="button">Song</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" type="button">Culture</button>
+</div>
+</div>
+<!-- Language Dropdown -->
+<div class="space-y-3">
+<label class="block font-label text-lg font-bold text-on-surface ml-2">Language Spoken</label>
+<div class="relative">
+<select class="w-full h-16 px-6 pr-12 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary appearance-none text-lg font-body">
+<option>Kinyarwanda</option>
+<option>English</option>
+<option>French</option>
+<option>Swahili</option>
+</select>
+<span class="material-symbols-outlined absolute right-6 top-5 pointer-events-none text-primary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Visibility Toggle -->
+<div class="bg-surface-container-low p-6 rounded-3xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</div>
+<div>
+<span class="block font-label font-bold text-lg">Public Archive</span>
+<span class="block text-sm text-on-surface-variant">Visible to all community members</span>
+</div>
+</div>
+<button class="w-14 h-8 bg-primary rounded-full relative flex items-center px-1" type="button">
+<div class="w-6 h-6 bg-white rounded-full ml-auto shadow-md"></div>
+</button>
+</div>
+<!-- Submit Action -->
+<button class="w-full h-[72px] leaf-shape bg-primary text-white text-xl font-bold font-headline shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-[0.98] transition-all" type="submit">
+                Save to the Archive
+                <span class="material-symbols-outlined" data-icon="auto_stories" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</button>
+</form>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#fdf9e9]/90 backdrop-blur-xl rounded-t-[2rem] h-[88px] flex justify-around items-center px-4 pb-safe shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg scale-105" href="#">
+<span class="material-symbols-outlined" data-icon="mic_none">mic_none</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+</body></html>

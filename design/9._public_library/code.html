@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.vintage-overlay {
+    position: relative
+    }
+.vintage-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDxbeMdDv8eu07PmacGTLgN_fJAOuRdFejU3Qmqjtgoq7gDTAGuJHUdX1GyRDtoKGlifH_qKLS3-IKPXmo0WF26g7YOG1aX6CYUbsLMlnXQaeTf4YsYfBYh3PSgnn6qcalSbUzZx2kpgiJTy4lyoVa71YzXcRjpXz4yoVhq37epGem-YXRqDoUtlBTIKzFYoHbHyGAQgT9Ilj8PAy4q0P640yxrcJCTsTlX70QJM5vB6PAF5ge2COVj_rRSVoHYBAnqMYjhrgBl-ge-);
+    opacity: 0.12;
+    z-index: 1
+    }
+.terracotta-glow {
+    background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%)
+    }
+.tap-target {
+    min-height: 56px;
+    min-width: 56px
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] tap-target flex items-center justify-center hover:bg-[#f8f4e4] rounded-full transition-colors duration-300">menu</button>
+<h1 class="font-headline text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex gap-8 items-center mr-8">
+<a class="font-headline text-lg font-bold tracking-tight text-[#9b2f00] transition-colors duration-300" href="#">Library</a>
+<a class="font-headline text-lg font-bold tracking-tight text-[#1c1c13]/60 hover:text-[#9b2f00] transition-colors duration-300" href="#">Oral Histories</a>
+<a class="font-headline text-lg font-bold tracking-tight text-[#1c1c13]/60 hover:text-[#9b2f00] transition-colors duration-300" href="#">Maps</a>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" data-alt="Close up portrait of an elderly Rwandan woman with wise eyes and a warm smile, wearing traditional patterned fabric" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKw_Q7u702BF5_mapgJQ6im2Poww--wiHdF5Clqk1bAY6BjqHKAO-XYp_mmq5MJZr-r5Q7XjHFJva6MhwGwMTURVc7z-7WtVabGNGOdPf-J80Z2TcT7On80WRBUqXTJ3za6vaQmLWoIuBRKAfMl0I9jGpqHDQSX5iqe3f71u9jh2s_z5gxOoYjMIKVSDc6MK-PuwgHRE2uZPwpEgbkT66hgkPMYJCAJa_suqLC6PgJkUZ9IpyyaeLn_X_FVGHZxOpryWRGgGa9Zbgf"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
+<!-- Hero Featured Story -->
+<section class="mb-12">
+<div class="vintage-overlay relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl shadow-on-surface/10 group">
+<img class="absolute inset-0 w-full h-full object-cover brightness-75 group-hover:scale-105 transition-transform duration-700" data-alt="Wide shot of a storytelling circle under a large ancient tree in a lush Rwandan valley at sunset with warm golden light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgbJuMZm-bBcmaWjCQj7CCEXvqLDEbQFN6QOWmhr_3Arnj46EstMov_bkQDe6ZwZgw7l0qq_0yCi7MfScd_UJwzW3I7XbaGLyZFS0soaLPXutY9cDd8xtbOgk40ESwfhsobGANkvsFD7riXxGZyEW5TuuhtUiB88aSjBKcGUv7rAQP1FohtzMqL8rteueJhz2I9eSgbqVzxKfxTEsAG2gg5e2EFaQuG9r4iCa1GbFFaquh7DGJ2eZMUUbZXQTFlUongcXKBFgJ7DF9"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent flex flex-col justify-end p-8 md:p-12 z-10">
+<span class="font-label text-primary-fixed uppercase tracking-[0.2em] mb-4 text-sm font-semibold">Featured Archive</span>
+<h2 class="font-headline text-4xl md:text-6xl font-black text-surface mb-4 max-w-3xl leading-tight">Umurage w'Ibisigo: The Verse of Our Ancestors</h2>
+<div class="flex flex-col md:flex-row md:items-center gap-6">
+<button class="terracotta-glow text-on-primary-container tap-target px-8 py-2 rounded-[24px_8px_24px_8px] font-label font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">play_circle</span> Listen to the History
+                        </button>
+<p class="font-body text-surface-container-low text-lg md:text-xl italic max-w-xl">"A story told by many voices never dies." — Elder Gakuba</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Inkuru Ziri Hafi Yawe / Stories Near You -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h3 class="font-headline text-3xl font-bold text-primary mb-2">Inkuru Ziri Hafi Yawe</h3>
+<p class="font-body text-on-surface-variant text-lg">Stories echoing from the hills near your location.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined text-primary-container">location_on</span>
+<span class="font-label font-medium">Musanze District</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Story Card 1 -->
+<div class="vintage-overlay bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4 border border-outline-variant/15 hover:shadow-xl transition-shadow duration-300">
+<div class="w-full aspect-video rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Misty green volcanic mountains in Rwanda with terraced hillsides and soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA0bzfMkeeBVQ0MUFzFz0IO6WNco56S7Hciirx905iMqAQP2CtyidG48osgJksUeCs552huERUY7b8-bVnIJqyphuD6gQWkMXCy-l_PsuWF49ISx3zP5X0a_q_cP0cr_QrwdnQEhs58GnfNS3ePCWDI7dicE5fneDxnkktXbeII4ElK_H6nmD8xRCeRNyMxjPXpMbPWAXBjuxUXL89OibNlnHbxdwiflvIe71uh9HJvwMFotlL74y2D5pA3yH0obIil7QBZ8g_dibW"/>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs font-label uppercase tracking-widest text-primary-container font-bold">
+<span>Tradition</span>
+<span>12 Min Listen</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface">The Legend of the Twin Lakes</h4>
+<p class="font-body text-on-surface-variant line-clamp-3">The secrets of Burera and Ruhondo as told by the fishing families who have traversed their waters for centuries.</p>
+</div>
+<button class="mt-auto tap-target w-full flex items-center justify-between px-4 rounded-lg bg-surface-container-low text-primary font-bold hover:bg-surface-container-high transition-colors">
+                        Explore Story <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Story Card 2 -->
+<div class="vintage-overlay bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4 border border-outline-variant/15 hover:shadow-xl transition-shadow duration-300">
+<div class="w-full aspect-video rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Hands weaving an intricate Agaseke basket using natural sisal fibers and organic dyes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx5p_6S4w76EtCd4-MZRXLigSjjttqTrdI1bJIi0PNfZ5gMLbMEnm8b4ivHDVm5pH0p-IsV2yfGPhHL4WRX7dX4_WtGHkj9nZl_8nw2vcVgYXfOl-mAmxVgLzJK5al2KKINTRHEzcLAyA_OVtSDT3XgHDfjJVfNUGmoImXJluC5pmAYY-TWyXWF-ureciULqraFi9Tqok4-hRSGeeuFPGacvRBXl8SXtTXf1AUHu-_ufWkM3bN89pEH526AdojYiSqq85a_wSir_dB"/>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs font-label uppercase tracking-widest text-primary-container font-bold">
+<span>Artisanship</span>
+<span>8 Min Read</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface">The Pattern of Peace</h4>
+<p class="font-body text-on-surface-variant line-clamp-3">Decoding the geometric language woven into our Agaseke baskets, representing unity and protection.</p>
+</div>
+<button class="mt-auto tap-target w-full flex items-center justify-between px-4 rounded-lg bg-surface-container-low text-primary font-bold hover:bg-surface-container-high transition-colors">
+                        Explore Story <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Story Card 3 (Map Focus) -->
+<div class="bg-primary-container rounded-xl p-6 shadow-sm flex flex-col text-on-primary-container relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 opacity-20">
+<span class="material-symbols-outlined text-[160px]">map</span>
+</div>
+<h4 class="font-headline text-2xl font-bold mb-4 relative z-10">Story Mapping</h4>
+<p class="font-body text-primary-fixed mb-8 relative z-10 text-lg">Every hill has a name, and every name has a reason. Discover the topographical history of Musanze.</p>
+<button class="mt-auto tap-target bg-surface-bright text-primary font-bold px-6 py-2 rounded-xl relative z-10 shadow-lg self-start">
+                        Open Map
+                    </button>
+</div>
+</div>
+</section>
+<!-- The Archive -->
+<section class="mb-16">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-3xl font-bold text-primary">The Archive</h3>
+<div class="flex gap-4">
+<button class="material-symbols-outlined tap-target bg-surface-container-low rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">tune</button>
+<button class="material-symbols-outlined tap-target bg-surface-container-low rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">search</button>
+</div>
+</div>
+<!-- Editorial Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-auto gap-6">
+<!-- Large Vertical Card -->
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-high rounded-xl overflow-hidden flex flex-col border border-outline-variant/15">
+<div class="h-1/2 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An elderly Rwandan man with a weathered face and white hair, looking contemplatively into the distance in a rural setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC43MEdNbcRRqR3qBbXSTUzhvKAZ9r0SEz994LgcA0OM-FprIMcLMbAziG8kyh_eI4ubwUBLeKbnjct-lplkWtYfBsnGOMgczo5Rk_yY137OKJMZF4oHRX4xOURuZfI9XeN658_lM3-t72vLnrRppb8hTpjvSEsNJe_ivLVsIMS9GbwZ2mqP9rcLWCjLq_g9jK-D0R_JMd-6WrOeoUOrMj8jV9TXhZ_dKcNaobsNhwfIq8IoTU3x5HrsT8345pcAvUfySPvljE4rmx_"/>
+</div>
+<div class="p-8 flex flex-col justify-between flex-grow">
+<div>
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Biography</span>
+<h4 class="font-headline text-3xl font-black text-on-surface mt-2 mb-4">Mzee Mutabazi: The Cattle Keeper's Song</h4>
+<p class="font-body text-on-surface-variant text-lg">A chronicle of the nomadic cycles of the kings' cattle herds, and the songs that guided them through the valleys.</p>
+</div>
+<div class="mt-6 flex items-center gap-4">
+<button class="material-symbols-outlined terracotta-glow text-white w-14 h-14 rounded-full flex items-center justify-center shadow-md">mic</button>
+<span class="font-body font-medium text-on-surface">Listen to Testimony</span>
+</div>
+</div>
+</div>
+<!-- Small Square Cards -->
+<div class="bg-secondary-fixed rounded-xl p-6 flex flex-col justify-between border border-outline-variant/15 min-h-[240px]">
+<span class="material-symbols-outlined text-on-secondary-fixed text-4xl">translate</span>
+<div>
+<h5 class="font-headline text-xl font-bold text-on-secondary-fixed">Language Guide</h5>
+<p class="font-label text-xs uppercase mt-1 text-on-secondary-fixed-variant">32 Archival Phrases</p>
+</div>
+</div>
+<div class="bg-tertiary-container rounded-xl p-6 flex flex-col justify-between text-on-tertiary-container min-h-[240px]">
+<span class="material-symbols-outlined text-4xl">account_tree</span>
+<div>
+<h5 class="font-headline text-xl font-bold">Lineage Roots</h5>
+<p class="font-label text-xs uppercase mt-1 opacity-80">Explore Genealogies</p>
+</div>
+</div>
+<!-- Wide Horizontal Card -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col md:flex-row gap-6 border border-outline-variant/15">
+<div class="flex-grow">
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Community Project</span>
+<h4 class="font-headline text-2xl font-bold text-on-surface mt-2 mb-2">Restoring the Royal Kraal</h4>
+<p class="font-body text-on-surface-variant">Ongoing restoration efforts in Nyanza documenting the architectural brilliance of the King's Palace.</p>
+</div>
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Traditional Rwandan dome-shaped straw palace with intricate woven details and a large central opening" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3QWDZKa4hNNLLoseG5pmoH7vzFiq0HXHmZDj4u40Zt_vpwomdIsxAdsfXSwLS6HJbkn2q_dedjyA8ilQIcQzfQG8pnwycWsly4k-zYmoXPmOmS85DbaP5aKuvwMfZwSzgvMpqoE1GP-htRjJDipusrUZQlzhXl8ae8teT0yy17O0CKgwzAWwP8qgCS4m5jm5zWxe4Q0K2OBiPzGDlbEPQ3U3Tr7LeHzIsuflXiuPVJyfaKtleoR2vc_RBRIeFX7xsUNGFpAO5cFAZ"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] h-[88px] bg-[#fdf9e9]/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(28,28,19,0.06)] md:hidden">
+<div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg active:scale-95 duration-300">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined">mic_none</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Record</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Profile</span>
+</div>
+</div>
+</nav>
+<!-- Floating Audio Player (Bilingual Audio Player) -->
+<div class="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-40">
+<div class="bg-surface/80 backdrop-blur-xl border border-outline-variant/30 rounded-2xl p-4 shadow-2xl flex items-center gap-6 max-w-[90vw] md:max-w-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail of an elderly Rwandan man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7WuxTakX_J2GV-vyj4EUQL5_0RNWVTZviTZSHEdclfr55poln1u6mqRh89_ob1e7gbNgxiJeZ5l5PS15EUfzK-63zLUZwUFWJzi6CetaaoO3qBK8PU9Qu-0m87qbvUozTPouS-0k03wS1Pz8C_TnGfR1pMFJPBPy1St_GiUiQaoYOVCkGBac_ErglLhZoEIR1DI8FCBIFQqBupEGJ1FRZrfk2A69Zfw7tU4QDBsNgPBNEBBxM6R9XV-mN0YV8rupONGXHd-JJR1mc"/>
+</div>
+<div class="flex-grow">
+<p class="text-xs font-label uppercase tracking-widest text-primary-container font-bold mb-1">Now Playing</p>
+<h5 class="font-headline font-bold text-on-surface truncate">Mzee Mutabazi: Cattle Song</h5>
+<div class="w-full h-1.5 bg-outline-variant/30 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary w-[35%]"></div>
+</div>
+</div>
+<button class="material-symbols-outlined terracotta-glow text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg tap-target" style="font-variation-settings: 'FILL' 1;">pause</button>
+</div>
+</div>
+</body></html>

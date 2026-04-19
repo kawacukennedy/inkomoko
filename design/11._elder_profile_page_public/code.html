@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#323126",
+                    "surface-dim": "#dedacb",
+                    "tertiary-fixed": "#eae0e6",
+                    "surface": "#fdf9e9",
+                    "on-secondary-fixed-variant": "#6d391e",
+                    "secondary-fixed": "#ffdbcc",
+                    "on-surface": "#1c1c13",
+                    "outline-variant": "#e1bfb5",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#ffb59d",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#cec4ca",
+                    "on-primary-container": "#ffece7",
+                    "primary-container": "#c2410c",
+                    "secondary-container": "#feb28f",
+                    "background": "#fdf9e9",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f5f1e1",
+                    "surface-tint": "#ac3400",
+                    "primary": "#9b2f00",
+                    "secondary": "#895033",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#f8edf3",
+                    "secondary-fixed-dim": "#ffb694",
+                    "surface-container-highest": "#e6e3d3",
+                    "on-tertiary-fixed": "#1f1a1e",
+                    "surface-variant": "#e6e3d3",
+                    "on-secondary-container": "#794227",
+                    "primary-fixed-dim": "#ffb59d",
+                    "surface-container-low": "#f8f4e4",
+                    "primary-fixed": "#ffdbd0",
+                    "on-surface-variant": "#59413a",
+                    "surface-container": "#f2eede",
+                    "on-primary-fixed": "#390c00",
+                    "on-secondary-fixed": "#351000",
+                    "outline": "#8d7168",
+                    "on-background": "#1c1c13",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#726b70",
+                    "on-tertiary-fixed-variant": "#4b454a",
+                    "tertiary": "#5a5358",
+                    "on-primary-fixed-variant": "#832600",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#fdf9e9",
+                    "surface-container-high": "#ece8d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Lexend"],
+                    "label": ["Lexend"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .terracotta-gradient {
+            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
+        }
+        .organic-leaf {
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-32">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full" data-icon="menu">menu</button>
+<h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full" data-icon="search">search</button>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="Close up portrait of a young African woman with a friendly expression, natural lighting, high detail profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzK8qfg8VBZS3WOvgDkGFW41IeN2tCQESaMQ624Op1JAoWAo508mZUmHF1Txd18zHwX43j6oNxx6czxm-Bmmsf5P-wUqrg-sHxdFH1CsH_a_N-oriZwM9jZd0TdMc1hEe53b6RJMpp80XVDkIEeBxR5oInCyzsCWpa-ob3hfPIYVwk006G49zxbAMjqlM6B4ZlWasxLec_1u9ppDAUh7ib0HgWOvxgMktVEhEfLeOnNgK_YqTVuEcepg6qDjqng-QH-LHEbDi68a5w"/>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section: Portrait & Identity -->
+<section class="relative w-full h-[530px] md:h-[618px] overflow-hidden">
+<img alt="Elder Portrait" class="w-full h-full object-cover" data-alt="Distinguished elderly African man with gray hair and warm, wrinkled face, wearing traditional woven textile garment, soft sunset lighting, bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRdSffgUDN1AJMbgQm0cUJvJpjKuCUv-gIh2XHppqlnei86ZjMKbcSRIqeFWsKkD-zAtH0HNMpeKIpiPJyCDS0Trynu5aGCr_4glBR6zwzhzWxL3Wak38FmPgW7lr40pkaadri6sxkDqRzOD4KXwOhbQbnSXkBN039wSyc3WquHPEUtnk3nEUmCjI5qAtpU1gsbyzqJYv4eZHl_Bd9wB-yTeA-krGH84OcE1s3vghp9HsC9vu6EAcNr-u44GmSQH_DKvv0FVAFCAwL"/>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface via-transparent to-transparent opacity-80"></div>
+<!-- Identity Details -->
+<div class="absolute bottom-0 left-0 w-full p-8 md:p-12 space-y-2">
+<h2 class="font-headline text-5xl md:text-7xl font-black text-surface-bright tracking-tight">Mzee Kanyamahanga</h2>
+<div class="flex flex-wrap items-center gap-4 text-surface-container-lowest font-medium text-lg md:text-xl">
+<span class="bg-primary/30 backdrop-blur-sm px-4 py-1 rounded-full border border-surface-container-low/20">84 Years</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary-container" data-icon="location_on">location_on</span>
+                        Southern Province, Nyanza
+                    </span>
+<span class="bg-secondary-container/20 backdrop-blur-sm px-4 py-1 rounded-full border border-surface-container-low/20">Abanyiginya Clan</span>
+</div>
+</div>
+</section>
+<!-- Bio & Interaction Section -->
+<section class="px-6 md:px-12 py-12 grid grid-cols-1 md:grid-cols-12 gap-12 max-w-7xl mx-auto">
+<!-- Bio Block -->
+<div class="md:col-span-8 space-y-8">
+<div class="bg-surface-container-low p-8 organic-leaf shadow-sm">
+<div class="space-y-6">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="format_quote">format_quote</span>
+<div class="space-y-4">
+<p class="font-headline text-2xl md:text-3xl italic text-on-surface-variant leading-relaxed">
+                                "Inyambo si inka gusa, ni isura y’umuco wacu n’ubutwari bw’abasekuruza bacu."
+                            </p>
+<p class="font-body text-lg text-secondary leading-relaxed border-l-2 border-outline-variant pl-6 italic">
+                                "The Inyambo are not just cattle; they are the face of our culture and the bravery of our ancestors."
+                            </p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="font-headline text-2xl font-bold text-primary">About Mzee</h3>
+<p class="font-body text-lg text-on-surface leading-loose">
+                        Mzee Kanyamahanga is a master storyteller and keeper of the oral traditions of the Nyanza royal court. Having spent his youth as a royal herdsman, his archive contains rare accounts of the Inyambo cattle rituals and the poetic linguistics of the 1940s.
+                    </p>
+</div>
+</div>
+<!-- Follow Action Column -->
+<div class="md:col-span-4 space-y-6">
+<div class="bg-surface-container-high p-8 rounded-[2.5rem] sticky top-32">
+<h4 class="font-headline text-xl font-bold text-on-surface mb-4">Stay Connected</h4>
+<p class="text-sm text-on-surface-variant mb-8">Follow Mzee to receive notifications when new oral histories are added to his archive.</p>
+<button class="w-full h-14 terracotta-gradient text-on-primary-container font-bold organic-leaf flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+                        Follow Archive
+                    </button>
+<div class="mt-12 space-y-4">
+<div class="flex items-center justify-between text-sm font-medium border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant uppercase tracking-widest">Stories Shared</span>
+<span class="text-primary font-bold text-lg">24</span>
+</div>
+<div class="flex items-center justify-between text-sm font-medium border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant uppercase tracking-widest">Listeners</span>
+<span class="text-primary font-bold text-lg">1,204</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stories Grid: 'Their Archive' -->
+<section class="px-6 md:px-12 py-12 max-w-7xl mx-auto space-y-8">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-3xl font-black text-primary">Their Archive</h3>
+<button class="flex items-center gap-2 text-secondary font-bold hover:underline">
+                    View All <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Bento-style Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Story Card 1 (Large) -->
+<div class="md:col-span-2 group relative overflow-hidden bg-surface-container-lowest rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow border border-outline-variant/10">
+<div class="aspect-[16/9] overflow-hidden">
+<img alt="Story Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Ancient long-horned Rwandan cattle standing in a misty green pasture at dawn, traditional pastoral landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDwJrlelvshFopaH33DLYLSK9fhbPSJFd37axgURk7g-Qc2BJK8XFon2uE1T_YYiH6fwaRPkXjTGkfVsTRc-1LpSh6sVVwvpR20M-9X6c6q8S5RzaZuGaa6LkuBijmqfm_34R4p2mcE9XjTizA5MVzVQrnN2vk5fNWDyNEZo6Um88tsW-UdP_9-Uzvh67vSX9QnT8j5IKl5kOjk84YJNHL0cz8i08ysxk5dOVXprFY4hEkwJScSnNOsEIKERohGuzSWDYbdTHN2q9p"/>
+</div>
+<div class="p-8 space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-primary-container font-bold text-xs uppercase tracking-widest">Oral History</span>
+<span class="w-1 h-1 bg-outline rounded-full"></span>
+<span class="text-on-surface-variant text-sm">18 min audio</span>
+</div>
+<h4 class="font-headline text-2xl font-bold text-on-surface group-hover:text-primary transition-colors">The Ritual of the Royal Inyambo</h4>
+<p class="text-on-surface-variant line-clamp-2">Detailed account of the ceremonial training and grooming of the kings cattle in the Southern hills during the reign of King Mutara III Rudahigwa.</p>
+<div class="flex items-center gap-4 pt-4">
+<button class="h-12 w-12 flex items-center justify-center rounded-full bg-primary-fixed text-on-primary-fixed hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<span class="font-medium">Listen to History</span>
+</div>
+</div>
+</div>
+<!-- Story Card 2 -->
+<div class="group relative overflow-hidden bg-surface-container-low rounded-[2.5rem] shadow-sm border border-outline-variant/10">
+<div class="p-8 space-y-6 flex flex-col h-full justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 bg-secondary-container/20 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="mic">mic</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface">The Language of Bells</h4>
+<p class="text-on-surface-variant text-sm">How herdsmen communicated through whistle patterns and cattle bell frequencies across valleys.</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm">
+                            EXPLORE <span class="material-symbols-outlined" data-icon="north_east">north_east</span>
+</button>
+</div>
+</div>
+<!-- Story Card 3 -->
+<div class="group relative overflow-hidden bg-surface-container-high rounded-[2rem] shadow-sm border border-outline-variant/10">
+<div class="aspect-square overflow-hidden">
+<img alt="Cultural Artifact" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Hand-woven traditional Rwandan basket with intricate geometric patterns in black and white, close-up texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPNMku12ene66nIC8lxzjgsLgBGbbxFIU5rUVwSA_muCpwHuUvP3HoMO2_vTJ6zycuk_DJ31qBOLcXhfXQ_RyepzHV9TgLZ3sStwCz1WYDtv3ZpafcznE1SC4NM6I4k8-E9z5Vm7rJa37P7Ce-xaTjFnqAkX_QxJ2qenS8-gCCD_SE-0PVGQbjZUmwvxb5K2VTTSfIu3VWDneWbPDsLeBofy78Fot441V0DyNlLcag1T1ZwyonkeNwfQqsxlkSwnLaZ1PU_XWUlQVD"/>
+</div>
+<div class="p-6">
+<h4 class="font-headline text-lg font-bold text-on-surface">Patterns of Nyanza</h4>
+<p class="text-on-surface-variant text-xs mt-2 uppercase tracking-widest">Documentary Photo Archive</p>
+</div>
+</div>
+<!-- Story Card 4 -->
+<div class="md:col-span-2 group bg-tertiary-container/10 p-8 rounded-[3rem] flex flex-col md:flex-row gap-8 items-center border-2 border-dashed border-outline-variant/30">
+<div class="flex-1 space-y-4">
+<h4 class="font-headline text-2xl font-bold text-on-surface-variant">Unrecorded Memories?</h4>
+<p class="text-on-surface-variant">Mzee Kanyamahanga has 4 stories currently in the preservation queue. Support the archive to expedite the translation process.</p>
+<button class="bg-surface-container-lowest px-6 py-3 rounded-full font-bold text-primary shadow-sm hover:bg-surface transition-colors">Support Translation</button>
+</div>
+<div class="w-32 h-32 flex-shrink-0 bg-surface rounded-full flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-primary-container" data-icon="history_edu">history_edu</span>
+<div class="absolute inset-0 border-2 border-primary-container rounded-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] h-[88px] bg-[#fdf9e9]/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+<div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 dark:text-[#f8f4e4]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 dark:text-[#f8f4e4]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1c1c13]/70 dark:text-[#f8f4e4]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="mic_none">mic_none</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+</div>
+</div>
+</nav>
+<!-- Bilingual Floating Progress Indicator (The "Living" Element) -->
+<div class="fixed bottom-28 left-6 right-6 md:left-auto md:right-12 md:w-96 z-40 bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-primary/10 flex items-center gap-4">
+<div class="w-12 h-12 bg-primary flex items-center justify-center rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-white" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-primary uppercase tracking-tighter">Preserving Story #24</p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2">
+<div class="bg-primary h-full w-2/3 rounded-full"></div>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</button>
+</div>
+</body></html>

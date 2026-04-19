@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Family Manager - The Living Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#323126",
+                    "surface-dim": "#dedacb",
+                    "tertiary-fixed": "#eae0e6",
+                    "surface": "#fdf9e9",
+                    "on-secondary-fixed-variant": "#6d391e",
+                    "secondary-fixed": "#ffdbcc",
+                    "on-surface": "#1c1c13",
+                    "outline-variant": "#e1bfb5",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#ffb59d",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#cec4ca",
+                    "on-primary-container": "#ffece7",
+                    "primary-container": "#c2410c",
+                    "secondary-container": "#feb28f",
+                    "background": "#fdf9e9",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f5f1e1",
+                    "surface-tint": "#ac3400",
+                    "primary": "#9b2f00",
+                    "secondary": "#895033",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#f8edf3",
+                    "secondary-fixed-dim": "#ffb694",
+                    "surface-container-highest": "#e6e3d3",
+                    "on-tertiary-fixed": "#1f1a1e",
+                    "surface-variant": "#e6e3d3",
+                    "on-secondary-container": "#794227",
+                    "primary-fixed-dim": "#ffb59d",
+                    "surface-container-low": "#f8f4e4",
+                    "primary-fixed": "#ffdbd0",
+                    "on-surface-variant": "#59413a",
+                    "surface-container": "#f2eede",
+                    "on-primary-fixed": "#390c00",
+                    "on-secondary-fixed": "#351000",
+                    "outline": "#8d7118",
+                    "on-background": "#1c1c13",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#726b70",
+                    "on-tertiary-fixed-variant": "#4b454a",
+                    "tertiary": "#5a5358",
+                    "on-primary-fixed-variant": "#832600",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#fdf9e9",
+                    "surface-container-high": "#ece8d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Lexend"],
+                    "label": ["Lexend"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .asymmetric-leaf {
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+        }
+        .tap-target {
+            min-height: 56px;
+            min-width: 56px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b2f00] tap-target hover:bg-[#f8f4e4] rounded-full transition-colors duration-300">menu</button>
+<h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-label text-sm font-medium uppercase tracking-wider text-[#9b2f00]" href="#">Home</a>
+<a class="font-label text-sm font-medium uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="#">Library</a>
+<a class="font-label text-sm font-medium uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="#">Record</a>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of an elderly African woman with wise eyes and traditional headscarf in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG3MeJZ7k5Bmw8zN9MjER2q8rKMEdGUAUSgnIdBn6Gx7oFw6iGHXM54DeldYOOPX82r-LIxqj2rqFUV9zQXPigP_EW11r2Kjl27nYLnBlxmrmPxZYDwcgcZRGKw9DTJBvb4twqZ4PDVHbQPUZYQI_O3qm4dT618T8chdjzwYfVkz3BxhmZWc2YdbgDDON_Limdja82xvgvuvfYR_fllfblx3LBq7Xhrr6Jiy3q6X-bri9mDASNWG4RPP5-xTocguo0od0op67Ae-nV"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-5xl mx-auto space-y-8">
+<!-- Header Section -->
+<header class="space-y-2">
+<h2 class="font-headline text-3xl font-bold tracking-tight text-primary">Family Manager</h2>
+<p class="text-on-surface-variant font-body">Manage your Inkomoko lineage and archive contributors.</p>
+</header>
+<!-- Section 1: Family Code (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-low p-8 asymmetric-leaf flex flex-col justify-between space-y-6">
+<div>
+<label class="font-label text-xs font-bold uppercase tracking-widest text-primary mb-2 block">Your Unique Connection String</label>
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+<span class="font-headline text-4xl font-black tracking-tighter text-on-surface bg-surface-container-lowest px-6 py-4 rounded-xl shadow-sm">INKOMOKO-AB12</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 h-[56px] rounded-full font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined">share</span>
+                            Share Code
+                        </button>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    Invite family members to join the <span class="italic">Umuryango Wacu</span>. They will need this code to request access to your private archives.
+                </p>
+</div>
+<div class="bg-secondary-container/20 p-8 asymmetric-leaf relative overflow-hidden flex flex-col justify-center">
+<div class="relative z-10">
+<h3 class="font-headline text-xl font-bold text-on-secondary-container mb-2">Heritage Security</h3>
+<p class="text-sm text-on-secondary-container/80">Only approved members can listen to shared oral histories or view the family tree.</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">shield_moon</span>
+</div>
+</div>
+</section>
+<!-- Section 2: Pending Requests (Bento-ish List) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person_add</span>
+                    Pending Requests
+                    <span class="bg-primary-container text-on-primary-container text-xs px-2 py-1 rounded-full">2</span>
+</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Request Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-2xl flex items-center justify-between transition-all hover:bg-surface-container">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="portrait of a young African man with a friendly smile in warm outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVnB2npYL3qebWqqRAroMpbXXDvgToRwrAxZtJqg7qTbWMy5w9sUOAInOHhRzk3hiyhK5oI9mSgOjYhNwuixq9aGFaVqcdswkmJbTVgL3VZK2CatsNQyJvBGVoA1K2QkljqI0lYyAzvXtbkD07WfeIrQTz0TU90d1dRHVRbE8EJYoDwHOpPgtdhExEfEZQ9pNpXIZrxUvXqPLbnCL1WvKgiIYMc-UVTIVDhVlzoCuajFzqWdSKA_mR6ZzWSuhHX0ztoY57xTWLSDrW"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Karemera Jean</p>
+<p class="text-xs text-on-surface-variant font-label uppercase">Requested 2h ago</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-error/10 text-error hover:bg-error hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-primary-container text-white shadow-md active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</div>
+<!-- Request Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-2xl flex items-center justify-between transition-all hover:bg-surface-container">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="soft focused portrait of an African woman in creative attire with colorful patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmcMyxYW7P36lrrUWNM9H052GmNliaNtwBX_LWZ0MPyR-NzMVIoRONjt0p5Yflar1DMO-VDFKO8pBIUXcbpwr0xlTS7WPGWM5eHkFUCykslMSOV0tr6QW_J53L8HX-2I9hayoHK8TZi4leFapu8dnY0R00XlPBoxb8SS1Ci8NZSsuYQgc2ukkvbxjUe66undwpHZUNSdnIBFBy5DVClsI5NaAXRb175XQ9OByc4XNkeq27kt_zS3yvdYnLmbuIBP59Rwv9eYGU9d7s"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Umuhoza Alice</p>
+<p class="text-xs text-on-surface-variant font-label uppercase">Requested 1d ago</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-error/10 text-error hover:bg-error hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined">close</span>
+</button>
+<button class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-primary-container text-white shadow-md active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Members List -->
+<section class="space-y-4">
+<h3 class="font-headline text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+                Active Family Members
+            </h3>
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm shadow-[#1c1c13]/5">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Member</th>
+<th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Joined</th>
+<th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Role</th>
+<th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Member 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/10">
+<img class="w-full h-full object-cover" data-alt="portrait of a middle-aged African man with glasses and a thoughtful expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN0i5zvs-lyO8AazBYRMLQX5MoUSvuPuwXy6GgS-yoQKRZVuiyrvww9IZ7dq9Ad9WMBRrBh_EwMvtQ-yXuzpO4peZ5poHVGBHFGDqu-WH9ILbYnYRcv2hDbAihLnMiVgSMI_ozSAY2f_mYV_VwSbb6wCy5vx707G6cnzpdAvGe7eulaYYHgwc1J9cvh1xelqstwIeI2ub6XLiA9nIYdqi_1wkiRg2fRttlD5IacERzbrhn6PCjCkom99oAHkiCZjOPZkb0zjCte9n6"/>
+</div>
+<span class="font-medium text-on-surface">Gasana Emmanuel</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Oct 2023</td>
+<td class="px-6 py-5">
+<select class="bg-surface-container-low border-none rounded-lg text-sm font-medium py-2 px-4 focus:ring-2 focus:ring-primary-container cursor-pointer tap-target">
+<option selected="" value="admin">Admin</option>
+<option value="member">Member</option>
+<option value="youth">Youth</option>
+</select>
+</td>
+<td class="px-6 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 tap-target flex items-center justify-center">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Member 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/10">
+<img class="w-full h-full object-cover" data-alt="portrait of a young African woman with natural hair and bright smile in outdoor setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBva9PK_JzEhVcpRZbingawxzdbGGDMOCwECkuBwmtUjcqrUwNRqDBnKlnrbYFCSK5FwkSK7t4RLqOsFA-lST_eFWs6BRXRl32ZeCfckJr-nEOs5BOj36XxJHfQ0s0dAYN_XXmbjshlXtvVdVGDbA2PXsttfgGrzgmaqKNz_WpKhJDo-JPNm6-K41XAj9qmW_eWSp8v52ybKKsZ8WFs8iTuECbFzw4KW0vlufsspbn_KjEQ_iRhjV_43A6CA1MdRBLbz7UN0IZaG-_u"/>
+</div>
+<span class="font-medium text-on-surface">Mutesi Diane</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Jan 2024</td>
+<td class="px-6 py-5">
+<select class="bg-surface-container-low border-none rounded-lg text-sm font-medium py-2 px-4 focus:ring-2 focus:ring-primary-container cursor-pointer tap-target">
+<option value="admin">Admin</option>
+<option selected="" value="member">Member</option>
+<option value="youth">Youth</option>
+</select>
+</td>
+<td class="px-6 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 tap-target flex items-center justify-center">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Member 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/10">
+<img class="w-full h-full object-cover" data-alt="portrait of a young boy smiling broadly in a sun-drenched outdoor playground" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW6BVln9XbpKU4a6RMaRaVjZVqlXlLsA7WrnwBMa9ELFRIwUCTqQl2JsHNRJwUvL2ZsnItl4ZRi4auR9NiIolb-lp_HcsICaTMDsllV7iw1jC-0683R-_wgDHfXnLbnrn00ZTo7l9lxWKdkHeJpTwdVC-nIlliJH4-1bin-mHm3HTWLZePQYlf28_UJdoihn9jD_3tb5bNRMgl2pdvoueh4vtQvqPTyH5_pt4WHfUzNBe8qfgAAjcXeVQTHhIvTVT7Q0N6qqy8Zlwa"/>
+</div>
+<span class="font-medium text-on-surface">Irakiza Ben</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Feb 2024</td>
+<td class="px-6 py-5">
+<select class="bg-surface-container-low border-none rounded-lg text-sm font-medium py-2 px-4 focus:ring-2 focus:ring-primary-container cursor-pointer tap-target">
+<option value="admin">Admin</option>
+<option value="member">Member</option>
+<option selected="" value="youth">Youth</option>
+</select>
+</td>
+<td class="px-6 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 tap-target flex items-center justify-center">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#fdf9e9]/90 backdrop-blur-xl rounded-t-[2rem] h-[88px] shadow-[0_-4px_20px_rgba(28,28,19,0.06)] md:hidden">
+<div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">mic_none</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+</button>
+</div>
+</nav>
+<!-- Navigation Drawer for Web (hidden on mobile) -->
+<aside class="hidden fixed left-0 top-0 h-full w-80 bg-[#f8f4e4] shadow-2xl shadow-[#1c1c13]/10 md:flex flex-col p-8 space-y-6 z-[60] -translate-x-full lg:translate-x-0 transition-transform duration-500 rounded-r-[3rem]">
+<div class="flex flex-col items-start gap-4 mb-8">
+<div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of an elderly African man with gray hair and deep character lines, warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVoL5iUGJh_aMqu_3ilsaBPtpq5hi2RrzSa6Bkh5X5njVzI3hnRxQaOfNVfPSZIpswP7UvrfoIm7Mc7wKGsASZN0ES7xMqJNuiTT9ETLvEn7SsMxGm8M6p93W0SxJdoxLW2S5xfr3V1Ktx0zRLbmctVGOnBSxj9jexgtW-Gwd5FTFBhehtmCm4Z9PbkQutqhqZGeombhEJl8H_JfrM9W7bxIz4tLW8kR-saVqITpNmiROxLpTgm66xXaCJsKOGtGfnrMEgSH8WMVO2"/>
+</div>
+<div>
+<h4 class="font-headline text-[#9b2f00] font-bold text-xl">Umuryango Wacu</h4>
+<p class="font-body text-sm text-on-surface-variant">The Living Archive</p>
+</div>
+</div>
+<nav class="flex flex-col space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300 font-medium font-label" href="#">
+<span class="material-symbols-outlined">record_voice_over</span> Oral Histories
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300 font-medium font-label" href="#">
+<span class="material-symbols-outlined">account_tree</span> Family Tree
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300 font-medium font-label" href="#">
+<span class="material-symbols-outlined">map</span> Cultural Maps
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1c1c13]/80 hover:pl-6 transition-all duration-300 font-medium font-label" href="#">
+<span class="material-symbols-outlined">translate</span> Language Guide
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#9b2f00] bg-[#c2410c]/10 font-bold rounded-xl font-label" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span> Settings
+            </a>
+</nav>
+<div class="mt-auto pt-8 border-t border-surface-container-high">
+<div class="bg-surface-container p-4 rounded-2xl">
+<p class="text-xs font-bold text-primary uppercase tracking-tighter mb-1">Archive Space</p>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[65%] h-full bg-primary-container"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2">6.5GB of 10GB preserved</p>
+</div>
+</div>
+</aside>
+</body></html>

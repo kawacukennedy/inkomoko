@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inkomoko - Profile Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Lexend:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#323126",
+                    "surface-dim": "#dedacb",
+                    "tertiary-fixed": "#eae0e6",
+                    "surface": "#fdf9e9",
+                    "on-secondary-fixed-variant": "#6d391e",
+                    "secondary-fixed": "#ffdbcc",
+                    "on-surface": "#1c1c13",
+                    "outline-variant": "#e1bfb5",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#ffb59d",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#cec4ca",
+                    "on-primary-container": "#ffece7",
+                    "primary-container": "#c2410c",
+                    "secondary-container": "#feb28f",
+                    "background": "#fdf9e9",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f5f1e1",
+                    "surface-tint": "#ac3400",
+                    "primary": "#9b2f00",
+                    "secondary": "#895033",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#f8edf3",
+                    "secondary-fixed-dim": "#ffb694",
+                    "surface-container-highest": "#e6e3d3",
+                    "on-tertiary-fixed": "#1f1a1e",
+                    "surface-variant": "#e6e3d3",
+                    "on-secondary-container": "#794227",
+                    "primary-fixed-dim": "#ffb59d",
+                    "surface-container-low": "#f8f4e4",
+                    "primary-fixed": "#ffdbd0",
+                    "on-surface-variant": "#59413a",
+                    "surface-container": "#f2eede",
+                    "on-primary-fixed": "#390c00",
+                    "on-secondary-fixed": "#351000",
+                    "outline": "#8d7168",
+                    "on-background": "#1c1c13",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#726b70",
+                    "on-tertiary-fixed-variant": "#4b454a",
+                    "tertiary": "#5a5358",
+                    "on-primary-fixed-variant": "#832600",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#fdf9e9",
+                    "surface-container-high": "#ece8d9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Lexend"],
+                    "label": ["Lexend"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .leaf-shape {
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+        }
+        .asymmetric-card {
+            border-radius: 1.5rem 3rem 1.5rem 0.75rem;
+        }
+        .terracotta-glow {
+            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
+        }
+        .ghost-border {
+            border: 1px solid rgba(141, 113, 104, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2410c;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+<!-- Top Navigation Bar - Contextual Suppression Check: Active for Onboarding Header only -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md px-6 py-6 flex justify-between items-center">
+<h1 class="font-headline text-2xl font-black text-primary tracking-tight">The Living Archive</h1>
+<button class="text-on-surface-variant font-label text-sm uppercase tracking-widest hover:text-primary transition-colors">Skip</button>
+</header>
+<main class="flex-grow pt-24 pb-12 px-6 max-w-2xl mx-auto w-full">
+<!-- Progress Indicator -->
+<div class="flex justify-between items-center mb-12 px-4">
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full terracotta-glow flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-primary">Identity</span>
+</div>
+<div class="h-[2px] flex-grow mx-4 bg-outline-variant/30 rounded-full relative">
+<div class="absolute inset-0 w-1/3 terracotta-glow rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">public</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Roots</span>
+</div>
+<div class="h-[2px] flex-grow mx-4 bg-outline-variant/30 rounded-full"></div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">auto_stories</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Legacy</span>
+</div>
+</div>
+<!-- Step 1: Identity -->
+<section class="space-y-10">
+<div class="text-center space-y-3">
+<h2 class="font-headline text-4xl font-bold text-on-surface leading-tight">Welcome to the Archive</h2>
+<p class="text-on-surface-variant text-lg">Let’s begin by capturing your essence.</p>
+</div>
+<div class="flex flex-col items-center space-y-8">
+<!-- Circular Avatar Upload -->
+<div class="relative group">
+<div class="w-40 h-40 rounded-full bg-surface-container-high border-4 border-surface shadow-xl flex items-center justify-center overflow-hidden transition-transform duration-300 active:scale-95 cursor-pointer">
+<img class="w-full h-full object-cover opacity-60" data-alt="sepia toned portrait of an elderly man with wisdom in his eyes and traditional rwandan attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbO72moshinyV-koZj-2WF4xpN1TyWRsfjR7UnsQYj17B6pF2NsmVU-HDqiRavLLFrhjZk1iBk1s1oF385La3F553wQ8jX5FZ7db52cejYfAM_ZHLdpxDbsScCG_FFyL-dK7IiJIx1tGwEJNh7Z7dbaNbjhFKP7pNeYxOnfCbeHsRu2VQMnTOUWzX-mQ3_JQ_BawhUvoPmJDXCyYvNZ56-y4Z7s9iQa-D5RCOfMxb3yvhsYLTnJWxfvcxfXOVthQdf77TBsKjQ91zW"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl" data-weight="fill">photo_camera</span>
+</div>
+</div>
+<div class="absolute bottom-1 right-1 w-10 h-10 terracotta-glow rounded-full flex items-center justify-center text-white shadow-md">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="w-full space-y-6">
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-primary ml-1">What is your full name?</label>
+<input class="w-full h-14 px-6 bg-surface-container-low ghost-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-lg font-medium text-on-surface placeholder:text-on-surface-variant/40" placeholder="e.g. Jean-Baptiste Rugamba" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-primary ml-1">How do you identify?</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="h-14 flex items-center justify-center gap-3 bg-surface-container-lowest ghost-border rounded-xl text-on-surface font-medium hover:bg-primary-fixed transition-colors active:scale-95 duration-300">
+<span class="material-symbols-outlined">elderly</span>
+                                Elder
+                            </button>
+<button class="h-14 flex items-center justify-center gap-3 bg-surface-container-lowest ghost-border rounded-xl text-on-surface font-medium hover:bg-primary-fixed transition-colors active:scale-95 duration-300">
+<span class="material-symbols-outlined">child_care</span>
+                                Youth
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2 Preview: Roots (Scrollable or Tabbed Context) -->
+<section class="mt-20 space-y-10 pt-10 border-t border-outline-variant/10">
+<div class="space-y-4">
+<h2 class="font-headline text-3xl font-bold text-on-surface">Your Roots</h2>
+<p class="text-on-surface-variant">Where does your story begin?</p>
+</div>
+<div class="space-y-8">
+<!-- Map Visual Section -->
+<div class="asymmetric-card h-64 w-full bg-surface-container-high overflow-hidden relative shadow-inner">
+<img class="w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="stylized illustrated map of Rwanda with organic earth tones and parchment texture highlighting regional hills" data-location="Rwanda" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9dAfa0YaUs9HyH5mmOC6vpchMojF7m9_Uc70qr8RvZPqM3v14djxpJmORKnwMQInRDq3d6jQZ_eMUdop0rGBbqjBvs6JJQZMojTa-8_IKjqUcQfRcuONO-x3IX9nqRq0AcS5OqYip_KODHMiyCesFzlyJefAymxFWsvm5zbQkNJ_TRvrlmSFTU9XJ4xV62K9cMqqnSMitllGb5WTSQ4B3EOV5iGMHKf6KRgYPfBcjGzrr9v-mLU1Om6lDSE5l5Z6isDlhjEc-LsJ9"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6 right-6 flex items-center justify-between">
+<span class="font-label text-xs uppercase tracking-widest font-bold text-primary">Selected: Northern Province</span>
+<button class="bg-surface/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-white transition-colors">Change Region</button>
+</div>
+</div>
+<!-- Language Toggle -->
+<div class="bg-surface-container-low p-1.5 rounded-2xl flex items-center gap-1 ghost-border">
+<button class="flex-1 h-12 terracotta-glow rounded-xl text-white font-bold text-sm tracking-wide shadow-sm">Kinyarwanda</button>
+<button class="flex-1 h-12 text-on-surface-variant font-medium text-sm tracking-wide hover:bg-surface-container-high rounded-xl transition-colors">English</button>
+</div>
+<!-- Cultural Background Tag Input -->
+<div class="space-y-4">
+<label class="font-label text-sm font-semibold text-primary ml-1">Cultural Background</label>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed px-4 py-2 rounded-full text-sm font-medium">
+                            Umuco w'u Rwanda
+                            <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<span class="inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed px-4 py-2 rounded-full text-sm font-medium">
+                            Abagabo
+                            <button class="material-symbols-outlined text-xs">close</button>
+</span>
+<button class="inline-flex items-center gap-2 bg-surface-container-highest px-4 py-2 rounded-full text-sm font-medium border border-dashed border-outline/30 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">add</span>
+                            Add Affiliation
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 3 (Elder View): Record Voice Intro -->
+<section class="mt-20 space-y-10 pt-10 border-t border-outline-variant/10">
+<div class="space-y-4">
+<h2 class="font-headline text-3xl font-bold text-on-surface">Record Your Voice Intro</h2>
+<p class="text-on-surface-variant leading-relaxed">The sound of your voice is a gift for future generations. Share a brief greeting or a favorite proverb.</p>
+</div>
+<div class="bg-surface-container-low asymmetric-card p-12 flex flex-col items-center justify-center space-y-10 shadow-sm border border-white">
+<div class="relative">
+<!-- Red Microphone Button -->
+<button class="w-24 h-24 bg-error flex items-center justify-center text-white rounded-full shadow-[0_0_0_10px_rgba(186,26,26,0.1)] active:scale-90 duration-300 transition-all z-10 relative">
+<span class="material-symbols-outlined text-4xl" data-weight="fill">mic</span>
+</button>
+<!-- Ripple decorative elements -->
+<div class="absolute inset-0 w-24 h-24 bg-error rounded-full animate-ping opacity-20"></div>
+</div>
+<!-- Waveform Visual -->
+<div class="w-full flex items-center justify-center gap-1.5 h-16">
+<div class="w-1.5 h-4 bg-error rounded-full"></div>
+<div class="w-1.5 h-8 bg-error rounded-full"></div>
+<div class="w-1.5 h-12 bg-error rounded-full"></div>
+<div class="w-1.5 h-10 bg-error rounded-full"></div>
+<div class="w-1.5 h-14 bg-error rounded-full"></div>
+<div class="w-1.5 h-16 bg-error rounded-full"></div>
+<div class="w-1.5 h-10 bg-error rounded-full"></div>
+<div class="w-1.5 h-12 bg-error rounded-full"></div>
+<div class="w-1.5 h-6 bg-error rounded-full"></div>
+</div>
+<div class="flex items-center gap-2 text-error font-bold tracking-widest text-xs uppercase">
+<span class="w-2 h-2 bg-error rounded-full animate-pulse"></span>
+                    Recording... 0:12
+                </div>
+</div>
+</section>
+<!-- Step 3 (Youth View): Curiosity Chips -->
+<section class="mt-20 space-y-10 pt-10 border-t border-outline-variant/10">
+<div class="space-y-4 text-center">
+<h2 class="font-headline text-3xl font-bold text-on-surface">What are you most curious about?</h2>
+<p class="text-on-surface-variant">We'll help you find stories that spark your interest.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="aspect-square flex flex-col items-center justify-center gap-4 bg-surface-container-low hover:bg-primary-fixed leaf-shape transition-all duration-300 p-6 group">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform group-hover:scale-110">history_edu</span>
+<span class="font-headline text-lg font-bold">History</span>
+</button>
+<button class="aspect-square flex flex-col items-center justify-center gap-4 terracotta-glow text-white leaf-shape transition-all duration-300 p-6 scale-105 shadow-xl">
+<span class="material-symbols-outlined text-4xl" data-weight="fill">music_note</span>
+<span class="font-headline text-lg font-bold">Songs</span>
+<div class="absolute top-4 right-4">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</div>
+</button>
+<button class="aspect-square flex flex-col items-center justify-center gap-4 bg-surface-container-low hover:bg-primary-fixed leaf-shape transition-all duration-300 p-6 group">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform group-hover:scale-110">restaurant_menu</span>
+<span class="font-headline text-lg font-bold">Recipes</span>
+</button>
+<button class="aspect-square flex flex-col items-center justify-center gap-4 bg-surface-container-low hover:bg-primary-fixed leaf-shape transition-all duration-300 p-6 group">
+<span class="material-symbols-outlined text-4xl text-primary transition-transform group-hover:scale-110">format_quote</span>
+<span class="font-headline text-lg font-bold">Proverbs</span>
+</button>
+</div>
+</section>
+<!-- Footer Actions -->
+<div class="mt-20 flex flex-col space-y-4">
+<button class="h-16 terracotta-glow text-white rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-3">
+                Complete My Profile
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-on-surface-variant/60 text-xs font-medium uppercase tracking-widest px-8">
+                By continuing, you agree to preserve and respect the oral traditions of Rwanda.
+            </p>
+</div>
+</main>
+<!-- Bottom Navigation Bar - Suppressed for Onboarding as per "Destination Rule" -->
+<!-- But shown here in hidden state or as a non-interactive footer indicator if needed -->
+<footer class="mt-auto py-8 text-center text-on-surface-variant/30 font-headline text-sm italic">
+        "Knowledge is like a garden; if it is not cultivated, it cannot be harvested."
+    </footer>
+</body></html>

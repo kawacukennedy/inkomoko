@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inkomoko - Join The Living Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .asymmetric-leaf {
+            border-radius: 2rem 0.75rem 2rem 0.75rem;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- TopAppBar Fragment (Suppressed Nav, Branding Only) -->
+<header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 glass-nav shadow-sm shadow-[#1c1c13]/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="font-headline text-2xl font-black text-primary">Inkomoko</span>
+</div>
+<div class="flex gap-4 items-center">
+<span class="font-label text-xs font-medium uppercase tracking-wider text-on-surface-variant">English | Kinyarwanda</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-88px)]">
+<!-- Left Side: Narrative/Identity -->
+<section class="space-y-8">
+<div class="space-y-4">
+<h1 class="font-headline text-5xl lg:text-6xl font-black text-primary leading-tight tracking-tight">
+                    The Living Archive
+                </h1>
+<p class="font-headline italic text-2xl text-secondary leading-relaxed">
+                    "Umuryango ni nk’ishyamba, iyo ritemwe rigasigara ari ubutayu."
+                </p>
+<p class="font-body text-lg text-on-surface-variant max-w-md">
+                    Connect generations, preserve oral histories, and weave the fabric of our shared heritage. 
+                    Your voice is the bridge between yesterday and tomorrow.
+                </p>
+</div>
+<div class="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10">
+<img class="w-full h-full object-cover" data-alt="Close-up of a hand-woven Rwandan Agaseke basket with intricate patterns and earth-toned fibers in warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLjD6EbvKTl08SgGVDkA3S7eB1LNM8iGY28WbP-8PP5iT_hx4uDRrnFn6o_o3xRqBykY5gNZvXY3EqHN8qq3JZdQhVUD6sm7nKZ84_GjtGd6BSPTEPBHyEmwO4IwWCNxqr6WaogCpauXOV5DmnasIN9A6BgGh6Tq53_BxoArGWy2_m6lEzBXYzAHBI_4Ydy8F0woF8yEppy2ux5OFLZE7zQ_CKePQUVjVdOUhglS5OOFhVhfJdl1Gvmm8j6ZXnLX2iS8vgUklyPGr5"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+</div>
+</section>
+<!-- Right Side: Interaction/Form -->
+<section class="bg-surface-container-low p-8 lg:p-12 rounded-[3rem] shadow-xl shadow-[#1c1c13]/5 space-y-10">
+<div class="text-center space-y-2">
+<h2 class="font-headline text-3xl font-bold text-on-surface">Kwiyandikisha / Sign Up</h2>
+<p class="font-label text-on-surface-variant uppercase tracking-widest text-xs">Choose your role to begin</p>
+</div>
+<!-- Role Selector: Bento-style cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Elder Card -->
+<button class="flex flex-col items-center text-center p-6 bg-primary-container text-on-primary-container asymmetric-leaf shadow-lg transition-transform active:scale-95 duration-300 border-2 border-transparent hover:border-primary">
+<span class="material-symbols-outlined text-5xl mb-4" data-icon="forest">forest</span>
+<h3 class="font-headline text-xl font-bold leading-tight">Umukambwe / Elder</h3>
+<p class="font-body text-sm opacity-90 mt-2 italic">I have stories to share</p>
+</button>
+<!-- Youth Card -->
+<button class="flex flex-col items-center text-center p-6 bg-[#FFFBEB] text-on-secondary-container asymmetric-leaf shadow-md transition-transform active:scale-95 duration-300 border-2 border-transparent hover:border-outline-variant">
+<span class="material-symbols-outlined text-5xl mb-4 text-primary" data-icon="potted_plant">potted_plant</span>
+<h3 class="font-headline text-xl font-bold leading-tight text-on-surface">Urubyiruko / Youth</h3>
+<p class="font-body text-sm text-on-surface-variant mt-2 italic">I want to learn and listen</p>
+</button>
+</div>
+<!-- Inputs -->
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="block font-label text-sm font-semibold text-on-surface-variant px-2">
+                        Numero ya telefone / Phone Number
+                    </label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="phone_iphone">phone_iphone</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/30 rounded-xl focus:ring-2 focus:ring-primary font-body text-lg" placeholder="+250 ..." type="tel"/>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2">
+<div class="h-[1px] flex-grow bg-outline-variant/30"></div>
+<span class="font-label text-xs text-outline uppercase tracking-widest">or</span>
+<div class="h-[1px] flex-grow bg-outline-variant/30"></div>
+</div>
+<div class="space-y-2">
+<label class="block font-label text-sm font-semibold text-on-surface-variant px-2">
+                        Imeri / Email
+                    </label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="mail">mail</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/30 rounded-xl focus:ring-2 focus:ring-primary font-body text-lg" placeholder="example@inkomoko.rw" type="email"/>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full h-[72px] bg-gradient-to-br from-primary to-primary-container text-white rounded-2xl font-label font-bold text-lg uppercase tracking-widest shadow-xl shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                    Komeza / Continue
+                </button>
+</form>
+<p class="text-center font-body text-on-surface-variant">
+                Usanzwe ufite konti? / Already have an account? 
+                <a class="text-primary font-bold hover:underline ml-1" href="#">Injira / Log In</a>
+</p>
+</section>
+</main>
+<!-- Footer Decoration -->
+<footer class="w-full py-8 px-6 text-center opacity-40">
+<div class="flex justify-center gap-8 items-center">
+<span class="material-symbols-outlined" data-icon="fingerprint">fingerprint</span>
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="material-symbols-outlined" data-icon="diversity_3">diversity_3</span>
+</div>
+<p class="mt-4 font-label text-[10px] uppercase tracking-widest">Built for Umuryango Wacu • © 2024</p>
+</footer>
+</body></html>

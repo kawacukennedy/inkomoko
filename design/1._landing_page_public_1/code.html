@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inkomoko - The Living Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#323126",
+                        "surface-dim": "#dedacb",
+                        "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13",
+                        "outline-variant": "#e1bfb5",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7",
+                        "primary-container": "#c2410c",
+                        "secondary-container": "#feb28f",
+                        "background": "#fdf9e9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f5f1e1",
+                        "surface-tint": "#ac3400",
+                        "primary": "#9b2f00",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e",
+                        "surface-variant": "#e6e3d3",
+                        "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d",
+                        "surface-container-low": "#f8f4e4",
+                        "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a",
+                        "surface-container": "#f2eede",
+                        "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#8d7168",
+                        "on-background": "#1c1c13",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#726b70",
+                        "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358",
+                        "on-primary-fixed-variant": "#832600",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9",
+                        "surface-container-high": "#ece8d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Lexend"],
+                        "label": ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .leaf-radius {
+            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+        }
+        .terracotta-glow {
+            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
+        }
+        .glass-header {
+            background: rgba(253, 249, 233, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .waveform-bg {
+            background-image: radial-gradient(#e1bfb5 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline text-2xl font-black text-primary tracking-tight">The Living Archive</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
+<a class="text-primary" href="#">Home</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="#">Oral Histories</a>
+<a class="text-on-surface/60 hover:text-primary transition-colors" href="#">Family Tree</a>
+</nav>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of an elderly African person with wise expression and traditional attire, warm golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY"/>
+</div>
+</div>
+</div>
+</header>
+<main class="relative min-h-screen pt-24 pb-32">
+<!-- Decorative Waveform Background Element -->
+<div class="absolute inset-0 waveform-bg pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="container mx-auto px-6 py-12 md:py-24 flex flex-col items-center text-center">
+<!-- Central Visual (Bento-style asymmetric card) -->
+<div class="relative w-full max-w-4xl mb-16 px-4">
+<div class="absolute -top-6 -left-6 w-32 h-32 bg-secondary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -right-6 w-48 h-48 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 aspect-video md:aspect-[21/9] bg-surface-container-low leaf-radius overflow-hidden shadow-2xl shadow-on-surface/10 ring-1 ring-outline-variant/15">
+<img alt="Traditional Weaving" class="w-full h-full object-cover opacity-90" data-alt="Cinematic close-up of skilled hands weaving a traditional Rwandan Agaseke basket with natural fibers, warm sunlight casting soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB92yCjHowkG-us_fb8-5-yjlvoB5uDcXnlSKgVkhT3En-_C9pqtljMhNWhiLtg5DKOw4T3xi3g1BAFYiYAJaDZh-jc8gxYVNqzPSAFVz_kcw1YFTzkT3eGzjmAsoOG-633qED7Ha8-c2oDQA4j0WHBj8BSAIVygyin3-X0VwCC-YJ3jhChZ7niwaN6FyQVkYqvShD8468ETN6LZMlBjkUQadLUrUnakU4wyU4KVrOH2G89-Pn9Z81LDBhDdz0ZwfQAxCwOWBmiEP4n"/>
+<!-- Audio Waveform Overlay Effect -->
+<div class="absolute inset-0 flex items-center justify-center gap-1 px-12 opacity-40">
+<div class="w-1 h-12 bg-white rounded-full"></div>
+<div class="w-1 h-24 bg-white rounded-full"></div>
+<div class="w-1 h-16 bg-white rounded-full"></div>
+<div class="w-1 h-32 bg-white rounded-full"></div>
+<div class="w-1 h-20 bg-white rounded-full"></div>
+<div class="w-1 h-28 bg-white rounded-full"></div>
+<div class="w-1 h-14 bg-white rounded-full"></div>
+<div class="w-1 h-36 bg-white rounded-full"></div>
+<div class="w-1 h-22 bg-white rounded-full"></div>
+<div class="w-1 h-12 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Quotes -->
+<div class="max-w-3xl space-y-8 mb-12">
+<div class="space-y-4">
+<h2 class="font-headline text-4xl md:text-6xl font-bold text-on-surface tracking-tight leading-tight">
+                        'Without roots, a tree cannot stand.'
+                    </h2>
+<p class="font-headline italic text-2xl md:text-3xl text-primary-container font-medium">
+                        'Igiti kitagira imizi ntigihagarara'
+                    </p>
+</div>
+<p class="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+                    Preserving the echoes of our ancestors through the digital pulse of today. Inkomoko is where your family's history finds its forever home.
+                </p>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+<a class="group relative inline-flex items-center justify-center h-14 px-10 font-label font-bold text-on-primary-container terracotta-glow leaf-radius shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all duration-300 active:scale-95" href="#page-9">
+                    Explore Public Stories
+                </a>
+<a class="group flex items-center gap-3 text-on-secondary-fixed font-label font-semibold hover:text-primary transition-colors duration-300" href="#page-2">
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">group</span>
+                    Join Your Family Circle
+                </a>
+</div>
+</section>
+<!-- Featured Section (Bento Grid) -->
+<section class="container mx-auto px-6 py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Large Feature -->
+<div class="md:col-span-7 bg-surface-container-low p-10 leaf-radius flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div>
+<span class="inline-block px-4 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-widest mb-6">Featured Voice</span>
+<h3 class="font-headline text-3xl font-bold mb-4">The Shepherd's Song</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg mb-8">Listen to the hauntingly beautiful melodies of the high-altitude pastures, recorded by Elder Mutara in 1974 and digitally restored for the next generation.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white shadow-md hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-primary"></div>
+</div>
+</div>
+</div>
+<!-- Secondary Small Features -->
+<div class="md:col-span-5 grid grid-rows-2 gap-8">
+<div class="bg-surface-container-highest p-8 leaf-radius flex items-start gap-6 border border-outline-variant/10 shadow-sm">
+<div class="w-16 h-16 shrink-0 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">mic</span>
+</div>
+<div>
+<h4 class="font-headline text-xl font-bold mb-2">Preserve Your Legacy</h4>
+<p class="text-sm text-on-surface-variant">Simple tools to record oral histories directly from your mobile device.</p>
+</div>
+</div>
+<div class="bg-surface-container p-8 leaf-radius flex items-start gap-6 border border-outline-variant/10 shadow-sm">
+<div class="w-16 h-16 shrink-0 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">account_tree</span>
+</div>
+<div>
+<h4 class="font-headline text-xl font-bold mb-2">Visual Lineage</h4>
+<p class="text-sm text-on-surface-variant">Trace your family roots through an interactive, woven cultural map.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low px-6 pt-20 pb-32">
+<div class="container mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-center border-t border-outline-variant/20 pt-12 gap-8">
+<div class="text-center md:text-left">
+<h2 class="font-headline text-3xl font-black text-primary mb-2">The Living Archive</h2>
+<p class="font-body text-on-surface-variant max-w-sm">
+                        A sanctuary for voices. <br/>
+<span class="italic text-primary-container">Ubuturo bw’amajwi.</span>
+</p>
+</div>
+<div class="flex gap-12 font-label text-sm font-semibold uppercase tracking-wider text-on-surface-variant">
+<div class="flex flex-col gap-3">
+<span class="text-primary text-[10px] tracking-[0.2em] mb-2">Discover</span>
+<a class="hover:text-primary transition-colors" href="#">Library</a>
+<a class="hover:text-primary transition-colors" href="#">Curated Collections</a>
+<a class="hover:text-primary transition-colors" href="#">Public Circle</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-primary text-[10px] tracking-[0.2em] mb-2">Support</span>
+<a class="hover:text-primary transition-colors" href="#">Ethics</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</div>
+<div class="mt-16 flex flex-col md:flex-row justify-between items-center text-[10px] font-label uppercase tracking-widest text-on-surface/40 gap-4">
+<p>© 2024 Inkomoko. All rights preserved.</p>
+<div class="flex gap-6">
+<span>Terms of Storytelling</span>
+<span>Cultural Protocols</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 glass-header rounded-t-[2rem] h-[88px] flex justify-around items-center px-4 pb-safe shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg scale-95 active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label text-[10px] font-medium uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label text-[10px] font-medium uppercase tracking-wider mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined">mic_none</span>
+<span class="font-label text-[10px] font-medium uppercase tracking-wider mt-1">Record</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-[10px] font-medium uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
