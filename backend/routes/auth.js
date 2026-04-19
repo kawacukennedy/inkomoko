@@ -121,6 +121,9 @@ router.post('/verify-otp', async (req, res) => {
     }
 
     const user = result.rows[0];
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     if (purpose === 'signup' || purpose === 'login') {
       // Mark as verified if it was signup

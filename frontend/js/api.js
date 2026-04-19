@@ -36,7 +36,7 @@ const API = {
       const result = await response.json();
 
       if (!response.ok) {
-        throw { status: response.status, message: result.error || 'Request failed' };
+        throw new Error(result.error || result.message || `Request failed with status ${response.status}`);
       }
 
       return result;

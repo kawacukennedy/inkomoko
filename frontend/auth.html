@@ -369,11 +369,18 @@
         // OTP VERIFICATION
         if (currentMode === 'otp') {
           result = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
-          if (result.token) {
+          if (result && result.token) {
             API.setToken(result.token);
             App.setUser(result.user);
             return handleRedirect(result.user);
           }
+        }
+
+        // Handle immediate login/signup if OTP wasn't required (fallback)
+        if (result && result.token) {
+          API.setToken(result.token);
+          App.setUser(result.user);
+          return handleRedirect(result.user);
         }
 
         // FORGOT PASSWORD
@@ -399,6 +406,10 @@
     }
 
     function handleRedirect(user) {
+      if (!user) {
+        console.error('Redirect failed: user object missing');
+        return;
+      }
       if (!user.is_onboarded) {
         window.location.href = '/onboarding';
       } else {
