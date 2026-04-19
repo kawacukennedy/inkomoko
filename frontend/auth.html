@@ -367,11 +367,12 @@
             result = await API.login(data);
           }
 
-          if (result.otp_required) {
-            otpContext = { identifier: emailPhone, purpose: result.purpose };
+          if (result && result.otp_required) {
+            console.log('OTP required for signup. Switching to OTP mode.');
+            otpContext = { identifier: emailPhone, purpose: result.purpose || 'signup' };
             document.getElementById('targetIdentifier').textContent = emailPhone;
             switchMode('otp');
-            return;
+            return; // EXIT HERE
           }
         }
 
@@ -387,9 +388,11 @@
 
         // Handle immediate login/signup if OTP wasn't required
         if (result && result.token && result.user) {
+          console.log('Auth successful (no OTP). Redirecting...');
           API.setToken(result.token);
           App.setUser(result.user);
-          return handleRedirect(result.user);
+          handleRedirect(result.user);
+          return;
         }
 
         // FORGOT PASSWORD
@@ -420,14 +423,15 @@
 
     function handleRedirect(user) {
       try {
-        if (!user) {
-          console.warn('Redirect aborted: User object is null or undefined.');
+        if (!user || typeof user !== 'object') {
+          console.warn('Redirect aborted: User object is null or invalid.');
           return;
         }
         
         console.log('Initiating secure redirect for user:', user.id);
         
-        const isCompleted = user.is_onboarded === true;
+        // Deep safety for is_onboarded property
+        const isCompleted = (user && user.is_onboarded === true);
         const role = user.role || 'youth';
 
         if (!isCompleted) {

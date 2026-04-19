@@ -50,19 +50,36 @@ const App = {
 
   loadUser() {
     const userData = localStorage.getItem('inkomoko_user');
-    if (userData) {
-      try { this.currentUser = JSON.parse(userData); } catch(e) { this.currentUser = null; }
+    if (userData && userData !== 'undefined' && userData !== 'null') {
+      try { 
+        const parsed = JSON.parse(userData); 
+        if (parsed && typeof parsed === 'object') {
+          this.currentUser = parsed;
+        } else {
+          this.currentUser = null;
+        }
+      } catch(e) { 
+        this.currentUser = null; 
+      }
+    } else {
+      this.currentUser = null;
     }
   },
 
   setUser(user) {
-    this.currentUser = user;
-    if (user) localStorage.setItem('inkomoko_user', JSON.stringify(user));
-    else localStorage.removeItem('inkomoko_user');
+    if (user && typeof user === 'object') {
+      this.currentUser = user;
+      localStorage.setItem('inkomoko_user', JSON.stringify(user));
+    } else {
+      this.currentUser = null;
+      localStorage.removeItem('inkomoko_user');
+    }
   },
 
   isLoggedIn() {
-    return !!API.getToken() && !!this.currentUser;
+    const hasToken = !!API.getToken();
+    const hasUser = this.currentUser && typeof this.currentUser === 'object' && this.currentUser.id;
+    return hasToken && !!hasUser;
   },
 
   isElder() {
