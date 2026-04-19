@@ -19,24 +19,32 @@ router.post('/signup', async (req, res) => {
     // Check if user exists
     let existing;
     if (email) {
-      existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
+      existing = await db.query('SELECT id, is_verified FROM users WHERE email = $1', [email]);
     } else {
-      existing = await db.query('SELECT id FROM users WHERE phone = $1', [phone]);
-    }
-
-    if (existing.rows.length > 0) {
-      return res.status(409).json({ error: 'Account already exists' });
+      existing = await db.query('SELECT id, is_verified FROM users WHERE phone = $1', [phone]);
     }
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    // Create user (unverified by default)
-    const result = await db.query(
-      `INSERT INTO users (full_name, email, phone, password_hash, role, is_verified)
-       VALUES ($1, $2, $3, $4, $5, FALSE)
-       RETURNING id, full_name, role`,
-      [full_name, email || null, phone || null, password_hash, role || 'youth']
-    );
+    if (existing.rows.length > 0) {
+      const user = existing.rows[0];
+      if (user.is_verified) {
+        return res.status(409).json({ error: 'This account already exists. Please log in.' });
+      } else {
+        // If not verified, allow re-signup/overwriting info and resend OTP
+        await db.query(
+          `UPDATE users SET full_name = $1, password_hash = $2, role = $3 WHERE id = $4`,
+          [full_name, password_hash, role || 'youth', user.id]
+        );
+      }
+    } else {
+      // Create new user (unverified by default)
+      await db.query(
+        `INSERT INTO users (full_name, email, phone, password_hash, role, is_verified)
+         VALUES ($1, $2, $3, $4, $5, FALSE)`,
+        [full_name, email || null, phone || null, password_hash, role || 'youth']
+      );
+    }
 
     const otpCode = OTP.generateCode();
     await OTP.save(identifier, otpCode, 'signup');

@@ -332,7 +332,16 @@
     async function handleAuth(e, isResend = false) {
       if (e) e.preventDefault();
       const errorEl = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitBtn');
       errorEl.style.display = 'none';
+
+      // Prevent double submissions
+      if (submitBtn.disabled) return;
+      
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Please wait...';
+      submitBtn.style.opacity = '0.7';
 
       const emailPhone = document.getElementById('emailPhone').value.trim();
       const password = document.getElementById('password').value;
@@ -368,16 +377,16 @@
 
         // OTP VERIFICATION
         if (currentMode === 'otp') {
-          result = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
-          if (result && result.token) {
-            API.setToken(result.token);
-            App.setUser(result.user);
-            return handleRedirect(result.user);
+          const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
+          if (otpResult && otpResult.token && otpResult.user) {
+            API.setToken(otpResult.token);
+            App.setUser(otpResult.user);
+            return handleRedirect(otpResult.user);
           }
         }
 
-        // Handle immediate login/signup if OTP wasn't required (fallback)
-        if (result && result.token) {
+        // Handle immediate login/signup if OTP wasn't required
+        if (result && result.token && result.user) {
           API.setToken(result.token);
           App.setUser(result.user);
           return handleRedirect(result.user);
@@ -402,6 +411,10 @@
       } catch (err) {
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        submitBtn.style.opacity = '1';
       }
     }
 

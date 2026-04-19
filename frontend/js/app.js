@@ -16,9 +16,17 @@ const App = {
     const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
 
-    if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath) && !this.isLoggedIn()) {
-      window.location.replace('/welcome');
-      return;
+    if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath)) {
+      if (!this.isLoggedIn()) {
+        window.location.replace('/welcome');
+        return;
+      }
+      // Safety: Ensure user object has essential properties
+      if (this.currentUser && (!this.currentUser.role || this.currentUser.is_onboarded === undefined)) {
+        console.warn('Corrupt user session detected. Logging out.');
+        this.logout();
+        return;
+      }
     }
 
     // Register service worker
