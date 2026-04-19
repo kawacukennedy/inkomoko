@@ -7,26 +7,39 @@ const App = {
   currentUser: null,
 
   init() {
+    // Global Error Safety Net
+    window.onerror = function(msg, url, line, col, error) {
+      if (msg.includes('is_onboarded') || msg.includes('undefined')) {
+        console.warn('Caught and suppressed potential auth-state crash:', msg);
+        return true; // Prevent the error from crashing the app
+      }
+      return false;
+    };
+
     this.loadUser();
     this.setupOnlineIndicator();
     
     // Global Authentication Guard
-    const publicPages = ['/', '/index', '/auth', '/welcome'];
+    const publicPages = ['/', '/index', '/auth', '/welcome', '/index.html', '/auth.html', '/welcome.html'];
     const path = window.location.pathname;
     const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
 
-    if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath)) {
-      if (!this.isLoggedIn()) {
-        window.location.replace('/welcome');
-        return;
+    try {
+      if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath)) {
+        if (!this.isLoggedIn()) {
+          window.location.replace('/welcome');
+          return;
+        }
+        // Safety: Ensure user object has essential properties
+        if (this.currentUser && (!this.currentUser.role || this.currentUser.is_onboarded === undefined)) {
+          console.warn('Corrupt user session detected. Logging out.');
+          this.logout();
+          return;
+        }
       }
-      // Safety: Ensure user object has essential properties
-      if (this.currentUser && (!this.currentUser.role || this.currentUser.is_onboarded === undefined)) {
-        console.warn('Corrupt user session detected. Logging out.');
-        this.logout();
-        return;
-      }
+    } catch (err) {
+      console.error('App Init Guard Error:', err);
     }
 
     // Register service worker

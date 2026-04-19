@@ -419,14 +419,25 @@
     }
 
     function handleRedirect(user) {
-      if (!user) {
-        console.error('Redirect failed: user object missing');
-        return;
-      }
-      if (!user.is_onboarded) {
-        window.location.href = '/onboarding';
-      } else {
-        window.location.href = user.role === 'elder' ? '/elder-dashboard' : '/youth-dashboard';
+      try {
+        if (!user) {
+          console.warn('Redirect aborted: User object is null or undefined.');
+          return;
+        }
+        
+        console.log('Initiating secure redirect for user:', user.id);
+        
+        const isCompleted = user.is_onboarded === true;
+        const role = user.role || 'youth';
+
+        if (!isCompleted) {
+          window.location.href = '/onboarding.html';
+        } else {
+          window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+        }
+      } catch (err) {
+        console.error('CRITICAL REDIRECT ERROR:', err);
+        App.showToast('Redirection failed. Please try signing in again.', 'error');
       }
     }
   </script>
