@@ -93,6 +93,33 @@
             background: rgba(253, 249, 233, 0.8);
             backdrop-filter: blur(12px);
         }
+        .chip {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-family: var(--font-label);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1.5px solid var(--outline-variant);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chip-active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(155, 47, 0, 0.2);
+        }
+        .chip-inactive {
+            background: var(--surface-container-low);
+            color: var(--on-surface-variant);
+        }
+        .chip-inactive:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
 </style>
 </head>
 <body>

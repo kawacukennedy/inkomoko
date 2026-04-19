@@ -82,6 +82,9 @@ const API = {
   // Auth
   async signup(data) { return this.post('/auth/signup', data); },
   async login(data) { return this.post('/auth/login', data); },
+  async verifyOTP(data) { return this.post('/auth/verify-otp', data); },
+  async forgotPassword(identifier) { return this.post('/auth/forgot-password', { identifier }); },
+  async resetPassword(data) { return this.post('/auth/reset-password', data); },
 
   // Users
   async getProfile() { return this.get('/users/profile'); },

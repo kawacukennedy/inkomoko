@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('../config/database');
 const { generateToken } = require('../middleware/auth');
+const OTP = require('../utils/otp');
 
 const router = express.Router();
 
@@ -9,45 +10,44 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
   try {
     const { full_name, email, phone, password, role } = req.body;
+    const identifier = email || phone;
 
-    if (!full_name || !password || (!email && !phone)) {
+    if (!full_name || !password || !identifier) {
       return res.status(400).json({ error: 'Name, password, and email or phone are required' });
     }
 
-    if (role && !['elder', 'youth'].includes(role)) {
-      return res.status(400).json({ error: 'Role must be elder or youth' });
+    // Check if user exists
+    let existing;
+    if (email) {
+      existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
+    } else {
+      existing = await db.query('SELECT id FROM users WHERE phone = $1', [phone]);
     }
 
-    // Check if user exists
-    if (email) {
-      const existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
-      if (existing.rows.length > 0) {
-        return res.status(409).json({ error: 'Email already registered' });
-      }
-    }
-    if (phone) {
-      const existing = await db.query('SELECT id FROM users WHERE phone = $1', [phone]);
-      if (existing.rows.length > 0) {
-        return res.status(409).json({ error: 'Phone number already registered' });
-      }
+    if (existing.rows.length > 0) {
+      return res.status(409).json({ error: 'Account already exists' });
     }
 
     const password_hash = await bcrypt.hash(password, 10);
 
+    // Create user (unverified by default)
     const result = await db.query(
-      `INSERT INTO users (full_name, email, phone, password_hash, role)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, full_name, email, phone, role, is_onboarded, created_at`,
+      `INSERT INTO users (full_name, email, phone, password_hash, role, is_verified)
+       VALUES ($1, $2, $3, $4, $5, FALSE)
+       RETURNING id, full_name, role`,
       [full_name, email || null, phone || null, password_hash, role || 'youth']
     );
 
-    const user = result.rows[0];
-    const token = generateToken(user);
+    const otpCode = OTP.generateCode();
+    await OTP.save(identifier, otpCode, 'signup');
+    await OTP.send(identifier, otpCode);
 
-    // Create default settings
-    await db.query('INSERT INTO user_settings (user_id) VALUES ($1)', [user.id]);
-
-    res.status(201).json({ user, token });
+    res.status(201).json({ 
+      message: 'Signup successful. Please verify your OTP.',
+      otp_required: true,
+      identifier,
+      purpose: 'signup'
+    });
   } catch (err) {
     console.error('Signup error:', err);
     res.status(500).json({ error: 'Server error' });
@@ -58,8 +58,9 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, phone, password } = req.body;
+    const identifier = email || phone;
 
-    if (!password || (!email && !phone)) {
+    if (!password || !identifier) {
       return res.status(400).json({ error: 'Email/phone and password are required' });
     }
 
@@ -81,14 +82,118 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    const token = generateToken(user);
+    const otpCode = OTP.generateCode();
+    await OTP.save(identifier, otpCode, 'login');
+    await OTP.send(identifier, otpCode);
 
-    // Remove sensitive fields
-    delete user.password_hash;
-
-    res.json({ user, token });
+    res.json({ 
+      message: 'OTP sent for verification',
+      otp_required: true,
+      identifier,
+      purpose: 'login'
+    });
   } catch (err) {
     console.error('Login error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /api/auth/verify-otp
+router.post('/verify-otp', async (req, res) => {
+  try {
+    const { identifier, code, purpose } = req.body;
+
+    if (!identifier || !code || !purpose) {
+      return res.status(400).json({ error: 'Missing verification data' });
+    }
+
+    const isValid = await OTP.verify(identifier, code, purpose);
+    if (!isValid) {
+      return res.status(400).json({ error: 'Invalid or expired OTP' });
+    }
+
+    // Process based on purpose
+    let result;
+    if (identifier.includes('@')) {
+      result = await db.query('SELECT * FROM users WHERE email = $1', [identifier]);
+    } else {
+      result = await db.query('SELECT * FROM users WHERE phone = $1', [identifier]);
+    }
+
+    const user = result.rows[0];
+
+    if (purpose === 'signup' || purpose === 'login') {
+      // Mark as verified if it was signup
+      if (purpose === 'signup') {
+        await db.query('UPDATE users SET is_verified = TRUE WHERE id = $1', [user.id]);
+        user.is_verified = true;
+      }
+
+      const token = generateToken(user);
+      delete user.password_hash;
+      return res.json({ user, token });
+    }
+
+    if (purpose === 'reset') {
+      return res.json({ message: 'OTP verified. You can now reset your password.', verified: true });
+    }
+
+    res.status(400).json({ error: 'Invalid purpose' });
+  } catch (err) {
+    console.error('Verify error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /api/auth/forgot-password
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { identifier } = req.body;
+    if (!identifier) return res.status(400).json({ error: 'Identifier required' });
+
+    let result;
+    if (identifier.includes('@')) {
+      result = await db.query('SELECT id FROM users WHERE email = $1', [identifier]);
+    } else {
+      result = await db.query('SELECT id FROM users WHERE phone = $1', [identifier]);
+    }
+
+    if (result.rows.length === 0) {
+      // Don't reveal if user exists for security, just return success
+      return res.json({ message: 'If account exists, OTP has been sent' });
+    }
+
+    const otpCode = OTP.generateCode();
+    await OTP.save(identifier, otpCode, 'reset');
+    await OTP.send(identifier, otpCode);
+
+    res.json({ message: 'Password reset OTP sent', otp_required: true, identifier, purpose: 'reset' });
+  } catch (err) {
+    console.error('Forgot pass error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /api/auth/reset-password
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { identifier, code, new_password } = req.body;
+    if (!identifier || !code || !new_password) return res.status(400).json({ error: 'Missing data' });
+
+    // We verify one last time here just in case, or we assume a secure token was given (simpler to verify code directly here)
+    const isValid = await OTP.verify(identifier, code, 'reset');
+    if (!isValid) return res.status(400).json({ error: 'Invalid code or expired' });
+
+    const password_hash = await bcrypt.hash(new_password, 10);
+    if (identifier.includes('@')) {
+      await db.query('UPDATE users SET password_hash = $1 WHERE email = $2', [password_hash, identifier]);
+    } else {
+      await db.query('UPDATE users SET password_hash = $1 WHERE phone = $2', [password_hash, identifier]);
+    }
+
+    res.json({ message: 'Password reset successful' });
+  } catch (err) {
+    console.error('Reset pass error:', err);
     res.status(500).json({ error: 'Server error' });
   }
 });

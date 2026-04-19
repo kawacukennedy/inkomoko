@@ -137,7 +137,7 @@
     </div>
 
     <!-- Mode Toggle -->
-    <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem;width:100%" id="modeToggle">
+    <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem;width:100%" id="authNav">
       <button onclick="switchMode('login')" id="loginTab"
               style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s">
         Sign In
@@ -159,7 +159,7 @@
       </div>
 
       <!-- Email / Phone -->
-      <div class="form-group">
+      <div class="form-group" id="identifierGroup">
         <label class="form-label" for="emailPhone">Email or Phone</label>
         <div class="input-wrapper">
           <input type="text" id="emailPhone" class="form-input" placeholder="email@example.com or +250..." required>
@@ -167,12 +167,36 @@
       </div>
 
       <!-- Password -->
-      <div class="form-group">
-        <label class="form-label" for="password">Password</label>
+      <div class="form-group" id="passwordGroup">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label class="form-label" for="password">Password</label>
+          <a href="#" onclick="switchMode('forgot'); return false;" style="font-size:0.75rem;color:var(--primary);font-weight:600;margin-bottom:0.5rem">Forgot?</a>
+        </div>
         <div class="input-wrapper">
-          <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
-          <button type="button" onclick="togglePassword()" aria-label="Toggle password visibility">
+          <input type="password" id="password" class="form-input" placeholder="Enter your password">
+          <button type="button" onclick="togglePassword('password')" aria-label="Toggle password visibility">
             <span class="material-symbols-outlined" id="passToggle">visibility_off</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- OTP Group (hidden by default) -->
+      <div id="otpGroup" class="form-group" style="display:none;text-align:center">
+        <label class="form-label" style="text-align:center">Enter Verification Code</label>
+        <p style="font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:1rem">A 6-digit code was sent to <span id="targetIdentifier" style="font-weight:700"></span></p>
+        <div class="input-wrapper">
+          <input type="text" id="otpCode" class="form-input" maxlength="6" placeholder="0 0 0 0 0 0" style="text-align:center;letter-spacing:0.5em;font-size:1.5rem;font-weight:800">
+        </div>
+        <p style="font-size:0.75rem;margin-top:1rem;color:var(--on-surface-variant)">Didn't receive it? <a href="#" onclick="handleAuth(event, true); return false;" style="color:var(--primary);font-weight:700">Resend</a></p>
+      </div>
+
+      <!-- New Password Group (reset only) -->
+      <div id="newPassGroup" class="form-group" style="display:none">
+        <label class="form-label" for="newPassword">New Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="newPassword" class="form-input" placeholder="Minimum 6 characters">
+          <button type="button" onclick="togglePassword('newPassword')" aria-label="Toggle password visibility">
+            <span class="material-symbols-outlined">visibility_off</span>
           </button>
         </div>
       </div>
@@ -210,10 +234,16 @@
     </form>
 
     <!-- Bottom Link -->
-    <p style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--on-surface-variant)">
+    <div id="authBottom" style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--on-surface-variant)">
       <span id="switchText">Don't have an account?</span>
       <a href="#" onclick="switchMode(currentMode === 'login' ? 'signup' : 'login'); return false;" style="color:var(--primary);font-weight:700;margin-left:0.25rem" id="switchLink">Create one</a>
-    </p>
+    </div>
+
+    <!-- Back to Sign In -->
+    <a href="#" id="backLink" onclick="switchMode('login'); return false;" 
+       style="display:none;margin-top:2rem;text-align:center;color:var(--on-surface-variant);font-size:0.875rem;font-weight:600">
+       <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle">arrow_back</span> Back to Sign In
+    </a>
   </main>
 
   <script src="/js/api.js"></script>
@@ -222,32 +252,65 @@
   <script>
     let currentMode = 'login';
     let selectedRole = 'youth';
+    let otpContext = null; // { identifier, purpose }
 
-    // Check URL params
+    // Init
     const params = new URLSearchParams(window.location.search);
-    if (params.get('mode') === 'signup' || params.get('role')) {
-      switchMode('signup');
-    }
-    if (params.get('role')) {
-      selectRole(params.get('role'));
-    }
+    if (params.get('mode') === 'signup' || params.get('role')) switchMode('signup');
+    if (params.get('role')) selectRole(params.get('role'));
 
     function switchMode(mode) {
       currentMode = mode;
       const isLogin = mode === 'login';
+      const isSignup = mode === 'signup';
+      const isOTP = mode === 'otp';
+      const isForgot = mode === 'forgot';
+      const isReset = mode === 'reset';
 
-      document.getElementById('loginTab').style.background = isLogin ? 'var(--primary)' : 'transparent';
-      document.getElementById('loginTab').style.color = isLogin ? 'white' : 'var(--on-surface-variant)';
-      document.getElementById('signupTab').style.background = isLogin ? 'transparent' : 'var(--primary)';
-      document.getElementById('signupTab').style.color = isLogin ? 'var(--on-surface-variant)' : 'white';
+      // Header UI
+      document.getElementById('authNav').style.display = (isLogin || isSignup) ? 'flex' : 'none';
+      if (isLogin || isSignup) {
+        document.getElementById('loginTab').style.background = isLogin ? 'var(--primary)' : 'transparent';
+        document.getElementById('loginTab').style.color = isLogin ? 'white' : 'var(--on-surface-variant)';
+        document.getElementById('signupTab').style.background = isSignup ? 'var(--primary)' : 'transparent';
+        document.getElementById('signupTab').style.color = isSignup ? 'white' : 'var(--on-surface-variant)';
+      }
 
-      document.getElementById('nameGroup').style.display = isLogin ? 'none' : 'block';
-      document.getElementById('roleGroup').style.display = isLogin ? 'none' : 'block';
-      document.getElementById('authTitle').textContent = isLogin ? 'Welcome Back' : 'Create Account';
-      document.getElementById('authSubtitle').textContent = isLogin ? 'Sign in to continue your journey' : 'Join the Living Archive community';
-      document.getElementById('submitBtn').textContent = isLogin ? 'Sign In' : 'Create Account';
-      document.getElementById('switchText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
-      document.getElementById('switchLink').textContent = isLogin ? 'Create one' : 'Sign in';
+      // Groups visibility
+      document.getElementById('nameGroup').style.display = isSignup ? 'block' : 'none';
+      document.getElementById('identifierGroup').style.display = (isLogin || isSignup || isForgot || isReset) ? 'block' : 'none';
+      document.getElementById('passwordGroup').style.display = (isLogin || isSignup) ? 'block' : 'none';
+      document.getElementById('otpGroup').style.display = (isOTP || isReset) ? 'block' : 'none';
+      document.getElementById('newPassGroup').style.display = isReset ? 'block' : 'none';
+      document.getElementById('roleGroup').style.display = isSignup ? 'block' : 'none';
+
+      // Titles
+      const titles = {
+        login: ['Welcome Back', 'Sign in to continue your journey'],
+        signup: ['Create Account', 'Join the Living Archive community'],
+        otp: ['Verify Identity', 'Enter the code sent to your device'],
+        forgot: ['Reset Password', 'Enter your email/phone to receive a code'],
+        reset: ['New Password', 'Create a secure new password']
+      };
+      
+      document.getElementById('authTitle').textContent = titles[mode][0];
+      document.getElementById('authSubtitle').textContent = titles[mode][1];
+      
+      // Submit Button text
+      const btnText = {
+        login: 'Sign In', signup: 'Create Account', otp: 'Verify Code',
+        forgot: 'Send Reset Code', reset: 'Update Password'
+      };
+      document.getElementById('submitBtn').textContent = btnText[mode];
+      
+      // Bottom Links
+      document.getElementById('authBottom').style.display = (isLogin || isSignup) ? 'block' : 'none';
+      if (isLogin || isSignup) {
+        document.getElementById('switchText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
+        document.getElementById('switchLink').textContent = isLogin ? 'Create one' : 'Sign in';
+      }
+      
+      document.getElementById('backLink').style.display = (!isLogin && !isSignup) ? 'block' : 'none';
       document.getElementById('errorMsg').style.display = 'none';
     }
 
@@ -255,68 +318,91 @@
       selectedRole = role;
       const elderBtn = document.getElementById('roleElder');
       const youthBtn = document.getElementById('roleYouth');
-
       elderBtn.style.borderColor = role === 'elder' ? 'var(--primary)' : 'transparent';
       elderBtn.style.background = role === 'elder' ? 'var(--primary-fixed)' : 'var(--surface-container-highest)';
       youthBtn.style.borderColor = role === 'youth' ? 'var(--secondary)' : 'transparent';
       youthBtn.style.background = role === 'youth' ? 'var(--secondary-fixed)' : 'var(--surface-container-highest)';
     }
 
-    function togglePassword() {
-      const input = document.getElementById('password');
-      const icon = document.getElementById('passToggle');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.textContent = 'visibility';
-      } else {
-        input.type = 'password';
-        icon.textContent = 'visibility_off';
-      }
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    async function handleAuth(e) {
-      e.preventDefault();
+    async function handleAuth(e, isResend = false) {
+      if (e) e.preventDefault();
       const errorEl = document.getElementById('errorMsg');
       errorEl.style.display = 'none';
 
       const emailPhone = document.getElementById('emailPhone').value.trim();
       const password = document.getElementById('password').value;
-
-      const isEmail = emailPhone.includes('@');
-      const data = {
-        password,
-        [isEmail ? 'email' : 'phone']: emailPhone
-      };
+      const otpCode = document.getElementById('otpCode').value.trim();
+      const newPassword = document.getElementById('newPassword').value;
 
       try {
         let result;
-        if (currentMode === 'login') {
-          result = await API.login(data);
-        } else {
-          data.full_name = document.getElementById('fullName').value.trim();
-          data.role = selectedRole;
-          if (!data.full_name) {
-            errorEl.textContent = 'Please enter your full name';
-            errorEl.style.display = 'block';
+
+        // AUTH STEPS (Login/Signup)
+        if (currentMode === 'login' || currentMode === 'signup') {
+          const data = { 
+            email: emailPhone.includes('@') ? emailPhone : null, 
+            phone: !emailPhone.includes('@') ? emailPhone : null, 
+            password: password 
+          };
+          
+          if (currentMode === 'signup') {
+            data.full_name = document.getElementById('fullName').value.trim();
+            data.role = selectedRole;
+            result = await API.signup(data);
+          } else {
+            result = await API.login(data);
+          }
+
+          if (result.otp_required) {
+            otpContext = { identifier: emailPhone, purpose: result.purpose };
+            document.getElementById('targetIdentifier').textContent = emailPhone;
+            switchMode('otp');
             return;
           }
-          result = await API.signup(data);
         }
 
-        API.setToken(result.token);
-        App.setUser(result.user);
-
-        // Redirect based on onboarding status and role
-        if (!result.user.is_onboarded) {
-          window.location.href = '/onboarding';
-        } else if (result.user.role === 'elder') {
-          window.location.href = '/elder-dashboard';
-        } else {
-          window.location.href = '/youth-dashboard';
+        // OTP VERIFICATION
+        if (currentMode === 'otp') {
+          result = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
+          if (result.token) {
+            API.setToken(result.token);
+            App.setUser(result.user);
+            return handleRedirect(result.user);
+          }
         }
+
+        // FORGOT PASSWORD
+        if (currentMode === 'forgot') {
+          result = await API.forgotPassword(emailPhone);
+          otpContext = { identifier: emailPhone, purpose: 'reset' };
+          document.getElementById('targetIdentifier').textContent = emailPhone;
+          switchMode('reset');
+          return;
+        }
+
+        // RESET PASSWORD
+        if (currentMode === 'reset') {
+          result = await API.resetPassword({ identifier: otpContext.identifier, code: otpCode, new_password: newPassword });
+          App.showToast('Password updated! Please sign in.', 'success');
+          switchMode('login');
+        }
+
       } catch (err) {
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
+      }
+    }
+
+    function handleRedirect(user) {
+      if (!user.is_onboarded) {
+        window.location.href = '/onboarding';
+      } else {
+        window.location.href = user.role === 'elder' ? '/elder-dashboard' : '/youth-dashboard';
       }
     }
   </script>
