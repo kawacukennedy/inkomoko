@@ -400,7 +400,9 @@
         // OTP VERIFICATION
         if (currentMode === 'otp') {
           const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
+          alert('OTP result: ' + JSON.stringify(otpResult));
           if (otpResult && otpResult.token && otpResult.user) {
+            alert('User from OTP: ' + JSON.stringify(otpResult.user));
             API.setToken(otpResult.token);
             App.setUser(otpResult.user);
             return handleRedirect(otpResult.user);
@@ -409,7 +411,7 @@
 
         // Handle immediate login/signup if OTP wasn't required
         if (result && result.token && result.user) {
-          console.log('Auth successful (no OTP). Redirecting...');
+          alert('Auth result: ' + JSON.stringify(result));
           API.setToken(result.token);
           App.setUser(result.user);
           handleRedirect(result.user);
@@ -444,17 +446,22 @@
 
     function handleRedirect(user) {
       try {
+        alert('handleRedirect called with: ' + JSON.stringify(user));
         if (!user) {
           window.location.href = '/welcome';
           return;
         }
         
         const role = user.role || 'youth';
-        const isCompleted = user.onboarding_status === true;
+        const status = user.onboarding_status;
+        alert('onboarding_status: ' + status + ' (type: ' + typeof status + ')');
+        const isCompleted = status === true;
         
-        if (!isCompleted || user.onboarding_status == null || user.onboarding_status === false || user.onboarding_status === 'false') {
+        if (!isCompleted || status == null || status === false || status === 'false') {
+          alert('Redirecting to onboarding');
           window.location.href = '/onboarding.html';
         } else {
+          alert('Redirecting to dashboard for role: ' + role);
           window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
         }
       } catch (err) {
