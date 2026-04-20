@@ -399,10 +399,13 @@
 
         // OTP VERIFICATION
         if (currentMode === 'otp') {
+          console.log('Verifying OTP for:', otpContext);
           const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
+          console.log('OTP verify result:', otpResult);
           if (otpResult && otpResult.token && otpResult.user) {
             API.setToken(otpResult.token);
             App.setUser(otpResult.user);
+            console.log('User set, calling handleRedirect with:', otpResult.user);
             return handleRedirect(otpResult.user);
           }
         }
@@ -433,6 +436,7 @@
         }
 
       } catch (err) {
+        console.error('Auth error:', err);
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
       } finally {
@@ -444,20 +448,24 @@
 
     function handleRedirect(user) {
       try {
+        console.log('handleRedirect called with user:', user);
+        
         if (!user || typeof user !== 'object') {
           console.warn('Redirect aborted: User object is null or invalid.');
+          window.location.href = '/welcome';
           return;
         }
         
-        console.log('Initiating secure redirect for user:', user.id);
+        console.log('User id:', user.id, 'role:', user.role, 'onboarding_status:', user.onboarding_status);
         
-        // Deep safety for onboarding_status property
         const isCompleted = (user && user.onboarding_status === true);
         const role = user.role || 'youth';
 
         if (!isCompleted) {
+          console.log('Redirecting to onboarding...');
           window.location.href = '/onboarding.html';
         } else {
+          console.log('Redirecting to dashboard for role:', role);
           window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
         }
       } catch (err) {
