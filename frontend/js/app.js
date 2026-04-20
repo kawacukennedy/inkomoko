@@ -19,22 +19,41 @@ const App = {
     this.loadUser();
     this.setupOnlineIndicator();
     
-    // Global Authentication Guard
-    const publicPages = ['/', '/index', '/auth', '/welcome', '/index.html', '/auth.html', '/welcome.html'];
     const path = window.location.pathname;
     const protocol = window.location.protocol;
     const normalizedPath = (path.length > 1 && path.endsWith('/')) ? path.slice(0, -1) : path;
+    const publicPages = ['/', '/index', '/welcome', '/index.html', '/welcome.html'];
+    const authPages = ['/auth', '/auth.html', '/onboarding', '/onboarding.html'];
+    const dashPages = ['/elder-dashboard', '/elder-dashboard.html', '/youth-dashboard', '/youth-dashboard.html'];
 
     try {
-      if (!protocol.includes('chrome-error') && !publicPages.includes(normalizedPath)) {
+      if (protocol.includes('chrome-error')) return;
+      
+      const isPublic = publicPages.includes(normalizedPath);
+      const isAuth = authPages.includes(normalizedPath);
+      const isDash = dashPages.includes(normalizedPath);
+      
+      if (!isPublic && !isAuth && !isDash) {
         if (!this.isLoggedIn()) {
           window.location.replace('/welcome');
           return;
         }
-        // Safety: Ensure user object has essential properties
         if (this.currentUser && (!this.currentUser.role || this.currentUser.onboarding_status === undefined)) {
           console.warn('Corrupt user session detected. Logging out.');
           this.logout();
+          return;
+        }
+      }
+      
+      if (isAuth || normalizedPath === '/') {
+        if (this.isLoggedIn() && this.currentUser) {
+          const role = this.currentUser.role;
+          const status = this.currentUser.onboarding_status;
+          if (!status) {
+            window.location.replace('/onboarding.html');
+          } else {
+            window.location.replace(role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html');
+          }
           return;
         }
       }
