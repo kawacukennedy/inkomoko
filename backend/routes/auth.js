@@ -134,7 +134,6 @@ router.post('/verify-otp', async (req, res) => {
     }
 
     if (purpose === 'signup' || purpose === 'login') {
-      // Mark as verified if it was signup
       if (purpose === 'signup') {
         await db.query('UPDATE users SET is_verified = TRUE WHERE id = $1', [user.id]);
         user.is_verified = true;
@@ -142,7 +141,29 @@ router.post('/verify-otp', async (req, res) => {
 
       const token = generateToken(user);
       delete user.password_hash;
-      return res.json({ user, token });
+      return res.json({ 
+        user: {
+          id: user.id,
+          full_name: user.full_name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          avatar_url: user.avatar_url,
+          region: user.region,
+          province: user.province,
+          language_pref: user.language_pref,
+          cultural_background: user.cultural_background,
+          voice_intro_url: user.voice_intro_url,
+          interests: user.interests,
+          bio: user.bio,
+          clan: user.clan,
+          age: user.age,
+          is_verified: user.is_verified,
+          onboarding_status: user.onboarding_status || false,
+          created_at: user.created_at
+        }, 
+        token 
+      });
     }
 
     if (purpose === 'reset') {
