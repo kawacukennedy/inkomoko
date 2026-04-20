@@ -409,15 +409,14 @@
 
       try {
         const result = await API.completeOnboarding(data);
-        console.log('Onboarding result:', result);
         if (result && result.onboarding_status === true) {
           App.setUser(result);
-          window.location.href = result.role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+          const role = result.role || 'youth';
+          window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
         } else {
           App.showToast('Failed to complete setup. Please try again.', 'error');
         }
       } catch (err) {
-        console.error('Onboarding error:', err);
         App.showToast(err.message || 'Failed to complete setup', 'error');
       }
     }

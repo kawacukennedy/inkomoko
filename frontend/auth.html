@@ -399,13 +399,10 @@
 
         // OTP VERIFICATION
         if (currentMode === 'otp') {
-          console.log('Verifying OTP for:', otpContext);
           const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
-          console.log('OTP verify result:', otpResult);
           if (otpResult && otpResult.token && otpResult.user) {
             API.setToken(otpResult.token);
             App.setUser(otpResult.user);
-            console.log('User set, calling handleRedirect with:', otpResult.user);
             return handleRedirect(otpResult.user);
           }
         }
@@ -436,15 +433,8 @@
         }
 
       } catch (err) {
-        console.error('Auth error:', err);
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
-        
-        if (err.message.includes('401') || err.message.includes('Invalid credentials')) {
-          errorEl.textContent = 'Invalid credentials. Please try again.';
-        } else if (err.message.includes('OTP')) {
-          errorEl.textContent = 'Invalid or expired verification code. Please request a new one.';
-        }
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
@@ -454,24 +444,17 @@
 
     function handleRedirect(user) {
       try {
-        console.log('handleRedirect called with user:', user);
-        
-        if (!user || typeof user !== 'object') {
-          console.warn('Redirect aborted: User object is null or invalid.');
+        if (!user) {
           window.location.href = '/welcome';
           return;
         }
         
-        console.log('User id:', user.id, 'role:', user.role, 'onboarding_status:', user.onboarding_status);
-        
-        const isCompleted = (user && user.onboarding_status === true);
         const role = user.role || 'youth';
-
-        if (!isCompleted) {
-          console.log('Redirecting to onboarding...');
+        const isCompleted = user.onboarding_status === true;
+        
+        if (!isCompleted || user.onboarding_status == null || user.onboarding_status === false || user.onboarding_status === 'false') {
           window.location.href = '/onboarding.html';
         } else {
-          console.log('Redirecting to dashboard for role:', role);
           window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
         }
       } catch (err) {
