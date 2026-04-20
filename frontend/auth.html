@@ -439,6 +439,12 @@
         console.error('Auth error:', err);
         errorEl.textContent = err.message || 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
+        
+        if (err.message.includes('401') || err.message.includes('Invalid credentials')) {
+          errorEl.textContent = 'Invalid credentials. Please try again.';
+        } else if (err.message.includes('OTP')) {
+          errorEl.textContent = 'Invalid or expired verification code. Please request a new one.';
+        }
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
