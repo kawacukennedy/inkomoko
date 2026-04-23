@@ -388,9 +388,7 @@
             result = await API.login(data);
           }
 
-          if (result && result.otp_required) {
-            console.log('OTP required for signup. Switching to OTP mode.');
-            otpContext = { identifier: emailPhone, purpose: result.purpose || 'signup' };
+          console.log('OTP required for signup. Switching to OTP mode.');
             document.getElementById('targetIdentifier').textContent = emailPhone;
             switchMode('otp');
             return; // EXIT HERE
@@ -400,9 +398,8 @@
         // OTP VERIFICATION
         if (currentMode === 'otp') {
           const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
-          alert('OTP result: ' + JSON.stringify(otpResult));
+          console.log('OTP verify result:', otpResult);
           if (otpResult && otpResult.token && otpResult.user) {
-            alert('User from OTP: ' + JSON.stringify(otpResult.user));
             API.setToken(otpResult.token);
             App.setUser(otpResult.user);
             return handleRedirect(otpResult.user);
@@ -411,7 +408,7 @@
 
         // Handle immediate login/signup if OTP wasn't required
         if (result && result.token && result.user) {
-          alert('Auth result: ' + JSON.stringify(result));
+          console.log('Auth result:', result);
           API.setToken(result.token);
           App.setUser(result.user);
           handleRedirect(result.user);
@@ -446,7 +443,7 @@
 
     function handleRedirect(user) {
       try {
-        alert('handleRedirect called with: ' + JSON.stringify(user));
+        console.log('handleRedirect called with:', user);
         if (!user) {
           window.location.href = '/welcome';
           return;
@@ -454,14 +451,12 @@
         
         const role = user.role || 'youth';
         const status = user.onboarding_status;
-        alert('onboarding_status: ' + status + ' (type: ' + typeof status + ')');
+        console.log('onboarding_status:', status, 'type:', typeof status);
         const isCompleted = status === true;
         
         if (!isCompleted || status == null || status === false || status === 'false') {
-          alert('Redirecting to onboarding');
           window.location.href = '/onboarding.html';
         } else {
-          alert('Redirecting to dashboard for role: ' + role);
           window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
         }
       } catch (err) {
