@@ -215,7 +215,12 @@
     const name = App.currentUser ? App.currentUser.full_name.split(' ')[0] : 'Elder';
     document.getElementById('greeting').textContent = `${timeGreet}, ${name} 🌿`;
     document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-RW', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    document.getElementById('headerAvatar').innerHTML = `<img src="${App.avatarUrl(App.currentUser)}" alt="Profile" style="width:40px;height:40px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover">`;
+    
+    // Safely set avatar in header
+    const navImg = document.getElementById('navProfileImg');
+    if (navImg && App.currentUser) {
+      navImg.src = App.avatarUrl(App.currentUser);
+    }
 
     // Load data
     async function loadDashboard() {

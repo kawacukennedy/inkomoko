@@ -201,7 +201,12 @@
 
     const name = App.currentUser ? App.currentUser.full_name.split(' ')[0] : 'Friend';
     document.getElementById('greeting').textContent = `Welcome, ${name} 🌱`;
-    document.getElementById('headerAvatar').innerHTML = `<img src="${App.avatarUrl(App.currentUser)}" alt="Profile" style="width:40px;height:40px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover">`;
+    
+    // Safely set avatar in header
+    const navImg = document.getElementById('navProfileImg');
+    if (navImg && App.currentUser) {
+      navImg.src = App.avatarUrl(App.currentUser);
+    }
 
     // Sample elder data for display
     const sampleElders = [

@@ -45,16 +45,26 @@ const App = {
         }
       }
       
-      if (isAuth || normalizedPath === '/') {
+      if (normalizedPath === '/auth' || normalizedPath === '/auth.html') {
+        // Always allow access to auth page - user may want to switch accounts
+        // Let them see the auth page
+      } else if (isAuth || normalizedPath === '/') {
         if (this.isLoggedIn() && this.currentUser) {
-          const role = this.currentUser.role;
-          const status = this.currentUser.onboarding_status;
-          if (!status) {
-            window.location.replace('/onboarding.html');
-          } else {
-            window.location.replace(role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html');
+          // Check if this is a fresh registration attempt (URL params)
+          const params = new URLSearchParams(window.location.search);
+          const isSignupAttempt = params.get('mode') === 'signup' || params.get('role');
+          
+          // Only redirect to dashboard if NOT a signup attempt
+          if (!isSignupAttempt) {
+            const role = this.currentUser.role;
+            const status = this.currentUser.onboarding_status;
+            if (!status) {
+              window.location.replace('/onboarding.html');
+            } else {
+              window.location.replace(role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html');
+            }
+            return;
           }
-          return;
         }
       }
     } catch (err) {
