@@ -383,15 +383,16 @@
           if (currentMode === 'signup') {
             data.full_name = document.getElementById('fullName').value.trim();
             data.role = selectedRole;
-            result = await API.signup(data);
-          } else {
-            result = await API.login(data);
           }
+          
+          result = currentMode === 'signup' ? await API.signup(data) : await API.login(data);
 
-          console.log('OTP required for signup. Switching to OTP mode.');
+          if (result.otp_required) {
+            console.log('OTP required. Switching to OTP mode.');
             document.getElementById('targetIdentifier').textContent = emailPhone;
+            otpContext = { identifier: emailPhone, purpose: result.purpose || currentMode };
             switchMode('otp');
-            return; // EXIT HERE
+            return;
           }
         }
 
