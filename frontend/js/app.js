@@ -46,9 +46,9 @@ const App = {
       }
       
       if (normalizedPath === '/auth' || normalizedPath === '/auth.html') {
-        // Always allow access to auth page - user may want to switch accounts
-        // Let them see the auth page
-      } else if (isAuth || normalizedPath === '/') {
+        // ALWAYS allow access to auth page - don't check login state
+        // User may want to register a new account
+      } else if (normalizedPath === '/' || isAuth) {
         if (this.isLoggedIn() && this.currentUser) {
           // Check if this is a fresh registration attempt (URL params)
           const params = new URLSearchParams(window.location.search);
