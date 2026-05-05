@@ -209,7 +209,7 @@
         }
 
         async function toggleFollow() {
-            if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+            if (!App.isLoggedIn()) { App.redirectTo('/auth.html'); return; }
             try {
                 if (isFollowing) { await API.unfollowUser(elderId); isFollowing = false; }
                 else { await API.followUser(elderId); isFollowing = true; }

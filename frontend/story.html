@@ -255,7 +255,7 @@
     }
 
     async function toggleGratitude() {
-      if (!Auth.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      if (!Auth.isLoggedIn()) { App.redirectTo('/auth.html'); return; }
       try {
         const result = await API.toggleGratitude(storyId);
         isGrateful = result.grateful;
@@ -309,7 +309,7 @@
     }
 
     async function postComment() {
-      if (!Auth.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      if (!Auth.isLoggedIn()) { App.redirectTo('/auth.html'); return; }
       const input = document.getElementById('commentInput');
       const content = input.value.trim();
       if (!content) return;

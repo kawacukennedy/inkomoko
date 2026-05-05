@@ -5,50 +5,56 @@ const App = {
   _refreshTimer: null,
 
   init() {
+    if (this._initialized) return;
+    this._initialized = true;
+
     this.loadUser();
 
     if (window.location.protocol.startsWith('chrome-error')) return;
 
-    const path = this.normalizePath(window.location.pathname);
-    const authPages = ['/auth.html'];
-    const onboardingPages = ['/onboarding.html'];
+    const rawPath = window.location.pathname;
+    const path = this.normalizePath(rawPath);
 
-    if (authPages.includes(path) || onboardingPages.includes(path)) {
+    const isAuthPage = this.matchesPath(path, ['/auth', '/auth.html']);
+    const isLandingPage = this.matchesPath(path, ['/', '/index.html']);
+    const isOnboardingPage = this.matchesPath(path, ['/onboarding', '/onboarding.html']);
+
+    if (isAuthPage) {
       if (this.isLoggedIn() && this.isOnboarded()) {
-        const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
-        window.location.replace(target);
-        return;
+        this.redirectTo(this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html');
       }
       return;
     }
 
-    this.setupOnlineIndicator();
+    if (isOnboardingPage) {
+      if (this.isLoggedIn()) {
+        return;
+      }
+      this.redirectTo('/auth.html');
+      return;
+    }
 
-    if (this.isLoggedIn()) {
+    if (!isLandingPage) {
+      if (!this.isLoggedIn()) {
+        this.redirectTo('/auth.html');
+        return;
+      }
+
+      if (!this.isOnboarded()) {
+        this.redirectTo('/onboarding.html');
+        return;
+      }
+
+      this.setupOnlineIndicator();
       this._startTokenRefreshTimer();
     }
 
-    const publicPages = ['/', '/index.html', '/welcome', '/welcome.html'];
-
-    if (!publicPages.includes(path)) {
-      if (!this.isLoggedIn()) {
-        window.location.replace('/auth.html');
-        return;
-      }
-
-      if (this.currentUser && !this.currentUser.onboarding_status) {
-        window.location.replace('/onboarding.html');
-        return;
-      }
-    }
-
-    if ((path === '/' || path === '/index.html') && this.isLoggedIn()) {
+    if (isLandingPage && this.isLoggedIn()) {
       const params = new URLSearchParams(window.location.search);
       const isSignupAttempt = params.get('mode') === 'signup' || params.get('role');
 
       if (!isSignupAttempt) {
-        const target = this.currentUser.role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
-        window.location.replace(target);
+        this.redirectTo(this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html');
         return;
       }
     }
@@ -60,6 +66,20 @@ const App = {
 
   normalizePath(path) {
     return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+  },
+
+  matchesPath(currentPath, patterns) {
+    const normalized = currentPath.replace(/\.html$/, '');
+    return patterns.some(p => {
+      const pattern = p.replace(/\.html$/, '');
+      return normalized === pattern || currentPath === p;
+    });
+  },
+
+  redirectTo(url) {
+    if (window.location.pathname !== url) {
+      window.location.replace(url);
+    }
   },
 
   loadUser() {
@@ -128,7 +148,7 @@ const App = {
 
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = '/auth.html';
+      this.redirectTo('/auth.html');
       return false;
     }
     return true;
@@ -136,7 +156,7 @@ const App = {
 
   requireOnboarding() {
     if (this.isLoggedIn() && !this.isOnboarded()) {
-      window.location.href = '/onboarding.html';
+      this.redirectTo('/onboarding.html');
       return false;
     }
     return true;
@@ -144,17 +164,16 @@ const App = {
 
   redirectAfterAuth() {
     if (!this.isLoggedIn()) {
-      window.location.replace('/auth.html');
+      this.redirectTo('/auth.html');
       return;
     }
 
     if (!this.isOnboarded()) {
-      window.location.replace('/onboarding.html');
+      this.redirectTo('/onboarding.html');
       return;
     }
 
-    const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
-    window.location.replace(target);
+    this.redirectTo(this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html');
   },
 
   logout() {
