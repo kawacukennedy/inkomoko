@@ -1,0 +1,4 @@
+[paths]
+# Ignore example and template files
+"backend/.env.example" = "example-file"
+"backend/templates/*" = "template-files"
