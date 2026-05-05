@@ -223,6 +223,7 @@ CREATE TABLE user_settings (
 CREATE TABLE otp_verifications (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     identifier      VARCHAR(255) NOT NULL,
+    user_id         UUID REFERENCES users(id) ON DELETE CASCADE,
     otp_code        VARCHAR(10) NOT NULL,
     purpose         VARCHAR(50) NOT NULL,
     expires_at      TIMESTAMPTZ NOT NULL,
@@ -230,6 +231,7 @@ CREATE TABLE otp_verifications (
 );
 
 CREATE INDEX idx_otp_identifier ON otp_verifications(identifier);
+CREATE INDEX idx_otp_user ON otp_verifications(user_id);
 
 -- ============================================================
 -- TRIGGER: Auto-update updated_at

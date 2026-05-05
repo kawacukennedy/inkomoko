@@ -12,11 +12,17 @@ if (!JWT_SECRET && process.env.NODE_ENV !== 'test') {
 function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!authHeader) {
     return res.status(401).json({ error: 'Authentication required' });
   }
 
-  const token = authHeader.split(' ')[1];
+  const parts = authHeader.split(' ');
+
+  if (parts.length !== 2 || parts[0] !== 'Bearer') {
+    return res.status(401).json({ error: 'Invalid token format' });
+  }
+
+  const token = parts[1];
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -24,7 +30,7 @@ function authenticateToken(req, res, next) {
     next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
-      return res.status(401).json({ error: 'Token expired' });
+      return res.status(401).json({ error: 'Token expired', expired: true });
     }
     return res.status(403).json({ error: 'Invalid token' });
   }

@@ -9,12 +9,13 @@ function generateCode() {
   return crypto.randomInt(100000, 999999).toString();
 }
 
-async function save(identifier, code, purpose) {
+async function save(identifier, code, purpose, userId) {
   const expiresAt = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
 
   await db.query(
-    'INSERT INTO otp_verifications (identifier, otp_code, purpose, expires_at) VALUES ($1, $2, $3, $4)',
-    [identifier, code, purpose, expiresAt]
+    `INSERT INTO otp_verifications (identifier, otp_code, purpose, expires_at, user_id)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [identifier, code, purpose, expiresAt, userId || null]
   );
 }
 

@@ -1,10 +1,32 @@
 'use strict';
 
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
 const db = require('../config/database');
 const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
+
+const avatarStorage = multer.diskStorage({
+  destination: path.join(__dirname, '..', 'uploads', 'avatars'),
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    const name = crypto.randomUUID() + ext;
+    cb(null, name);
+  },
+});
+
+const avatarUpload = multer({
+  storage: avatarStorage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const allowed = /jpeg|jpg|png|webp|gif/;
+    const ext = allowed.test(path.extname(file.originalname).toLowerCase());
+    cb(null, ext);
+  },
+});
 
 router.get('/profile', authenticateToken, async (req, res, next) => {
   try {
@@ -80,6 +102,29 @@ router.put('/onboarding', authenticateToken, async (req, res, next) => {
     delete user.password_hash;
 
     res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/avatar', authenticateToken, avatarUpload.single('avatar'), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+
+    const result = await db.query(
+      'UPDATE users SET avatar_url = $1 WHERE id = $2 RETURNING id, avatar_url',
+      [avatarUrl, req.user.id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ avatar_url: avatarUrl });
   } catch (err) {
     next(err);
   }

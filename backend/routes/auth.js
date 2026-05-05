@@ -4,85 +4,133 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('../config/database');
 const { generateToken } = require('../middleware/auth');
-const OTP = require('../utils/otp');
+const { createAuthRateLimiter, createOtpRateLimiter } = require('../utils/rate-limiter');
+const { validateName, validateIdentifier, validatePassword, validateOtpCode, sanitize, getIdentifierType } = require('../utils/validation');
 
 const router = express.Router();
 
-const BCRYPT_ROUNDS = 12;
+const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS, 10) || 12;
 
-const USER_FIELDS = [
+const SAFE_USER_FIELDS = [
   'id', 'full_name', 'email', 'phone', 'role', 'avatar_url',
   'region', 'province', 'language_pref', 'cultural_background',
   'voice_intro_url', 'interests', 'bio', 'clan', 'age',
   'is_verified', 'onboarding_status', 'created_at',
 ];
 
-function formatUserResponse(user) {
-  const formatted = {};
-  USER_FIELDS.forEach((field) => {
-    formatted[field] = user[field];
-  });
-  return formatted;
+const authRateLimiter = createAuthRateLimiter({
+  windowMs: parseInt(process.env.AUTH_RATE_WINDOW_MS, 10) || 10 * 60 * 1000,
+  max: parseInt(process.env.AUTH_RATE_MAX, 10) || 5,
+});
+
+const otpRateLimiter = createOtpRateLimiter({
+  windowMs: parseInt(process.env.OTP_RATE_WINDOW_MS, 10) || 5 * 60 * 1000,
+  max: parseInt(process.env.OTP_RATE_MAX, 10) || 3,
+});
+
+function formatUser(user) {
+  const result = {};
+  for (const field of SAFE_USER_FIELDS) {
+    result[field] = user[field];
+  }
+  return result;
 }
 
-async function findUserByEmailOrPhone(identifier) {
-  const query = identifier.includes('@')
-    ? 'SELECT * FROM users WHERE email = $1'
-    : 'SELECT * FROM users WHERE phone = $1';
-
-  const result = await db.query(query, [identifier]);
+async function findUser(identifier) {
+  const type = getIdentifierType(identifier);
+  const column = type === 'email' ? 'email' : 'phone';
+  const result = await db.query(
+    `SELECT id, full_name, email, phone, password_hash, role, avatar_url,
+            region, province, language_pref, cultural_background, voice_intro_url,
+            interests, bio, clan, age, is_verified, onboarding_status, created_at
+     FROM users WHERE ${column} = $1`,
+    [identifier]
+  );
   return result.rows[0] || null;
 }
 
-router.post('/signup', async (req, res, next) => {
+async function updatePassword(identifier, passwordHash) {
+  const type = getIdentifierType(identifier);
+  const column = type === 'email' ? 'email' : 'phone';
+  await db.query(
+    `UPDATE users SET password_hash = $1, updated_at = NOW() WHERE ${column} = $2`,
+    [passwordHash, identifier]
+  );
+}
+
+async function verifyUser(userId) {
+  await db.query(
+    'UPDATE users SET is_verified = TRUE, updated_at = NOW() WHERE id = $1',
+    [userId]
+  );
+}
+
+async function completeAuthFlow(user, purpose) {
+  if (purpose === 'signup') {
+    await verifyUser(user.id);
+    user.is_verified = true;
+  }
+
+  const token = generateToken(user);
+
+  return {
+    user: formatUser(user),
+    token,
+  };
+}
+
+function getAuthPurpose(purpose) {
+  if (['signup', 'login', 'reset'].includes(purpose)) return purpose;
+  return null;
+}
+
+router.post('/signup', authRateLimiter, async (req, res, next) => {
   try {
     const { full_name, email, phone, password, role } = req.body;
     const identifier = email || phone;
 
-    if (!full_name || !password || !identifier) {
-      return res.status(400).json({
-        error: 'Name, password, and email or phone are required',
-      });
-    }
+    const nameError = validateName(full_name);
+    if (nameError) return res.status(400).json({ error: nameError });
 
-    if (password.length < 6) {
-      return res.status(400).json({
-        error: 'Password must be at least 6 characters',
-      });
-    }
+    const idError = validateIdentifier(identifier);
+    if (idError) return res.status(400).json({ error: idError });
 
-    const existing = await findUserByEmailOrPhone(identifier);
+    const passError = validatePassword(password);
+    if (passError) return res.status(400).json({ error: passError });
+
+    const existing = await findUser(identifier);
 
     if (existing && existing.is_verified) {
-      return res.status(409).json({
-        error: 'This account already exists. Please log in.',
-      });
+      return res.status(409).json({ error: 'Account already exists. Please sign in.' });
     }
 
     const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
     if (existing) {
       await db.query(
-        `UPDATE users
-         SET full_name = $1, password_hash = $2, role = $3, is_verified = FALSE
+        `UPDATE users SET full_name = $1, password_hash = $2, role = $3, is_verified = FALSE, updated_at = NOW()
          WHERE id = $4`,
-        [full_name, passwordHash, role || 'youth', existing.id]
+        [sanitize(full_name), passwordHash, role || 'youth', existing.id]
       );
     } else {
       await db.query(
         `INSERT INTO users (full_name, email, phone, password_hash, role, is_verified)
          VALUES ($1, $2, $3, $4, $5, FALSE)`,
-        [full_name, email || null, phone || null, passwordHash, role || 'youth']
+        [sanitize(full_name), email || null, phone || null, passwordHash, role || 'youth']
       );
     }
 
+    const OTP = require('../utils/otp');
     const otpCode = OTP.generateCode();
-    await OTP.save(identifier, otpCode, 'signup');
-    await OTP.send(identifier, otpCode, 'signup');
+    const user = await findUser(identifier);
+
+    await Promise.all([
+      OTP.save(identifier, otpCode, 'signup', user.id),
+      OTP.send(identifier, otpCode, 'signup'),
+    ]);
 
     res.status(201).json({
-      message: 'Signup successful. Please verify your OTP.',
-      otp_required: true,
+      message: 'Verification code sent',
       identifier,
       purpose: 'signup',
     });
@@ -91,20 +139,20 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', authRateLimiter, async (req, res, next) => {
   try {
     const { email, phone, password } = req.body;
     const identifier = email || phone;
 
-    if (!password || !identifier) {
-      return res.status(400).json({
-        error: 'Email/phone and password are required',
-      });
-    }
+    const idError = validateIdentifier(identifier);
+    if (idError) return res.status(400).json({ error: idError });
 
-    const user = await findUserByEmailOrPhone(identifier);
+    if (!password) return res.status(400).json({ error: 'Password is required' });
+
+    const user = await findUser(identifier);
 
     if (!user) {
+      await bcrypt.hash(password, 4);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
@@ -114,13 +162,16 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
+    const OTP = require('../utils/otp');
     const otpCode = OTP.generateCode();
-    await OTP.save(identifier, otpCode, 'login');
-    await OTP.send(identifier, otpCode, 'login');
+
+    await Promise.all([
+      OTP.save(identifier, otpCode, 'login', user.id),
+      OTP.send(identifier, otpCode, 'login'),
+    ]);
 
     res.json({
-      message: 'OTP sent for verification',
-      otp_required: true,
+      message: 'Verification code sent',
       identifier,
       purpose: 'login',
     });
@@ -129,44 +180,46 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/verify-otp', async (req, res, next) => {
+router.post('/verify-otp', otpRateLimiter, async (req, res, next) => {
   try {
     const { identifier, code, purpose } = req.body;
 
     if (!identifier || !code || !purpose) {
-      return res.status(400).json({ error: 'Missing verification data' });
+      return res.status(400).json({ error: 'Identifier, code, and purpose are required' });
     }
 
-    const isValid = await OTP.verify(identifier, code, purpose);
+    const idError = validateIdentifier(identifier);
+    if (idError) return res.status(400).json({ error: idError });
+
+    const codeError = validateOtpCode(code);
+    if (codeError) return res.status(400).json({ error: codeError });
+
+    const authPurpose = getAuthPurpose(purpose);
+    if (!authPurpose) return res.status(400).json({ error: 'Invalid purpose' });
+
+    const OTP = require('../utils/otp');
+    const isValid = await OTP.verify(identifier, code, authPurpose);
 
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid or expired OTP' });
+      return res.status(400).json({ error: 'Invalid or expired code' });
     }
 
-    const user = await findUserByEmailOrPhone(identifier);
+    const user = await findUser(identifier);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    if (purpose === 'signup') {
-      await db.query('UPDATE users SET is_verified = TRUE WHERE id = $1', [user.id]);
-      user.is_verified = true;
+    if (authPurpose === 'signup' || authPurpose === 'login') {
+      const result = await completeAuthFlow(user, authPurpose);
+      return res.json(result);
     }
 
-    if (purpose === 'signup' || purpose === 'login') {
-      const token = generateToken(user);
-
+    if (authPurpose === 'reset') {
       return res.json({
-        user: formatUserResponse(user),
-        token,
-      });
-    }
-
-    if (purpose === 'reset') {
-      return res.json({
-        message: 'OTP verified. You can now reset your password.',
+        message: 'Code verified',
         verified: true,
+        identifier,
       });
     }
 
@@ -176,7 +229,7 @@ router.post('/verify-otp', async (req, res, next) => {
   }
 });
 
-router.post('/forgot-password', async (req, res, next) => {
+router.post('/forgot-password', authRateLimiter, async (req, res, next) => {
   try {
     const { identifier } = req.body;
 
@@ -184,43 +237,45 @@ router.post('/forgot-password', async (req, res, next) => {
       return res.status(400).json({ error: 'Email or phone is required' });
     }
 
-    const user = await findUserByEmailOrPhone(identifier);
+    const idError = validateIdentifier(identifier);
+    if (idError) return res.status(400).json({ error: idError });
 
-    if (!user) {
-      return res.json({
-        message: 'If account exists, OTP has been sent',
-      });
+    const user = await findUser(identifier);
+
+    if (user) {
+      const OTP = require('../utils/otp');
+      const otpCode = OTP.generateCode();
+
+      await Promise.all([
+        OTP.save(identifier, otpCode, 'reset', user.id),
+        OTP.send(identifier, otpCode, 'reset'),
+      ]);
     }
 
-    const otpCode = OTP.generateCode();
-    await OTP.save(identifier, otpCode, 'reset');
-    await OTP.send(identifier, otpCode, 'reset');
-
-    res.json({
-      message: 'Password reset OTP sent',
-      otp_required: true,
-      identifier,
-      purpose: 'reset',
-    });
+    res.json({ message: 'If an account exists, a code has been sent' });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/reset-password', async (req, res, next) => {
+router.post('/reset-password', otpRateLimiter, async (req, res, next) => {
   try {
     const { identifier, code, new_password } = req.body;
 
     if (!identifier || !code || !new_password) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: 'Identifier, code, and new password are required' });
     }
 
-    if (new_password.length < 6) {
-      return res.status(400).json({
-        error: 'Password must be at least 6 characters',
-      });
-    }
+    const idError = validateIdentifier(identifier);
+    if (idError) return res.status(400).json({ error: idError });
 
+    const codeError = validateOtpCode(code);
+    if (codeError) return res.status(400).json({ error: codeError });
+
+    const passError = validatePassword(new_password);
+    if (passError) return res.status(400).json({ error: passError });
+
+    const OTP = require('../utils/otp');
     const isValid = await OTP.verify(identifier, code, 'reset');
 
     if (!isValid) {
@@ -228,15 +283,49 @@ router.post('/reset-password', async (req, res, next) => {
     }
 
     const passwordHash = await bcrypt.hash(new_password, BCRYPT_ROUNDS);
+    await updatePassword(identifier, passwordHash);
 
-    const query = identifier.includes('@')
-      ? 'UPDATE users SET password_hash = $1 WHERE email = $2'
-      : 'UPDATE users SET password_hash = $1 WHERE phone = $2';
-
-    await db.query(query, [passwordHash, identifier]);
-
-    res.json({ message: 'Password reset successful' });
+    res.json({ message: 'Password updated successfully' });
   } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/refresh', async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Token required' });
+    }
+
+    const jwt = require('jsonwebtoken');
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await db.query(
+      `SELECT id, full_name, email, phone, role, avatar_url,
+              region, province, language_pref, cultural_background, voice_intro_url,
+              interests, bio, clan, age, is_verified, onboarding_status, created_at
+       FROM users WHERE id = $1`,
+      [decoded.id]
+    );
+
+    if (user.rows.length === 0) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    const newUser = user.rows[0];
+    const newToken = generateToken(newUser);
+
+    res.json({
+      user: formatUser(newUser),
+      token: newToken,
+    });
+  } catch (err) {
+    if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'Invalid or expired token' });
+    }
     next(err);
   }
 });

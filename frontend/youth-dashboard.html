@@ -1,182 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Youth Dashboard — Inkomoko</title>
   <meta name="description" content="Discover ancestral stories, follow elders, and explore your heritage.">
-  <link rel="stylesheet" href="/css/styles.css?v=4">
+  <link rel="stylesheet" href="/css/styles.css?v=6">
+  <link rel="stylesheet" href="/css/dashboard.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#9b2f00">
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
-                }
-            }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+            "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+            "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+            "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+            "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+            "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+            "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+            "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694",
+            "surface-container-highest": "#e6e3d3", "on-tertiary-fixed": "#1f1a1e",
+            "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+            "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4",
+            "primary-fixed": "#ffdbd0", "on-surface-variant": "#59413a",
+            "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+            "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+            "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+            "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600",
+            "on-error": "#ffffff", "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
-</head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
       }
-    }catch(e){}
-  }, 100);
-</script>
+    };
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+    .leaf-radius { border-radius: 1.5rem 0.5rem 1.5rem 0.5rem; }
+    .glass-header { background: rgba(253, 249, 233, 0.8); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5">
+    <div class="flex justify-between items-center w-full px-6 py-4">
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors">
+          <span class="material-symbols-outlined">home</span>
+        </a>
+        <h1 class="font-headline text-2xl font-black text-primary tracking-tight">The Living Archive</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/settings" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+          <img id="navProfileImg" alt="Profile" class="w-full h-full object-cover" src="">
+        </a>
+      </div>
+    </div>
+  </header>
 
-  <main style="min-height:100vh;padding:80px 0 120px">
-    <div style="max-width:64rem;margin:0 auto;padding:0 1.5rem">
+  <main class="dashboard-main">
+    <div class="dashboard-container">
       <!-- Greeting -->
-      <section style="padding:2rem 0 1.5rem">
-        <h2 style="font-family:var(--font-headline);font-size:clamp(1.5rem,4vw,2rem);font-weight:700;color:var(--on-surface);margin-bottom:0.25rem" id="greeting"></h2>
-        <p style="color:var(--on-surface-variant)">Discover stories from your elders</p>
+      <section class="greeting-section" style="padding-bottom: 1.5rem">
+        <h2 class="greeting-title" id="greeting"></h2>
+        <p class="greeting-subtitle">Discover stories from your elders</p>
       </section>
 
-      <!-- Elders You Follow (Horizontal Scroll) -->
-      <section style="margin-bottom:2.5rem">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Your Elders</h3>
-        <div style="display:flex;overflow-x:auto;gap:1.5rem;padding-bottom:0.5rem" class="hide-scrollbar" id="eldersRow">
-          <!-- El -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;flex-shrink:0;cursor:pointer" onclick="window.location.href='/explore.html'">
-            <div style="width:64px;height:64px;border-radius:50%;border:2px dashed var(--outline-variant);display:flex;align-items:center;justify-content:center">
-              <span class="material-symbols-outlined" style="color:var(--outline)">add</span>
-            </div>
-            <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)">Discover</span>
-          </div>
+      <!-- Elders You Follow -->
+      <section class="section">
+        <h3 class="section-title">Your Elders</h3>
+        <div class="drafts-scroll" id="eldersRow">
+          <a href="/explore" class="elder-discover">
+            <div class="elder-avatar-add"><span class="material-symbols-outlined">add</span></div>
+            <span>Discover</span>
+          </a>
         </div>
       </section>
 
       <!-- Story Feed -->
-      <section style="margin-bottom:2.5rem">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Stories For You</h3>
-        <div style="display:flex;flex-direction:column;gap:1.5rem" id="storyFeed">
-          <!-- Loading skeleton -->
-          <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
-            <div class="skeleton" style="height:16px;width:60%;margin-bottom:1rem"></div>
-            <div class="skeleton" style="height:20px;width:90%;margin-bottom:0.75rem"></div>
-            <div class="skeleton" style="height:14px;width:80%"></div>
-          </div>
+      <section class="section">
+        <h3 class="section-title">Stories For You</h3>
+        <div class="story-feed" id="storyFeed">
+          <div class="loading-placeholder">Loading stories...</div>
         </div>
       </section>
 
       <!-- Trending -->
-      <section>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-          <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">Trending Now</h3>
-          <a href="/explore" style="font-family:var(--font-label);font-size:0.875rem;font-weight:600;color:var(--primary)">See All</a>
+      <section class="section">
+        <div class="section-header">
+          <h3 class="section-title">Trending Now</h3>
+          <a href="/explore" class="section-link">See All</a>
         </div>
-        <div style="display:flex;overflow-x:auto;gap:1rem;padding-bottom:0.5rem" class="hide-scrollbar" id="trendingScroll">
-          <!-- Loading -->
+        <div class="drafts-scroll" id="trendingScroll">
+          <div class="loading-placeholder">Loading...</div>
         </div>
       </section>
     </div>
   </main>
 
+  <!-- Bottom Nav -->
   <nav class="bottom-nav">
     <a href="/youth-dashboard" class="bottom-nav-item active">
-      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">history_edu</span>
+      <span class="material-symbols-outlined filled">history_edu</span>
       <span class="nav-label">Home</span>
     </a>
     <a href="/library" class="bottom-nav-item">
@@ -193,105 +126,125 @@
     </a>
   </nav>
 
-  <script src="/js/api.js?v=4"></script>
-  <script src="/js/app.js?v=4"></script>
-  <script src="/js/components.js?v=4"></script>
+  <script src="/js/api.js?v=6"></script>
+  <script src="/js/auth.js?v=1"></script>
+  <script src="/js/components.js?v=6"></script>
   <script>
-    if (!App.isLoggedIn()) window.location.href = '/auth.html';
+    if (!Auth.requireAuth()) throw new Error('Not authenticated');
 
-    const name = App.currentUser ? App.currentUser.full_name.split(' ')[0] : 'Friend';
-    document.getElementById('greeting').textContent = `Welcome, ${name} 🌱`;
-    
-    // Safely set avatar in header
+    const user = Auth.getUser();
+    const firstName = (user?.full_name || 'Friend').split(' ')[0];
+    document.getElementById('greeting').textContent = `Welcome, ${firstName}`;
+
     const navImg = document.getElementById('navProfileImg');
-    if (navImg && App.currentUser) {
-      navImg.src = App.avatarUrl(App.currentUser);
+    if (navImg && user) {
+      navImg.src = Auth.avatarUrl(user);
     }
 
-    // Sample elder data for display
-    const sampleElders = [
-      { name: 'Gakwaya', badge: true },
-      { name: 'Mzee K.', badge: true },
-      { name: 'Nyirahirwa', badge: false },
-      { name: 'Munyana', badge: false },
-      { name: 'Mutabazi', badge: false },
-    ];
+    async function loadElders() {
+      try {
+        const feed = await API.getFeed();
+        const authors = new Map();
 
-    const eldersRow = document.getElementById('eldersRow');
-    sampleElders.forEach(elder => {
-      const avatar = App.avatarUrl({ full_name: elder.name });
-      eldersRow.innerHTML += `
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;flex-shrink:0;cursor:pointer;position:relative" onclick="window.location.href='/explore.html'">
-          <div style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:3px solid ${elder.badge ? 'var(--primary-container)' : 'var(--surface-container-highest)'}">
-            <img src="${avatar}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
-          </div>
-          ${elder.badge ? '<div style="position:absolute;top:-2px;right:4px;width:16px;height:16px;background:var(--primary);border-radius:50%;border:2px solid var(--surface)"></div>' : ''}
-          <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label);max-width:64px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${elder.name}</span>
-        </div>`;
-    });
+        (feed || []).forEach(s => {
+          if (s.author_id && !authors.has(s.author_id)) {
+            authors.set(s.author_id, { name: s.author_name, id: s.author_id });
+          }
+        });
+
+        const container = document.getElementById('eldersRow');
+        const discoverBtn = container.firstElementChild.outerHTML;
+
+        container.innerHTML = discoverBtn;
+
+        authors.forEach(elder => {
+          const avatar = Auth.avatarUrl({ full_name: elder.name });
+          container.innerHTML += `
+            <a href="/explore" class="elder-chip">
+              <img src="${avatar}" alt="${elder.name}" loading="lazy">
+              <span>${elder.name}</span>
+            </a>`;
+        });
+      } catch (err) {
+        console.error('Failed to load elders:', err);
+      }
+    }
 
     async function loadFeed() {
       try {
         const stories = await API.getFeed();
-        const feedEl = document.getElementById('storyFeed');
-        if (stories.length === 0) {
-          feedEl.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--on-surface-variant)"><span class="material-symbols-outlined" style="font-size:3rem;color:var(--outline);display:block;margin-bottom:1rem">library_music</span><p>No stories yet. Start exploring!</p><a href="/explore" class="btn-primary" style="margin-top:1rem;display:inline-flex">Explore Stories</a></div>`;
-        } else {
-          feedEl.innerHTML = stories.map(s => {
-            const avatar = App.avatarUrl({ full_name: s.author_name });
-            return `
-            <div style="background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;border:1px solid rgba(225,191,181,0.1);cursor:pointer" onclick="window.location.href='/story.html?id=${s.id}'">
-              <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
-                <img src="${avatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-container)" loading="lazy">
-                <div style="flex:1">
-                  <p style="font-weight:600;font-size:0.875rem">${s.author_name}</p>
-                  <p style="font-size:0.75rem;color:var(--on-surface-variant)">${App.timeAgo(s.created_at)}</p>
-                </div>
-                <span style="font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em;color:var(--primary-container);font-weight:700;background:var(--primary-fixed);padding:0.25rem 0.75rem;border-radius:9999px">${s.category}</span>
-              </div>
-              <h4 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:0.5rem">${s.title}</h4>
-              ${s.description ? `<p style="color:var(--on-surface-variant);font-size:0.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1rem">${s.description}</p>` : ''}
-              <div style="display:flex;align-items:center;justify-content:space-between">
-                <div style="display:flex;align-items:center;gap:1rem">
-                  <button style="width:44px;height:44px;border-radius:50%;background:var(--primary-fixed);display:flex;align-items:center;justify-content:center">
-                    <span class="material-symbols-outlined filled" style="color:var(--primary)">play_arrow</span>
-                  </button>
-                  <div style="display:flex;align-items:center;gap:2px;width:60px;height:20px">
-                    ${[3,5,7,4,6,3,5,4,3,2].map(h => `<div style="width:3px;height:${h*3}px;background:var(--primary);border-radius:2px;opacity:0.5"></div>`).join('')}
-                  </div>
-                  <span style="font-size:0.75rem;color:var(--on-surface-variant)">${App.formatDuration(s.duration_seconds)}</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:1rem;color:var(--on-surface-variant);font-size:0.75rem">
-                  <span>🙏 ${s.gratitude_count}</span>
-                  <span>▶ ${s.play_count}</span>
-                </div>
-              </div>
+        const container = document.getElementById('storyFeed');
+
+        if (!stories || stories.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <span class="material-symbols-outlined">library_music</span>
+              <p>No stories yet. Start exploring!</p>
+              <a href="/explore" class="btn-primary" style="margin-top:1rem">Explore Stories</a>
             </div>`;
+        } else {
+          container.innerHTML = stories.map(s => {
+            const avatar = Auth.avatarUrl({ full_name: s.author_name });
+            return `
+            <a href="/story?id=${s.id}" class="story-card">
+              <div class="story-header">
+                <img src="${avatar}" alt="${s.author_name}" loading="lazy" class="story-avatar">
+                <div class="story-author">
+                  <p class="author-name">${s.author_name}</p>
+                  <p class="author-time">${Auth.timeAgo(s.created_at)}</p>
+                </div>
+                <span class="story-category">${s.category || 'Story'}</span>
+              </div>
+              <h4 class="story-title">${s.title}</h4>
+              ${s.description ? `<p class="story-excerpt">${s.description}</p>` : ''}
+              <div class="story-footer">
+                <div class="story-actions">
+                  <button class="play-btn" onclick="event.stopPropagation(); window.location.href='/story?id=${s.id}'">
+                    <span class="material-symbols-outlined filled">play_arrow</span>
+                  </button>
+                  <div class="waveform">
+                    ${[3,5,7,4,6,3,5,4,3,2].map(h => `<div style="height:${h * 3}px"></div>`).join('')}
+                  </div>
+                  <span class="duration">${Auth.formatDuration(s.duration_seconds)}</span>
+                </div>
+                <div class="story-stats">
+                  <span>🙏 ${s.gratitude_count || 0}</span>
+                  <span>▶ ${s.play_count || 0}</span>
+                </div>
+              </div>
+            </a>`;
           }).join('');
         }
-      } catch(e) {
-        document.getElementById('storyFeed').innerHTML = '<p style="text-align:center;color:var(--on-surface-variant)">Unable to load stories</p>';
+      } catch (err) {
+        console.error('Failed to load feed:', err);
       }
     }
 
     async function loadTrending() {
       try {
         const trending = await API.getTrending();
-        const trendEl = document.getElementById('trendingScroll');
-        trendEl.innerHTML = trending.slice(0, 6).map(s => `
-          <div style="min-width:220px;flex-shrink:0;background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.25rem;border:1px solid rgba(225,191,181,0.15);cursor:pointer" onclick="window.location.href='/story.html?id=${s.id}'">
-            <span style="font-size:10px;font-family:var(--font-label);text-transform:uppercase;letter-spacing:0.1em;color:var(--primary-container);font-weight:700">${s.category}</span>
-            <h4 style="font-family:var(--font-headline);font-size:1rem;font-weight:700;margin:0.5rem 0">${s.title}</h4>
-            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--on-surface-variant)">
-              <span>▶ ${s.play_count}</span>
-              <span>·</span>
-              <span>🙏 ${s.gratitude_count}</span>
-            </div>
-          </div>
-        `).join('');
-      } catch(e) {}
+        const container = document.getElementById('trendingScroll');
+
+        if (!trending || trending.length === 0) {
+          container.innerHTML = '<div class="loading-placeholder">No trending stories yet</div>';
+        } else {
+          container.innerHTML = trending.slice(0, 6).map(s => `
+            <a href="/story?id=${s.id}" class="trend-card">
+              <span class="trend-category">${s.category || 'Story'}</span>
+              <h4 class="trend-title">${s.title}</h4>
+              <div class="trend-stats">
+                <span>▶ ${s.play_count || 0}</span>
+                <span>🙏 ${s.gratitude_count || 0}</span>
+              </div>
+            </a>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Failed to load trending:', err);
+      }
     }
 
+    loadElders();
     loadFeed();
     loadTrending();
   </script>

@@ -1,470 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In — Inkomoko</title>
+  <title>Sign In - Inkomoko</title>
   <meta name="description" content="Sign in or create an account to start preserving or discovering oral histories.">
-  <link rel="stylesheet" href="/css/styles.css?v=5">
+  <link rel="stylesheet" href="/css/styles.css?v=6">
+  <link rel="stylesheet" href="/css/auth.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#9b2f00">
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
-                }
-            }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+            "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+            "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+            "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+            "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+            "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+            "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+            "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694",
+            "surface-container-highest": "#e6e3d3", "on-tertiary-fixed": "#1f1a1e",
+            "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+            "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4",
+            "primary-fixed": "#ffdbd0", "on-surface-variant": "#59413a",
+            "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+            "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+            "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+            "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600",
+            "on-error": "#ffffff", "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
-</head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
       }
-    }catch(e){}
-  }, 100);
-</script>
-
-  <main style="min-height:100vh;padding:100px 1.5rem 120px;max-width:28rem;margin:0 auto;display:flex;flex-direction:column;align-items:center">
-    <!-- Header -->
-    <div style="text-align:center;margin-bottom:3rem;width:100%">
-      <div style="width:80px;height:80px;background:var(--primary-fixed);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center">
-        <span class="material-symbols-outlined filled" style="color:var(--primary);font-size:2rem">local_fire_department</span>
+    };
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+    .leaf-radius { border-radius: 1.5rem 0.5rem 1.5rem 0.5rem; }
+    .glass-header { background: rgba(253, 249, 233, 0.8); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5">
+    <div class="flex justify-between items-center w-full px-6 py-4">
+      <div class="flex items-center gap-4">
+        <h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
       </div>
-      <h2 style="font-family:var(--font-headline);font-size:1.875rem;font-weight:900;color:var(--on-surface);margin-bottom:0.5rem" id="authTitle">Welcome Back</h2>
-      <p style="color:var(--on-surface-variant);font-size:0.875rem" id="authSubtitle">Sign in to continue your journey</p>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <span class="material-symbols-outlined filled">local_fire_department</span>
+      </div>
+      <h2 class="auth-title" id="authTitle">Welcome Back</h2>
+      <p class="auth-subtitle" id="authSubtitle">Sign in to continue your journey</p>
     </div>
 
-    <!-- Mode Toggle -->
-    <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem;width:100%" id="authNav">
-      <button onclick="switchMode('login')" id="loginTab"
-              style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s">
-        Sign In
-      </button>
-      <button onclick="switchMode('signup')" id="signupTab"
-              style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">
-        Create Account
-      </button>
+    <div class="auth-tabs" id="authTabs">
+      <button onclick="AuthUI.switchMode('login')" id="loginTab" class="auth-tab active">Sign In</button>
+      <button onclick="AuthUI.switchMode('signup')" id="signupTab" class="auth-tab">Create Account</button>
     </div>
 
-    <!-- Auth Form -->
-    <form id="authForm" style="width:100%;display:flex;flex-direction:column;gap:1.5rem" onsubmit="handleAuth(event)">
-      <!-- Name (signup only) -->
-      <div id="nameGroup" class="form-group" style="display:none">
+    <form id="authForm" onsubmit="AuthUI.handleSubmit(event)">
+      <div id="nameGroup" class="form-group hidden">
         <label class="form-label" for="fullName">Full Name</label>
-        <div class="input-wrapper">
-          <input type="text" id="fullName" class="form-input" placeholder="Enter your full name">
-        </div>
+        <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" autocomplete="name">
       </div>
 
-      <!-- Email / Phone -->
-      <div class="form-group" id="identifierGroup">
+      <div id="identifierGroup" class="form-group">
         <label class="form-label" for="emailPhone">Email or Phone</label>
-        <div class="input-wrapper">
-          <input type="text" id="emailPhone" class="form-input" placeholder="email@example.com or +250..." required>
-        </div>
+        <input type="text" id="emailPhone" class="form-input" placeholder="email@example.com or +250..." autocomplete="email">
       </div>
 
-      <!-- Password -->
-      <div class="form-group" id="passwordGroup">
-        <div style="display:flex;justify-content:space-between;align-items:center">
+      <div id="passwordGroup" class="form-group">
+        <div class="form-group-header">
           <label class="form-label" for="password">Password</label>
-          <a href="#" onclick="switchMode('forgot'); return false;" style="font-size:0.75rem;color:var(--primary);font-weight:600;margin-bottom:0.5rem">Forgot?</a>
+          <a href="#" onclick="AuthUI.switchMode('forgot'); return false;" class="form-link">Forgot?</a>
         </div>
         <div class="input-wrapper">
-          <input type="password" id="password" class="form-input" placeholder="Enter your password">
-          <button type="button" onclick="togglePassword('password')" aria-label="Toggle password visibility">
-            <span class="material-symbols-outlined" id="passToggle">visibility_off</span>
+          <input type="password" id="password" class="form-input" placeholder="Enter your password" autocomplete="current-password">
+          <button type="button" onclick="AuthUI.togglePassword('password')" aria-label="Toggle visibility">
+            <span class="material-symbols-outlined" id="passToggleIcon">visibility_off</span>
           </button>
         </div>
-      </div>
-
-      <!-- OTP Group (hidden by default) -->
-      <div id="otpGroup" class="form-group" style="display:none;text-align:center">
-        <label class="form-label" style="text-align:center">Enter Verification Code</label>
-        <p style="font-size:0.8rem;color:var(--on-surface-variant);margin-bottom:1rem">A 6-digit code was sent to <span id="targetIdentifier" style="font-weight:700"></span></p>
-        <div class="input-wrapper">
-          <input type="text" id="otpCode" class="form-input" maxlength="6" placeholder="0 0 0 0 0 0" style="text-align:center;letter-spacing:0.5em;font-size:1.5rem;font-weight:800">
+        <div id="passwordStrength" class="password-strength hidden">
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <span id="strengthText"></span>
         </div>
-        <p style="font-size:0.75rem;margin-top:1rem;color:var(--on-surface-variant)">Didn't receive it? <a href="#" onclick="handleAuth(event, true); return false;" style="color:var(--primary);font-weight:700">Resend</a></p>
       </div>
 
-      <!-- New Password Group (reset only) -->
-      <div id="newPassGroup" class="form-group" style="display:none">
+      <div id="otpGroup" class="form-group hidden">
+        <label class="form-label">Enter Verification Code</label>
+        <p class="otp-hint">A 6-digit code was sent to <strong id="targetIdentifier"></strong></p>
+        <input type="text" id="otpCode" class="form-input otp-input" maxlength="6" placeholder="000000" inputmode="numeric" pattern="[0-9]*">
+        <p class="otp-resend">Didn't receive it? <a href="#" onclick="AuthUI.resendCode(); return false;">Resend</a></p>
+      </div>
+
+      <div id="newPassGroup" class="form-group hidden">
         <label class="form-label" for="newPassword">New Password</label>
         <div class="input-wrapper">
-          <input type="password" id="newPassword" class="form-input" placeholder="Minimum 6 characters">
-          <button type="button" onclick="togglePassword('newPassword')" aria-label="Toggle password visibility">
+          <input type="password" id="newPassword" class="form-input" placeholder="Minimum 6 characters" autocomplete="new-password">
+          <button type="button" onclick="AuthUI.togglePassword('newPassword')" aria-label="Toggle visibility">
             <span class="material-symbols-outlined">visibility_off</span>
           </button>
         </div>
       </div>
 
-      <!-- Role Selection (signup only) -->
-      <div id="roleGroup" class="form-group" style="display:none">
+      <div id="roleGroup" class="form-group hidden">
         <label class="form-label">I am joining as...</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
-          <button type="button" onclick="selectRole('elder')" id="roleElder"
-                  style="padding:1rem;border-radius:2rem 0.5rem 2rem 0.5rem;background:var(--surface-container-highest);text-align:center;transition:all 0.4s;border:2.5px solid transparent;overflow:hidden">
-            <div style="width:100%;aspect-ratio:3/4;margin-bottom:0.75rem;border-radius:1.5rem 0.4rem 1.5rem 0.4rem;overflow:hidden">
-              <img src="/assets/images/elder.png" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);transition:transform 0.4s">
-            </div>
-            <span style="font-family:var(--font-label);font-weight:700;font-size:0.9rem;color:var(--on-surface)">Elder</span>
-            <p style="font-size:0.7rem;color:var(--on-surface-variant);margin-top:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Share Legacy</p>
+        <div class="role-grid">
+          <button type="button" onclick="AuthUI.selectRole('elder')" id="roleElder" class="role-card">
+            <div class="role-image"><img src="/assets/images/elder.png" alt="Elder"></div>
+            <span class="role-name">Elder</span>
+            <p class="role-desc">Share Legacy</p>
           </button>
-          <button type="button" onclick="selectRole('youth')" id="roleYouth"
-                  style="padding:1rem;border-radius:0.5rem 2rem 0.5rem 2rem;background:var(--surface-container-highest);text-align:center;transition:all 0.4s;border:2.5px solid transparent;overflow:hidden">
-            <div style="width:100%;aspect-ratio:3/4;margin-bottom:0.75rem;border-radius:0.4rem 1.5rem 0.4rem 1.5rem;overflow:hidden">
-              <img src="/assets/images/youth.png" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);transition:transform 0.4s">
-            </div>
-            <span style="font-family:var(--font-label);font-weight:700;font-size:0.9rem;color:var(--on-surface)">Youth</span>
-            <p style="font-size:0.7rem;color:var(--on-surface-variant);margin-top:0.25rem;text-transform:uppercase;letter-spacing:0.05em">Learn & Connect</p>
+          <button type="button" onclick="AuthUI.selectRole('youth')" id="roleYouth" class="role-card">
+            <div class="role-image"><img src="/assets/images/youth.png" alt="Youth"></div>
+            <span class="role-name">Youth</span>
+            <p class="role-desc">Learn & Connect</p>
           </button>
         </div>
       </div>
 
-      <!-- Error Message -->
-      <div id="errorMsg" style="display:none;padding:1rem;background:var(--error-container);color:var(--on-error-container);border-radius:0.75rem;font-size:0.875rem;text-align:center"></div>
+      <div id="errorMsg" class="error-message hidden"></div>
 
-      <!-- Submit -->
-      <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;height:56px;font-size:1rem">
-        Sign In
-      </button>
+      <button type="submit" id="submitBtn" class="btn-primary btn-full">Sign In</button>
     </form>
 
-    <!-- Bottom Link -->
-    <div id="authBottom" style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--on-surface-variant)">
+    <div id="authBottom" class="auth-bottom">
       <span id="switchText">Don't have an account?</span>
-      <a href="#" onclick="switchMode(currentMode === 'login' ? 'signup' : 'login'); return false;" style="color:var(--primary);font-weight:700;margin-left:0.25rem" id="switchLink">Create one</a>
+      <a href="#" onclick="AuthUI.toggleLoginSignup(); return false;" id="switchLink" class="form-link">Create one</a>
     </div>
 
-    <!-- Back to Sign In -->
-    <a href="#" id="backLink" onclick="switchMode('login'); return false;" 
-       style="display:none;margin-top:2rem;text-align:center;color:var(--on-surface-variant);font-size:0.875rem;font-weight:600">
-       <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle">arrow_back</span> Back to Sign In
+    <a href="#" id="backLink" class="back-link hidden" onclick="AuthUI.switchMode('login'); return false;">
+      <span class="material-symbols-outlined">arrow_back</span> Back to Sign In
     </a>
   </main>
 
-  <script src="/js/api.js?v=5"></script>
-  <script src="/js/app.js?v=5"></script>
-  <script src="/js/components.js?v=5"></script>
+  <script src="/js/api.js?v=6"></script>
+  <script src="/js/auth.js?v=1"></script>
+  <script src="/js/components.js?v=6"></script>
   <script>
-    let currentMode = 'login';
-    let selectedRole = 'youth';
-    let otpContext = null; // { identifier, purpose }
+    const AuthUI = {
+      mode: 'login',
+      role: 'youth',
+      otpContext: null,
 
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      // 🛡️ Final Auth Shield: If we somehow hit this page with a corrupted object, clear it.
-      if (localStorage.getItem('inkomoko_user') === 'undefined') {
-        localStorage.clear();
-      }
-
-      const params = new URLSearchParams(window.location.search);
-      const isSignupParam = params.get('mode') === 'signup' || params.get('role');
-      if (isSignupParam) switchMode('signup');
-      if (params.get('role')) selectRole(params.get('role'));
-      
-      // Safety: ensure default state is consistent
-      if (!isSignupParam && currentMode !== 'login') {
-        switchMode('login');
-      }
-    });
-
-    function switchMode(mode) {
-      currentMode = mode;
-      const isLogin = mode === 'login';
-      const isSignup = mode === 'signup';
-      const isOTP = mode === 'otp';
-      const isForgot = mode === 'forgot';
-      const isReset = mode === 'reset';
-
-      // Header UI
-      document.getElementById('authNav').style.display = (isLogin || isSignup) ? 'flex' : 'none';
-      if (isLogin || isSignup) {
-        document.getElementById('loginTab').style.background = isLogin ? 'var(--primary)' : 'transparent';
-        document.getElementById('loginTab').style.color = isLogin ? 'white' : 'var(--on-surface-variant)';
-        document.getElementById('signupTab').style.background = isSignup ? 'var(--primary)' : 'transparent';
-        document.getElementById('signupTab').style.color = isSignup ? 'white' : 'var(--on-surface-variant)';
-      }
-
-      // Groups visibility
-      document.getElementById('nameGroup').style.display = isSignup ? 'block' : 'none';
-      document.getElementById('identifierGroup').style.display = (isLogin || isSignup || isForgot || isReset) ? 'block' : 'none';
-      document.getElementById('passwordGroup').style.display = (isLogin || isSignup) ? 'block' : 'none';
-      document.getElementById('otpGroup').style.display = (isOTP || isReset) ? 'block' : 'none';
-      document.getElementById('newPassGroup').style.display = isReset ? 'block' : 'none';
-      document.getElementById('roleGroup').style.display = isSignup ? 'block' : 'none';
-
-      // Titles
-      const titles = {
-        login: ['Welcome Back', 'Sign in to continue your journey'],
-        signup: ['Create Account', 'Join the Living Archive community'],
-        otp: ['Verify Identity', 'Enter the code sent to your device'],
-        forgot: ['Reset Password', 'Enter your email/phone to receive a code'],
-        reset: ['New Password', 'Create a secure new password']
-      };
-      
-      document.getElementById('authTitle').textContent = titles[mode][0];
-      document.getElementById('authSubtitle').textContent = titles[mode][1];
-      
-      // Submit Button text
-      const btnText = {
-        login: 'Sign In', signup: 'Create Account', otp: 'Verify Code',
-        forgot: 'Send Reset Code', reset: 'Update Password'
-      };
-      document.getElementById('submitBtn').textContent = btnText[mode];
-      
-      // Bottom Links
-      document.getElementById('authBottom').style.display = (isLogin || isSignup) ? 'block' : 'none';
-      if (isLogin || isSignup) {
-        document.getElementById('switchText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
-        document.getElementById('switchLink').textContent = isLogin ? 'Create one' : 'Sign in';
-      }
-      
-      document.getElementById('backLink').style.display = (!isLogin && !isSignup) ? 'block' : 'none';
-      document.getElementById('errorMsg').style.display = 'none';
-    }
-
-    function selectRole(role) {
-      selectedRole = role;
-      const elderBtn = document.getElementById('roleElder');
-      const youthBtn = document.getElementById('roleYouth');
-      elderBtn.style.borderColor = role === 'elder' ? 'var(--primary)' : 'transparent';
-      elderBtn.style.background = role === 'elder' ? 'var(--primary-fixed)' : 'var(--surface-container-highest)';
-      youthBtn.style.borderColor = role === 'youth' ? 'var(--secondary)' : 'transparent';
-      youthBtn.style.background = role === 'youth' ? 'var(--secondary-fixed)' : 'var(--surface-container-highest)';
-    }
-
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      const btn = input.nextElementSibling;
-      const icon = btn.querySelector('.material-symbols-outlined');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.textContent = 'visibility';
-      } else {
-        input.type = 'password';
-        icon.textContent = 'visibility_off';
-      }
-    }
-
-    async function handleAuth(e, isResend = false) {
-      if (e) e.preventDefault();
-      const errorEl = document.getElementById('errorMsg');
-      const submitBtn = document.getElementById('submitBtn');
-      errorEl.style.display = 'none';
-
-      // Prevent double submissions
-      if (submitBtn.disabled) return;
-      
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Please wait...';
-      submitBtn.style.opacity = '0.7';
-
-      const emailPhone = document.getElementById('emailPhone').value.trim();
-      const password = document.getElementById('password').value;
-      const otpCode = document.getElementById('otpCode').value.trim();
-      const newPassword = document.getElementById('newPassword').value;
-
-      try {
-        let result;
-
-        // AUTH STEPS (Login/Signup)
-        if (currentMode === 'login' || currentMode === 'signup') {
-          const data = { 
-            email: emailPhone.includes('@') ? emailPhone : null, 
-            phone: !emailPhone.includes('@') ? emailPhone : null, 
-            password: password 
-          };
-          
-          if (currentMode === 'signup') {
-            data.full_name = document.getElementById('fullName').value.trim();
-            data.role = selectedRole;
-          }
-          
-          result = currentMode === 'signup' ? await API.signup(data) : await API.login(data);
-
-          if (result.otp_required) {
-            console.log('OTP required. Switching to OTP mode.');
-            document.getElementById('targetIdentifier').textContent = emailPhone;
-            otpContext = { identifier: emailPhone, purpose: result.purpose || currentMode };
-            switchMode('otp');
-            return;
-          }
+      init() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('mode') === 'signup' || params.get('role')) {
+          this.switchMode('signup');
+          if (params.get('role')) this.selectRole(params.get('role'));
         }
 
-        // OTP VERIFICATION
-        if (currentMode === 'otp') {
-          const otpResult = await API.verifyOTP({ identifier: otpContext.identifier, code: otpCode, purpose: otpContext.purpose });
-          console.log('OTP verify result:', otpResult);
-          if (otpResult && otpResult.token && otpResult.user) {
-            API.setToken(otpResult.token);
-            App.setUser(otpResult.user);
-            return handleRedirect(otpResult.user);
-          }
+        const passInput = document.getElementById('password');
+        if (passInput) {
+          passInput.addEventListener('input', () => this.updatePasswordStrength(passInput.value));
         }
 
-        // Handle immediate login/signup if OTP wasn't required
-        if (result && result.token && result.user) {
-          console.log('Auth result:', result);
-          API.setToken(result.token);
-          App.setUser(result.user);
-          handleRedirect(result.user);
-          return;
+        const otpInput = document.getElementById('otpCode');
+        if (otpInput) {
+          otpInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 6);
+          });
         }
 
-        // FORGOT PASSWORD
-        if (currentMode === 'forgot') {
-          result = await API.forgotPassword(emailPhone);
-          otpContext = { identifier: emailPhone, purpose: 'reset' };
-          document.getElementById('targetIdentifier').textContent = emailPhone;
-          switchMode('reset');
-          return;
+        const idInput = document.getElementById('emailPhone');
+        if (idInput) {
+          idInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (/^\+\d/.test(val)) {
+              const digits = val.replace(/\D/g, '').substring(0, 12);
+              let formatted = '+';
+              if (digits.length > 1) {
+                formatted += digits.substring(1, 3);
+              }
+              if (digits.length > 3) {
+                formatted += ' ' + digits.substring(3, 6);
+              }
+              if (digits.length > 6) {
+                formatted += ' ' + digits.substring(6, 9);
+              }
+              if (digits.length > 9) {
+                formatted += ' ' + digits.substring(9, 12);
+              }
+              e.target.value = formatted;
+            }
+          });
+        }
+      },
+
+      switchMode(mode) {
+        this.mode = mode;
+        this.hideError();
+
+        const isLogin = mode === 'login';
+        const isSignup = mode === 'signup';
+        const isOTP = mode === 'otp';
+        const isForgot = mode === 'forgot';
+        const isReset = mode === 'reset';
+
+        document.getElementById('authTabs').style.display = (isLogin || isSignup) ? 'flex' : 'none';
+
+        if (isLogin || isSignup) {
+          this.updateTabStyle(isLogin);
         }
 
-        // RESET PASSWORD
-        if (currentMode === 'reset') {
-          result = await API.resetPassword({ identifier: otpContext.identifier, code: otpCode, new_password: newPassword });
-          App.showToast('Password updated! Please sign in.', 'success');
-          switchMode('login');
+        this.show('nameGroup', isSignup);
+        this.show('identifierGroup', isLogin || isSignup || isForgot || isReset);
+        this.show('passwordGroup', isLogin || isSignup);
+        this.show('otpGroup', isOTP || isReset);
+        this.show('newPassGroup', isReset);
+        this.show('roleGroup', isSignup);
+
+        const titles = {
+          login: ['Welcome Back', 'Sign in to continue your journey'],
+          signup: ['Create Account', 'Join the Living Archive community'],
+          otp: ['Verify Identity', 'Enter the code sent to your device'],
+          forgot: ['Reset Password', 'Enter your email or phone to receive a code'],
+          reset: ['New Password', 'Create a secure new password']
+        };
+
+        const btnText = {
+          login: 'Sign In', signup: 'Create Account', otp: 'Verify Code',
+          forgot: 'Send Reset Code', reset: 'Update Password'
+        };
+
+        document.getElementById('authTitle').textContent = titles[mode][0];
+        document.getElementById('authSubtitle').textContent = titles[mode][1];
+        document.getElementById('submitBtn').textContent = btnText[mode];
+
+        this.show('authBottom', isLogin || isSignup);
+
+        if (isLogin || isSignup) {
+          document.getElementById('switchText').textContent = isLogin ? "Don't have an account?" : 'Already have an account?';
+          document.getElementById('switchLink').textContent = isLogin ? 'Create one' : 'Sign in';
         }
 
-      } catch (err) {
-        errorEl.textContent = err.message || 'Something went wrong. Please try again.';
-        errorEl.style.display = 'block';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-        submitBtn.style.opacity = '1';
-      }
-    }
+        this.show('backLink', !isLogin && !isSignup);
 
-    function handleRedirect(user) {
-      try {
-        console.log('handleRedirect called with:', user);
-        if (!user) {
-          window.location.href = '/welcome';
-          return;
+        if (isOTP || isReset) {
+          setTimeout(() => document.getElementById('otpCode')?.focus(), 100);
+        } else if (isLogin) {
+          setTimeout(() => document.getElementById('emailPhone')?.focus(), 100);
         }
-        
-        const role = user.role || 'youth';
-        const status = user.onboarding_status;
-        console.log('onboarding_status:', status, 'type:', typeof status);
-        const isCompleted = status === true;
-        
-        if (!isCompleted || status == null || status === false || status === 'false') {
-          window.location.href = '/onboarding.html';
+      },
+
+      updateTabStyle(isLogin) {
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+
+        loginTab.classList.toggle('active', isLogin);
+        signupTab.classList.toggle('active', !isLogin);
+      },
+
+      toggleLoginSignup() {
+        this.switchMode(this.mode === 'login' ? 'signup' : 'login');
+      },
+
+      selectRole(role) {
+        this.role = role;
+        const elderBtn = document.getElementById('roleElder');
+        const youthBtn = document.getElementById('roleYouth');
+
+        elderBtn.classList.toggle('selected', role === 'elder');
+        youthBtn.classList.toggle('selected', role === 'youth');
+      },
+
+      togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling?.querySelector('.material-symbols-outlined');
+        if (!input || !icon) return;
+
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.textContent = 'visibility';
         } else {
-          window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+          input.type = 'password';
+          icon.textContent = 'visibility_off';
         }
-      } catch (err) {
-        console.error('CRITICAL REDIRECT ERROR:', err);
-        App.showToast('Redirection failed. Please try signing in again.', 'error');
-      }
-    }
+      },
+
+      updatePasswordStrength(password) {
+        const container = document.getElementById('passwordStrength');
+        const fill = document.getElementById('strengthFill');
+        const text = document.getElementById('strengthText');
+
+        if (!password) {
+          container.classList.add('hidden');
+          return;
+        }
+
+        container.classList.remove('hidden');
+
+        let score = 0;
+        if (password.length >= 6) score++;
+        if (password.length >= 10) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        const levels = [
+          { width: '20%', color: '#ba1a1a', text: 'Weak' },
+          { width: '40%', color: '#e67e22', text: 'Fair' },
+          { width: '60%', color: '#f1c40f', text: 'Good' },
+          { width: '80%', color: '#2ecc71', text: 'Strong' },
+          { width: '100%', color: '#27ae60', text: 'Excellent' },
+        ];
+
+        const level = levels[Math.min(score, 4)];
+        fill.style.width = level.width;
+        fill.style.backgroundColor = level.color;
+        text.textContent = level.text;
+        text.style.color = level.color;
+      },
+
+      show(id, visible) {
+        document.getElementById(id).style.display = visible ? 'block' : 'none';
+      },
+
+      showError(message) {
+        const el = document.getElementById('errorMsg');
+        el.textContent = message;
+        el.classList.remove('hidden');
+      },
+
+      hideError() {
+        document.getElementById('errorMsg').classList.add('hidden');
+      },
+
+      setLoading(loading, originalText) {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = loading;
+        btn.textContent = loading ? 'Please wait...' : originalText;
+        btn.style.opacity = loading ? '0.7' : '1';
+      },
+
+      async handleSubmit(e) {
+        if (e) e.preventDefault();
+        if (document.getElementById('submitBtn').disabled) return;
+
+        const btnText = document.getElementById('submitBtn').textContent;
+        this.setLoading(true, btnText);
+        this.hideError();
+
+        try {
+          const emailPhone = document.getElementById('emailPhone').value.trim();
+          const password = document.getElementById('password').value;
+          const otpCode = document.getElementById('otpCode').value.trim();
+          const newPassword = document.getElementById('newPassword').value;
+
+          switch (this.mode) {
+            case 'login':
+            case 'signup':
+              await this.handleAuthStep(emailPhone, password);
+              break;
+            case 'otp':
+              await this.handleOtpStep(otpCode);
+              break;
+            case 'forgot':
+              await this.handleForgotStep(emailPhone);
+              break;
+            case 'reset':
+              await this.handleResetStep(otpCode, newPassword);
+              break;
+          }
+        } catch (err) {
+          this.showError(err.message || 'Something went wrong. Please try again.');
+        } finally {
+          this.setLoading(false, btnText);
+        }
+      },
+
+      async handleAuthStep(identifier, password) {
+        if (!identifier) throw new Error('Email or phone is required');
+        if (!password) throw new Error('Password is required');
+
+        const isEmail = identifier.includes('@');
+        const data = {
+          email: isEmail ? identifier : null,
+          phone: !isEmail ? identifier : null,
+          password,
+        };
+
+        if (this.mode === 'signup') {
+          const name = document.getElementById('fullName').value.trim();
+          if (!name) throw new Error('Full name is required');
+          if (name.length < 2) throw new Error('Name is too short');
+
+          data.full_name = name;
+          data.role = this.role;
+        }
+
+        const result = this.mode === 'signup' ? await API.signup(data) : await API.login(data);
+
+        if (result.otp_required) {
+          document.getElementById('targetIdentifier').textContent = identifier;
+          this.otpContext = { identifier, purpose: result.purpose || this.mode };
+          this.switchMode('otp');
+          return;
+        }
+
+        if (result.token && result.user) {
+          Auth.setSession(result.user, result.token);
+          Auth.redirectAfterAuth();
+        }
+      },
+
+      async handleOtpStep(code) {
+        if (!code) throw new Error('Verification code is required');
+        if (!/^\d{6}$/.test(code)) throw new Error('Code must be 6 digits');
+        if (!this.otpContext) throw new Error('Session expired. Please start over.');
+
+        const result = await API.verifyOTP({
+          identifier: this.otpContext.identifier,
+          code,
+          purpose: this.otpContext.purpose,
+        });
+
+        if (result.token && result.user) {
+          Auth.setSession(result.user, result.token);
+          Auth.redirectAfterAuth();
+        } else {
+          throw new Error('Verification failed');
+        }
+      },
+
+      async handleForgotStep(identifier) {
+        if (!identifier) throw new Error('Email or phone is required');
+
+        await API.forgotPassword(identifier);
+
+        this.otpContext = { identifier, purpose: 'reset' };
+        document.getElementById('targetIdentifier').textContent = identifier;
+        this.switchMode('reset');
+      },
+
+      async handleResetStep(code, newPassword) {
+        if (!code) throw new Error('Verification code is required');
+        if (!newPassword) throw new Error('New password is required');
+        if (newPassword.length < 6) throw new Error('Password must be at least 6 characters');
+        if (!this.otpContext) throw new Error('Session expired. Please start over.');
+
+        await API.resetPassword({
+          identifier: this.otpContext.identifier,
+          code,
+          new_password: newPassword,
+        });
+
+        Auth.showToast('Password updated! Please sign in.', 'success');
+        this.switchMode('login');
+      },
+
+      async resendCode() {
+        if (!this.otpContext) return;
+
+        const btn = document.getElementById('submitBtn');
+        const originalText = btn.textContent;
+        this.setLoading(true, originalText);
+
+        try {
+          if (this.otpContext.purpose === 'reset') {
+            await API.forgotPassword(this.otpContext.identifier);
+          } else {
+            const identifier = this.otpContext.identifier;
+            const isEmail = identifier.includes('@');
+            const data = {
+              email: isEmail ? identifier : null,
+              phone: !isEmail ? identifier : null,
+              password: 'resend',
+            };
+
+            if (this.otpContext.purpose === 'signup') {
+              data.full_name = document.getElementById('fullName').value.trim();
+              data.role = this.role;
+              await API.signup(data);
+            } else {
+              await API.login(data);
+            }
+          }
+
+          Auth.showToast('Code resent', 'success');
+        } catch (err) {
+          this.showError(err.message || 'Failed to resend code');
+        } finally {
+          this.setLoading(false, originalText);
+        }
+      },
+    };
+
+    AuthUI.init();
   </script>
 </body>
 </html>

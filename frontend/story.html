@@ -1,195 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Story — Inkomoko</title>
   <meta name="description" content="Listen to an oral history from The Living Archive.">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=6">
+  <link rel="stylesheet" href="/css/story.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#9b2f00">
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
-                }
-            }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+            "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+            "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+            "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+            "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+            "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+            "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+            "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694",
+            "surface-container-highest": "#e6e3d3", "on-tertiary-fixed": "#1f1a1e",
+            "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+            "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4",
+            "primary-fixed": "#ffdbd0", "on-surface-variant": "#59413a",
+            "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+            "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+            "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+            "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600",
+            "on-error": "#ffffff", "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
-</head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
       }
-    }catch(e){}
-  }, 100);
-</script>
+    };
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+    .leaf-radius { border-radius: 1.5rem 0.5rem 1.5rem 0.5rem; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+  <header id="topHeader" class="story-header">
+    <div class="story-header-inner">
+      <button onclick="window.history.back()" class="story-header-btn" aria-label="Back">
+        <span class="material-symbols-outlined" id="backIcon">arrow_back</span>
+      </button>
+      <button onclick="shareStory()" class="story-header-btn" aria-label="Share">
+        <span class="material-symbols-outlined" id="shareIcon">share</span>
+      </button>
+    </div>
+  </header>
 
-  <main style="min-height:100vh;padding-bottom:180px" id="storyMain">
-    <!-- Hero Image -->
-    <div style="position:relative;height:50vh;min-height:320px;max-height:480px;overflow:hidden;background:var(--surface-container-high)" id="heroSection">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(53,16,0,0.3),rgba(53,16,0,0.8))"></div>
-      <div style="position:absolute;bottom:0;left:0;padding:2rem 1.5rem;width:100%;z-index:1" id="heroContent">
-        <!-- Populated by JS -->
-      </div>
+  <main id="storyMain" class="story-main">
+    <!-- Hero -->
+    <div class="story-hero" id="heroSection">
+      <div class="story-hero-overlay"></div>
+      <div class="story-hero-content" id="heroContent"></div>
     </div>
 
-    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
-      <!-- Elder Info Row -->
-      <section style="display:flex;align-items:center;gap:1rem;padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="elderRow">
-        <!-- Populated by JS -->
-      </section>
+    <div class="story-content">
+      <!-- Elder Info -->
+      <section class="elder-info-row" id="elderRow"></section>
 
       <!-- Engagement Stats -->
-      <section style="display:flex;justify-content:space-around;padding:1.25rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="engagementRow">
-        <!-- Populated by JS -->
-      </section>
+      <section class="engagement-row" id="engagementRow"></section>
 
       <!-- Gratitude Button -->
-      <section style="padding:1.5rem 0;display:flex;justify-content:center">
-        <button onclick="toggleGratitude()" id="gratitudeBtn"
-                style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 2rem;border-radius:9999px;background:var(--surface-container-lowest);border:2px solid var(--outline-variant);font-family:var(--font-label);font-weight:700;font-size:1rem;color:var(--on-surface);transition:all 0.3s">
+      <section class="gratitude-section">
+        <button onclick="toggleGratitude()" id="gratitudeBtn" class="gratitude-btn">
           <span id="gratitudeEmoji">🙏</span>
           <span id="gratitudeText">Murakoze</span>
-          <span id="gratitudeCount" style="color:var(--primary);font-size:0.875rem">0</span>
+          <span id="gratitudeCount">0</span>
         </button>
       </section>
 
       <!-- Transcript -->
-      <section style="padding:1rem 0 2rem">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
-          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Transcript</h3>
-          <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:3px">
-            <button onclick="switchTranscript('kw')" id="transcriptKw"
-                    style="padding:0.5rem 1rem;border-radius:9999px;font-family:var(--font-label);font-size:0.75rem;font-weight:600;background:var(--primary);color:white;transition:all 0.3s">
-              Kinyarwanda
-            </button>
-            <button onclick="switchTranscript('en')" id="transcriptEn"
-                    style="padding:0.5rem 1rem;border-radius:9999px;font-family:var(--font-label);font-size:0.75rem;font-weight:600;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">
-              English
-            </button>
+      <section class="transcript-section">
+        <div class="transcript-header">
+          <h3 class="section-title">Transcript</h3>
+          <div class="lang-toggle">
+            <button onclick="switchTranscript('kw')" id="transcriptKw" class="lang-btn active">Kinyarwanda</button>
+            <button onclick="switchTranscript('en')" id="transcriptEn" class="lang-btn">English</button>
           </div>
         </div>
-
-        <div id="transcriptContent" style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;border:1px solid rgba(225,191,181,0.1)">
-          <!-- Populated by JS -->
-        </div>
+        <div id="transcriptContent" class="transcript-content"></div>
       </section>
 
       <!-- Comments -->
-      <section style="padding:1rem 0">
-        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1.5rem" id="commentsTitle">Comments</h3>
-        <div id="commentsList" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
-          <!-- Populated by JS -->
-        </div>
+      <section class="comments-section">
+        <h3 class="section-title" id="commentsTitle">Comments</h3>
+        <div id="commentsList" class="comments-list"></div>
 
-        <!-- Add Comment -->
-        <div style="display:flex;gap:0.75rem;align-items:start" id="addComment">
-          <div style="flex:1;position:relative">
-            <textarea id="commentInput" class="form-input" style="height:56px;resize:none;padding:1rem 1.5rem" placeholder="Share your gratitude..."></textarea>
-          </div>
-          <button onclick="postComment()" class="btn-primary" style="min-height:56px;width:56px;padding:0;border-radius:50%">
+        <div class="comment-input-row" id="addComment">
+          <textarea id="commentInput" class="form-input comment-input" placeholder="Share your gratitude..."></textarea>
+          <button onclick="postComment()" class="comment-send-btn" aria-label="Send">
             <span class="material-symbols-outlined">send</span>
           </button>
         </div>
@@ -197,98 +110,100 @@
     </div>
   </main>
 
-  <!-- Sticky Bottom Player -->
-  <div id="stickyPlayer" style="position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(253,249,233,0.95);backdrop-filter:blur(24px);border-radius:2rem 2rem 0 0;box-shadow:0 -8px 30px rgba(28,28,19,0.1);padding:1.25rem 1.5rem 2rem">
-    <!-- Progress -->
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
-      <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)" id="playerCurrentTime">0:00</span>
-      <div style="flex:1;height:6px;background:var(--surface-container-highest);border-radius:9999px;overflow:hidden;cursor:pointer">
-        <div style="width:0%;height:100%;background:var(--primary);border-radius:9999px;transition:width 0.1s" id="playerProgress"></div>
+  <!-- Sticky Player -->
+  <div id="stickyPlayer" class="sticky-player">
+    <div class="player-progress-row">
+      <span class="player-time" id="playerCurrentTime">0:00</span>
+      <div class="player-progress-track" id="progressTrack">
+        <div class="player-progress-fill" id="playerProgress"></div>
       </div>
-      <span style="font-size:0.75rem;color:var(--on-surface-variant);font-family:var(--font-label)" id="playerDuration">0:00</span>
+      <span class="player-time" id="playerDuration">0:00</span>
     </div>
 
-    <!-- Controls -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:2rem">
-      <button style="color:var(--on-surface-variant);padding:8px">
+    <div class="player-controls">
+      <button onclick="skipBack()" class="player-control-btn" aria-label="Skip back">
         <span class="material-symbols-outlined">replay_10</span>
       </button>
-      <button onclick="togglePlay()" id="playBtn"
-              style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(155,47,0,0.3)">
-        <span class="material-symbols-outlined filled" style="font-size:2rem" id="playIcon">play_arrow</span>
+      <button onclick="togglePlay()" id="playBtn" class="play-btn" aria-label="Play">
+        <span class="material-symbols-outlined filled" id="playIcon">play_arrow</span>
       </button>
-      <button style="color:var(--on-surface-variant);padding:8px">
+      <button onclick="skipForward()" class="player-control-btn" aria-label="Skip forward">
         <span class="material-symbols-outlined">forward_10</span>
       </button>
     </div>
   </div>
 
-  <script src="/js/api.js"></script>
-  <script src="/js/app.js"></script>
-  <script src="/js/components.js"></script>
+  <script src="/js/api.js?v=6"></script>
+  <script src="/js/auth.js?v=1"></script>
   <script>
     let story = null;
     let isPlaying = false;
     let isGrateful = false;
-    let isBookmarked = false;
     let currentTranscript = 'kw';
+    let playbackTime = 0;
+    let playbackInterval;
 
     const storyId = new URLSearchParams(window.location.search).get('id');
 
-    async function loadStory() {
-      if (!storyId) { window.location.href = '/explore.html'; return; }
+    if (!storyId) {
+      window.location.href = '/explore';
+    }
 
+    async function loadStory() {
       try {
         story = await API.getStory(storyId);
         isGrateful = story.is_grateful || false;
-        isBookmarked = story.is_bookmarked || false;
         renderStory();
-      } catch(e) {
-        document.getElementById('storyMain').innerHTML = '<div style="padding:120px 1.5rem;text-align:center"><h2>Story not found</h2><a href="/explore" class="btn-primary" style="margin-top:1rem">Explore Stories</a></div>';
+      } catch (err) {
+        document.getElementById('storyMain').innerHTML = `
+          <div class="empty-state">
+            <h2>Story not found</h2>
+            <a href="/explore" class="btn-primary">Explore Stories</a>
+          </div>`;
       }
     }
 
     function renderStory() {
       document.title = `${story.title} — Inkomoko`;
-      const authorAvatar = App.avatarUrl({ full_name: story.author_name });
+      const authorAvatar = Auth.avatarUrl({ full_name: story.author_name });
 
-      // Hero
       document.getElementById('heroContent').innerHTML = `
-        <span style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(255,181,157,0.3);color:var(--primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem">${story.category || 'Story'}${story.era ? ` · ${story.era}` : ''}</span>
-        <h1 style="font-family:var(--font-headline);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:900;color:white;margin-bottom:0.5rem">${story.title}</h1>
-        ${story.description ? `<p style="color:rgba(255,255,255,0.8);font-size:1rem;max-width:36rem">${story.description}</p>` : ''}
+        <span class="hero-badge">${story.category || 'Story'}${story.era ? ` · ${story.era}` : ''}</span>
+        <h1 class="hero-title">${story.title}</h1>
+        ${story.description ? `<p class="hero-description">${story.description}</p>` : ''}
       `;
 
-      // Elder Info
       document.getElementById('elderRow').innerHTML = `
-        <img src="${authorAvatar}" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary-container);object-fit:cover" loading="lazy">
-        <div style="flex:1">
-          <a href="/elder-profile?id=${story.author_id}" style="font-family:var(--font-headline);font-weight:700;color:var(--on-surface);font-size:1rem">${story.author_name}</a>
-          <p style="font-size:0.75rem;color:var(--on-surface-variant)">${story.author_clan ? story.author_clan + ' · ' : ''}${story.author_region || ''}</p>
+        <img src="${authorAvatar}" alt="${story.author_name}" loading="lazy" class="elder-avatar">
+        <div class="elder-details">
+          <a href="/elder-profile?id=${story.author_id}" class="elder-name">${story.author_name}</a>
+          <p class="elder-meta">${story.author_clan ? story.author_clan + ' · ' : ''}${story.author_region || ''}</p>
         </div>
-        <a href="/elder-profile?id=${story.author_id}" class="btn-secondary" style="min-height:40px;padding:0 1.25rem;font-size:0.75rem">View Profile</a>
+        <a href="/elder-profile?id=${story.author_id}" class="btn-secondary elder-profile-btn">View Profile</a>
       `;
 
-      // Engagement
       document.getElementById('engagementRow').innerHTML = `
-        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${story.play_count || 0}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Plays</p></div>
-        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${story.gratitude_count || 0}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Murakoze</p></div>
-        <div style="text-align:center"><p style="font-family:var(--font-headline);font-weight:700;font-size:1.5rem">${(story.comments || []).length}</p><p style="font-size:0.75rem;color:var(--on-surface-variant)">Comments</p></div>
+        <div class="engagement-item">
+          <p class="engagement-value">${story.play_count || 0}</p>
+          <p class="engagement-label">Plays</p>
+        </div>
+        <div class="engagement-item">
+          <p class="engagement-value">${story.gratitude_count || 0}</p>
+          <p class="engagement-label">Murakoze</p>
+        </div>
+        <div class="engagement-item">
+          <p class="engagement-value">${(story.comments || []).length}</p>
+          <p class="engagement-label">Comments</p>
+        </div>
       `;
 
-      // Gratitude button
       document.getElementById('gratitudeCount').textContent = story.gratitude_count || 0;
       updateGratitudeBtn();
-      updateBookmarkBtn();
 
-      // Transcript
       renderTranscript();
-
-      // Comments
       renderComments();
 
-      // Player
-      document.getElementById('playerDuration').textContent = App.formatDuration(story.duration_seconds);
+      document.getElementById('playerDuration').textContent = Auth.formatDuration(story.duration_seconds);
     }
 
     function renderTranscript() {
@@ -296,22 +211,20 @@
       const text = currentTranscript === 'kw' ? story.transcript_kinyarwanda : story.transcript_english;
 
       if (!text) {
-        el.innerHTML = `<p style="color:var(--on-surface-variant);font-style:italic;text-align:center">No transcript available for this language yet.</p>`;
+        el.innerHTML = `<p class="transcript-empty">No transcript available for this language yet.</p>`;
         return;
       }
 
       const paragraphs = text.split('" "').map(t => t.replace(/"/g, ''));
       el.innerHTML = paragraphs.map((p, i) => `
-        <p style="margin-bottom:1.5rem;font-size:1.125rem;line-height:2;color:var(--on-surface);${i === 0 ? 'border-left:4px solid var(--primary);padding-left:1rem;background:rgba(194,65,12,0.05);border-radius:0 0.5rem 0.5rem 0;padding:1rem' : ''}">${p}</p>
+        <p class="transcript-paragraph${i === 0 ? ' first-paragraph' : ''}">${p}</p>
       `).join('');
     }
 
     function switchTranscript(lang) {
       currentTranscript = lang;
-      document.getElementById('transcriptKw').style.background = lang === 'kw' ? 'var(--primary)' : 'transparent';
-      document.getElementById('transcriptKw').style.color = lang === 'kw' ? 'white' : 'var(--on-surface-variant)';
-      document.getElementById('transcriptEn').style.background = lang === 'en' ? 'var(--primary)' : 'transparent';
-      document.getElementById('transcriptEn').style.color = lang === 'en' ? 'white' : 'var(--on-surface-variant)';
+      document.getElementById('transcriptKw').classList.toggle('active', lang === 'kw');
+      document.getElementById('transcriptEn').classList.toggle('active', lang === 'en');
       renderTranscript();
     }
 
@@ -321,82 +234,73 @@
       const list = document.getElementById('commentsList');
 
       if (comments.length === 0) {
-        list.innerHTML = '<p style="text-align:center;color:var(--on-surface-variant);padding:1rem;font-style:italic">No comments yet. Be the first to share your gratitude.</p>';
+        list.innerHTML = '<p class="comments-empty">No comments yet. Be the first to share your gratitude.</p>';
         return;
       }
 
       list.innerHTML = comments.map(c => {
-        const avatar = App.avatarUrl({ full_name: c.author_name });
+        const avatar = Auth.avatarUrl({ full_name: c.author_name });
         return `
-        <div style="display:flex;gap:0.75rem;align-items:start">
-          <img src="${avatar}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0" loading="lazy">
-          <div style="flex:1;background:var(--surface-container-low);padding:1rem;border-radius:0 1rem 1rem 1rem">
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem">
-              <span style="font-weight:600;font-size:0.875rem">${c.author_name}</span>
-              <span style="font-size:0.75rem;color:var(--on-surface-variant)">${App.timeAgo(c.created_at)}</span>
+        <div class="comment-item">
+          <img src="${avatar}" alt="${c.author_name}" loading="lazy" class="comment-avatar">
+          <div class="comment-bubble">
+            <div class="comment-header">
+              <span class="comment-author">${c.author_name}</span>
+              <span class="comment-time">${Auth.timeAgo(c.created_at)}</span>
             </div>
-            <p style="font-size:0.875rem;color:var(--on-surface);line-height:1.6">${c.content}</p>
+            <p class="comment-text">${c.content}</p>
           </div>
         </div>`;
       }).join('');
     }
 
     async function toggleGratitude() {
-      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      if (!Auth.isLoggedIn()) { window.location.href = '/auth.html'; return; }
       try {
         const result = await API.toggleGratitude(storyId);
         isGrateful = result.grateful;
         const count = parseInt(document.getElementById('gratitudeCount').textContent);
         document.getElementById('gratitudeCount').textContent = isGrateful ? count + 1 : count - 1;
         updateGratitudeBtn();
-      } catch(e) {}
-    }
-
-    function updateGratitudeBtn() {
-      const btn = document.getElementById('gratitudeBtn');
-      if (isGrateful) {
-        btn.style.background = 'var(--primary-fixed)';
-        btn.style.borderColor = 'var(--primary)';
-      } else {
-        btn.style.background = 'var(--surface-container-lowest)';
-        btn.style.borderColor = 'var(--outline-variant)';
+      } catch (err) {
+        console.error('Failed to toggle gratitude:', err);
       }
     }
 
-    async function toggleBookmark() {
-      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
-      try {
-        const result = await API.toggleBookmark(storyId);
-        isBookmarked = result.bookmarked;
-        updateBookmarkBtn();
-      } catch(e) {}
-    }
-
-    function updateBookmarkBtn() {
-      document.getElementById('bookmarkIcon').textContent = isBookmarked ? 'bookmark' : 'bookmark_border';
+    function updateGratitudeBtn() {
+      document.getElementById('gratitudeBtn').classList.toggle('active', isGrateful);
     }
 
     function togglePlay() {
       isPlaying = !isPlaying;
       document.getElementById('playIcon').textContent = isPlaying ? 'pause' : 'play_arrow';
-      if (isPlaying) {
-        // Simulate playback progress
-        simulatePlayback();
-      }
+      if (isPlaying) simulatePlayback();
     }
 
-    let playbackInterval;
-    let playbackTime = 0;
+    function skipBack() {
+      playbackTime = Math.max(0, playbackTime - 10);
+      updateProgress();
+    }
+
+    function skipForward() {
+      playbackTime = Math.min(story.duration_seconds || 300, playbackTime + 10);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const duration = story.duration_seconds || 300;
+      const pct = Math.min((playbackTime / duration) * 100, 100);
+      document.getElementById('playerProgress').style.width = pct + '%';
+      document.getElementById('playerCurrentTime').textContent = Auth.formatDuration(playbackTime);
+    }
+
     function simulatePlayback() {
       clearInterval(playbackInterval);
       playbackInterval = setInterval(() => {
         if (!isPlaying) { clearInterval(playbackInterval); return; }
         playbackTime++;
-        const duration = story.duration_seconds || 300;
-        const pct = Math.min((playbackTime / duration) * 100, 100);
-        document.getElementById('playerProgress').style.width = pct + '%';
-        document.getElementById('playerCurrentTime').textContent = App.formatDuration(playbackTime);
-        if (playbackTime >= duration) {
+        updateProgress();
+        if (playbackTime >= (story.duration_seconds || 300)) {
           isPlaying = false;
           document.getElementById('playIcon').textContent = 'play_arrow';
           clearInterval(playbackInterval);
@@ -405,7 +309,7 @@
     }
 
     async function postComment() {
-      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+      if (!Auth.isLoggedIn()) { window.location.href = '/auth.html'; return; }
       const input = document.getElementById('commentInput');
       const content = input.value.trim();
       if (!content) return;
@@ -415,8 +319,8 @@
         input.value = '';
         story = await API.getStory(storyId);
         renderComments();
-      } catch(e) {
-        App.showToast('Failed to post comment', 'error');
+      } catch (err) {
+        Auth.showToast('Failed to post comment', 'error');
       }
     }
 
@@ -425,22 +329,20 @@
         navigator.share({ title: story.title, text: story.description, url: window.location.href });
       } else {
         navigator.clipboard.writeText(window.location.href);
-        App.showToast('Link copied!', 'success');
+        Auth.showToast('Link copied!', 'success');
       }
     }
 
-    // Scroll effect for header
+    document.getElementById('progressTrack').addEventListener('click', (e) => {
+      const rect = e.target.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      playbackTime = Math.floor(pct * (story.duration_seconds || 300));
+      updateProgress();
+    });
+
     window.addEventListener('scroll', () => {
-      const header = document.getElementById('storyHeader');
-      if (window.scrollY > 200) {
-        header.style.background = 'rgba(253,249,233,0.8)';
-        header.style.backdropFilter = 'blur(12px)';
-        header.querySelectorAll('button').forEach(b => { b.style.color = 'var(--primary)'; b.style.background = 'transparent'; });
-      } else {
-        header.style.background = 'transparent';
-        header.style.backdropFilter = 'none';
-        header.querySelectorAll('button').forEach(b => { b.style.color = 'white'; b.style.background = 'rgba(0,0,0,0.3)'; });
-      }
+      const header = document.getElementById('topHeader');
+      header.classList.toggle('scrolled', window.scrollY > 200);
     });
 
     loadStory();

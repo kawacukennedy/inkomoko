@@ -1,425 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile Setup — Inkomoko</title>
   <meta name="description" content="Complete your profile to start your journey with The Living Archive.">
-  <link rel="stylesheet" href="/css/styles.css?v=4">
+  <link rel="stylesheet" href="/css/styles.css?v=6">
+  <link rel="stylesheet" href="/css/onboarding.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#9b2f00">
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
-                }
-            }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+            "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+            "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+            "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+            "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+            "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+            "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+            "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694",
+            "surface-container-highest": "#e6e3d3", "on-tertiary-fixed": "#1f1a1e",
+            "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+            "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4",
+            "primary-fixed": "#ffdbd0", "on-surface-variant": "#59413a",
+            "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+            "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+            "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+            "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600",
+            "on-error": "#ffffff", "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-        .chip {
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-family: var(--font-label);
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 1.5px solid var(--outline-variant);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .chip-active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(155, 47, 0, 0.2);
-        }
-        .chip-inactive {
-            background: var(--surface-container-low);
-            color: var(--on-surface-variant);
-        }
-        .chip-inactive:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-</style>
-</head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
       }
-    }catch(e){}
-  }, 100);
-</script>
+    };
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+    .leaf-radius { border-radius: 1.5rem 0.5rem 1.5rem 0.5rem; }
+    .glass-header { background: rgba(253, 249, 233, 0.8); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5">
+    <div class="flex justify-between items-center w-full px-6 py-4">
+      <div class="flex items-center gap-4">
+        <button onclick="window.location.href='/'" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors">
+          <span class="material-symbols-outlined">home</span>
+        </button>
+        <h1 class="font-headline text-2xl font-black text-primary tracking-tight">The Living Archive</h1>
+      </div>
+      <button onclick="OnboardingUI.skip()" class="text-on-surface-variant hover:text-primary font-label text-sm font-semibold transition-colors">
+        Skip
+      </button>
+    </div>
+  </header>
 
-  <main style="min-height:100vh;padding:100px 1.5rem 120px;max-width:40rem;margin:0 auto">
-    <!-- Progress Indicator -->
-    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:3rem">
-      <div id="prog1" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--primary)"></div>
-      <div id="prog2" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--surface-container-highest)"></div>
-      <div id="prog3" style="flex:1;height:6px;border-radius:9999px;transition:all 0.3s;background:var(--surface-container-highest)"></div>
+  <main class="onboarding-container">
+    <!-- Progress -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 33.3%"></div>
+    </div>
+    <div class="progress-steps">
+      <div class="progress-step active" id="stepLabel1">
+        <div class="step-circle">1</div>
+        <span class="step-text">Identity</span>
+      </div>
+      <div class="progress-step" id="stepLabel2">
+        <div class="step-circle">2</div>
+        <span class="step-text">Roots</span>
+      </div>
+      <div class="progress-step" id="stepLabel3">
+        <div class="step-circle">3</div>
+        <span class="step-text">Legacy</span>
+      </div>
     </div>
 
-    <!-- Step Labels -->
-    <div style="display:flex;justify-content:space-between;margin-bottom:2rem">
-      <div id="stepLabel1" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem" class="step-active">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">1</div>
-        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary)">Identity</span>
-      </div>
-      <div id="stepLabel2" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface-container-highest);color:var(--on-surface-variant);display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">2</div>
-        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Roots</span>
-      </div>
-      <div id="stepLabel3" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
-        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface-container-highest);color:var(--on-surface-variant);display:flex;align-items:center;justify-content:center;font-family:var(--font-label);font-weight:700;font-size:0.875rem">3</div>
-        <span style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Legacy</span>
-      </div>
-    </div>
+    <form id="onboardingForm" onsubmit="OnboardingUI.handleSubmit(event)">
+      <!-- Step 1: Identity -->
+      <div id="step1" class="step-content active">
+        <h2 class="step-title">Tell Us About You</h2>
+        <p class="step-subtitle">Your identity helps us personalize your experience.</p>
 
-    <!-- Step 1: Identity -->
-    <div id="step1" class="step-content">
-      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Tell Us About You</h2>
-      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem">Your identity helps us personalize your experience.</p>
-
-      <!-- Avatar -->
-      <div style="text-align:center;margin-bottom:2rem">
-        <div id="avatarPreview" style="width:120px;height:120px;border-radius:50%;margin:0 auto 1rem;overflow:hidden;border:4px solid var(--primary-container);background:var(--surface-container-highest);display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="document.getElementById('avatarInput').click()">
-          <span class="material-symbols-outlined" style="font-size:3rem;color:var(--on-surface-variant)">add_a_photo</span>
+        <div class="avatar-upload">
+          <div id="avatarPreview" class="avatar-circle" onclick="document.getElementById('avatarInput').click()">
+            <span class="material-symbols-outlined">add_a_photo</span>
+          </div>
+          <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="OnboardingUI.previewAvatar(this)">
+          <p class="avatar-hint">Tap to add your photo</p>
         </div>
-        <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="previewAvatar(this)">
-        <p style="font-size:0.75rem;color:var(--on-surface-variant)">Tap to add your photo</p>
-      </div>
 
-      <!-- Name -->
-      <div style="margin-bottom:1.5rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Display Name</label>
-        <input type="text" id="ob_name" class="form-input" value="">
-      </div>
-
-      <!-- Language -->
-      <div style="margin-bottom:1.5rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Preferred Language</label>
-        <div style="display:flex;border-radius:9999px;background:var(--surface-container-highest);overflow:hidden">
-          <button type="button" onclick="selectLang('kinyarwanda')" id="langKw" style="flex:1;height:48px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s;border-radius:9999px">
-            Kinyarwanda
-          </button>
-          <button type="button" onclick="selectLang('english')" id="langEn" style="flex:1;height:48px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;border-radius:9999px">
-            English
-          </button>
+        <div class="form-group">
+          <label class="form-label" for="ob_name">Display Name</label>
+          <input type="text" id="ob_name" class="form-input" placeholder="Your full name" autocomplete="name">
+          <p class="field-error hidden" id="nameError">Name is required</p>
         </div>
-      </div>
-    </div>
 
-    <!-- Step 2: Roots -->
-    <div id="step2" class="step-content" style="display:none">
-      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Your Roots</h2>
-      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem">Help us connect you to stories from your homeland.</p>
-
-      <!-- Region -->
-      <div style="margin-bottom:1.5rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Province / Region</label>
-        <select id="ob_region" class="form-input" style="cursor:pointer">
-          <option value="">Select your region</option>
-          <option value="Northern Province">Northern Province</option>
-          <option value="Southern Province">Southern Province</option>
-          <option value="Eastern Province">Eastern Province</option>
-          <option value="Western Province">Western Province</option>
-          <option value="Kigali">Kigali City</option>
-        </select>
-      </div>
-
-      <!-- Cultural Background Tags -->
-      <div style="margin-bottom:1.5rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Cultural Background</label>
-        <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="culturalTags">
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Umuco w'u Rwanda">Umuco w'u Rwanda</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Abagabo">Abagabo</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Inyambo">Inyambo</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Kubandwa">Kubandwa</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Amasibo">Amasibo</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Imigongo">Imigongo</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Intore">Intore</button>
+        <div class="form-group">
+          <label class="form-label">Preferred Language</label>
+          <div class="lang-toggle">
+            <button type="button" onclick="OnboardingUI.selectLang('kinyarwanda')" id="langKw" class="lang-btn active">Kinyarwanda</button>
+            <button type="button" onclick="OnboardingUI.selectLang('english')" id="langEn" class="lang-btn">English</button>
+          </div>
         </div>
       </div>
 
-      <!-- Clan -->
-      <div style="margin-bottom:1.5rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Clan (optional)</label>
-        <input type="text" id="ob_clan" class="form-input" placeholder="e.g., Abanyiginya, Abega...">
-      </div>
-    </div>
+      <!-- Step 2: Roots -->
+      <div id="step2" class="step-content hidden">
+        <h2 class="step-title">Your Roots</h2>
+        <p class="step-subtitle">Help us connect you to stories from your homeland.</p>
 
-    <!-- Step 3: Legacy -->
-    <div id="step3" class="step-content" style="display:none">
-      <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Your Legacy</h2>
-      <p style="color:var(--on-surface-variant);margin-bottom:2rem;font-size:0.875rem" id="step3Subtitle">What interests you most?</p>
+        <div class="form-group">
+          <label class="form-label" for="ob_region">Province / Region</label>
+          <select id="ob_region" class="form-input">
+            <option value="">Select your region</option>
+            <option value="Northern Province">Northern Province</option>
+            <option value="Southern Province">Southern Province</option>
+            <option value="Eastern Province">Eastern Province</option>
+            <option value="Western Province">Western Province</option>
+            <option value="Kigali">Kigali City</option>
+          </select>
+        </div>
 
-      <!-- Interests (Youth) / Voice Intro (Elder) -->
-      <div id="interestsSection">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Select Your Interests</label>
-        <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="interestTags">
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Stories">📖 Stories</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Songs">🎵 Songs</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Proverbs">💬 Proverbs</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Traditions">🏺 Traditions</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="History">📜 History</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Recipes">🍲 Recipes</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Crafts">🧶 Crafts</button>
-          <button type="button" class="chip chip-inactive" onclick="toggleTag(this)" data-tag="Family">👨‍👩‍👧‍👦 Family</button>
+        <div class="form-group">
+          <label class="form-label">Cultural Background</label>
+          <p class="tag-hint">Select all that apply</p>
+          <div class="tag-grid" id="culturalTags">
+            <button type="button" class="tag" data-tag="Umuco w'u Rwanda">Umuco w'u Rwanda</button>
+            <button type="button" class="tag" data-tag="Abagabo">Abagabo</button>
+            <button type="button" class="tag" data-tag="Inyambo">Inyambo</button>
+            <button type="button" class="tag" data-tag="Kubandwa">Kubandwa</button>
+            <button type="button" class="tag" data-tag="Amasibo">Amasibo</button>
+            <button type="button" class="tag" data-tag="Imigongo">Imigongo</button>
+            <button type="button" class="tag" data-tag="Intore">Intore</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ob_clan">Clan <span class="optional">(optional)</span></label>
+          <input type="text" id="ob_clan" class="form-input" placeholder="e.g., Abanyiginya, Abega...">
         </div>
       </div>
 
-      <!-- Voice Intro (Elder only) -->
-      <div id="voiceSection" style="display:none;margin-top:2rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Record a Voice Introduction</label>
-        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;border:1px solid rgba(225,191,181,0.15)">
-          <button type="button" id="voiceRecBtn" onclick="toggleVoiceRecording()" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 4px 20px rgba(155,47,0,0.3)">
-            <span class="material-symbols-outlined" style="font-size:2rem">mic</span>
-          </button>
-          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="voiceStatus">Tap to introduce yourself</p>
-          <p style="font-size:0.75rem;color:var(--outline);margin-top:0.5rem">30 seconds max</p>
+      <!-- Step 3: Legacy -->
+      <div id="step3" class="step-content hidden">
+        <h2 class="step-title">Your Legacy</h2>
+        <p class="step-subtitle" id="step3Subtitle">What interests you most?</p>
+
+        <div class="form-group">
+          <label class="form-label">Your Interests</label>
+          <p class="tag-hint">Select all that apply</p>
+          <div class="tag-grid" id="interestTags">
+            <button type="button" class="tag" data-tag="Stories">Stories</button>
+            <button type="button" class="tag" data-tag="Songs">Songs</button>
+            <button type="button" class="tag" data-tag="Proverbs">Proverbs</button>
+            <button type="button" class="tag" data-tag="Traditions">Traditions</button>
+            <button type="button" class="tag" data-tag="History">History</button>
+            <button type="button" class="tag" data-tag="Recipes">Recipes</button>
+            <button type="button" class="tag" data-tag="Crafts">Crafts</button>
+            <button type="button" class="tag" data-tag="Family">Family</button>
+          </div>
+        </div>
+
+        <div id="voiceSection" class="voice-section hidden">
+          <label class="form-label">Record a Voice Introduction</label>
+          <div class="voice-card">
+            <button type="button" id="voiceRecBtn" onclick="OnboardingUI.toggleVoice()" class="voice-btn">
+              <span class="material-symbols-outlined">mic</span>
+            </button>
+            <p id="voiceStatus" class="voice-status">Tap to introduce yourself</p>
+            <p class="voice-hint">30 seconds max</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ob_bio">Short Bio <span class="optional">(optional)</span></label>
+          <textarea id="ob_bio" class="form-input form-textarea" placeholder="Tell us about yourself or your story..."></textarea>
         </div>
       </div>
 
-      <!-- Bio -->
-      <div style="margin-top:2rem">
-        <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Short Bio</label>
-        <textarea id="ob_bio" class="form-input" style="height:120px;padding:1rem 1.5rem;resize:none" placeholder="Tell us about yourself or your story..."></textarea>
-      </div>
-    </div>
+      <div id="errorMsg" class="error-message hidden"></div>
 
-    <!-- Navigation Buttons -->
-    <div style="display:flex;gap:1rem;margin-top:2rem">
-      <button id="prevBtn" class="btn-secondary" onclick="prevStep()" style="display:none;flex:1">Back</button>
-      <button id="nextBtn" class="btn-primary" onclick="nextStep()" style="flex:1">Continue</button>
-    </div>
+      <div class="step-nav">
+        <button type="button" id="prevBtn" class="btn-secondary" onclick="OnboardingUI.prevStep()" style="display:none">Back</button>
+        <button type="submit" id="nextBtn" class="btn-primary btn-full">Continue</button>
+      </div>
+    </form>
+
+    <a href="/" class="back-link">
+      <span class="material-symbols-outlined">arrow_back</span> Back to Home
+    </a>
   </main>
 
-  <script src="/js/api.js?v=4"></script>
-  <script src="/js/app.js?v=4"></script>
-  <script src="/js/components.js?v=4"></script>
+  <script src="/js/api.js?v=6"></script>
+  <script src="/js/auth.js?v=1"></script>
+  <script src="/js/components.js?v=6"></script>
   <script>
-    let currentStep = 1;
-    let language = 'kinyarwanda';
-    let isRecording = false;
+    const OnboardingUI = {
+      currentStep: 1,
+      language: 'kinyarwanda',
+      isRecording: false,
+      avatarFile: null,
 
-    // Init
-    if (App.currentUser) {
-      document.getElementById('ob_name').value = App.currentUser.full_name || '';
-      if (App.currentUser.role === 'elder') {
-        document.getElementById('voiceSection').style.display = 'block';
-        document.getElementById('step3Subtitle').textContent = 'Share your expertise and introduce yourself.';
-      }
-    }
+      init() {
+        if (!Auth.requireAuth()) return;
 
-    function goToStep(step) {
-      currentStep = step;
-      for (let i = 1; i <= 3; i++) {
-        document.getElementById('step' + i).style.display = i === step ? 'block' : 'none';
-        document.getElementById('prog' + i).style.background = i <= step ? 'var(--primary)' : 'var(--surface-container-highest)';
-        const label = document.getElementById('stepLabel' + i);
-        const circle = label.querySelector('div');
-        const text = label.querySelector('span');
-        if (i <= step) {
-          circle.style.background = 'var(--primary)'; circle.style.color = 'white';
-          text.style.color = 'var(--primary)';
-        } else {
-          circle.style.background = 'var(--surface-container-highest)'; circle.style.color = 'var(--on-surface-variant)';
-          text.style.color = 'var(--on-surface-variant)';
+        const user = Auth.getUser();
+        const nameInput = document.getElementById('ob_name');
+        if (user && user.full_name) {
+          nameInput.value = user.full_name;
         }
-      }
-      document.getElementById('prevBtn').style.display = step > 1 ? 'flex' : 'none';
-      document.getElementById('nextBtn').textContent = step === 3 ? 'Complete Setup' : 'Continue';
-    }
 
-    function nextStep() {
-      if (currentStep < 3) {
-        goToStep(currentStep + 1);
-      } else {
-        completeOnboarding();
-      }
-    }
-
-    function prevStep() {
-      if (currentStep > 1) goToStep(currentStep - 1);
-    }
-
-    function selectLang(lang) {
-      language = lang;
-      const kwBtn = document.getElementById('langKw');
-      const enBtn = document.getElementById('langEn');
-      kwBtn.style.background = lang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
-      kwBtn.style.color = lang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
-      enBtn.style.background = lang === 'english' ? 'var(--primary)' : 'transparent';
-      enBtn.style.color = lang === 'english' ? 'white' : 'var(--on-surface-variant)';
-    }
-
-    function toggleTag(btn) {
-      btn.classList.toggle('chip-active');
-      btn.classList.toggle('chip-inactive');
-    }
-
-    function getSelectedTags(containerId) {
-      return Array.from(document.querySelectorAll('#' + containerId + ' .chip-active')).map(b => b.dataset.tag);
-    }
-
-    function previewAvatar(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          document.getElementById('avatarPreview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    function toggleVoiceRecording() {
-      const btn = document.getElementById('voiceRecBtn');
-      const status = document.getElementById('voiceStatus');
-      if (!isRecording) {
-        isRecording = true;
-        btn.style.boxShadow = '0 0 0 12px rgba(155,47,0,0.2)';
-        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:2rem">stop</span>';
-        status.textContent = 'Recording... Tap to stop';
-        status.style.color = 'var(--primary)';
-      } else {
-        isRecording = false;
-        btn.style.boxShadow = '0 4px 20px rgba(155,47,0,0.3)';
-        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:2rem">play_arrow</span>';
-        status.textContent = 'Voice intro recorded!';
-        status.style.color = 'var(--primary)';
-      }
-    }
-
-    function skipOnboarding() {
-      const role = App.currentUser ? App.currentUser.role : 'youth';
-      window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
-    }
-
-    async function completeOnboarding() {
-      const data = {
-        full_name: document.getElementById('ob_name').value,
-        language_pref: language,
-        region: document.getElementById('ob_region').value,
-        cultural_background: getSelectedTags('culturalTags'),
-        interests: getSelectedTags('interestTags'),
-        clan: document.getElementById('ob_clan').value,
-      };
-
-      try {
-        const result = await API.completeOnboarding(data);
-        if (result && result.onboarding_status === true) {
-          App.setUser(result);
-          const role = result.role || 'youth';
-          window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
-        } else {
-          App.showToast('Failed to complete setup. Please try again.', 'error');
+        if (Auth.isElder()) {
+          document.getElementById('voiceSection').classList.remove('hidden');
+          document.getElementById('step3Subtitle').textContent = 'Share your expertise and introduce yourself.';
         }
-      } catch (err) {
-        App.showToast(err.message || 'Failed to complete setup', 'error');
-      }
-    }
+
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+          tag.addEventListener('click', () => tag.classList.toggle('selected'));
+        });
+      },
+
+      goToStep(step) {
+        if (!this.validateStep(this.currentStep)) return;
+
+        this.currentStep = step;
+
+        for (let i = 1; i <= 3; i++) {
+          const stepEl = document.getElementById('step' + i);
+          stepEl.classList.toggle('active', i === step);
+          stepEl.classList.toggle('hidden', i !== step);
+
+          const label = document.getElementById('stepLabel' + i);
+          label.classList.toggle('active', i <= step);
+        }
+
+        const progress = (step / 3) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        prevBtn.style.display = step > 1 ? 'inline-flex' : 'none';
+        nextBtn.textContent = step === 3 ? 'Complete Setup' : 'Continue';
+        nextBtn.type = step === 3 ? 'submit' : 'button';
+
+        this.hideError();
+      },
+
+      nextStep() {
+        if (this.currentStep < 3) {
+          this.goToStep(this.currentStep + 1);
+        } else {
+          this.handleSubmit();
+        }
+      },
+
+      prevStep() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.goToStep(this.currentStep);
+        }
+      },
+
+      validateStep(step) {
+        this.hideError();
+
+        if (step === 1) {
+          const name = document.getElementById('ob_name').value.trim();
+          const errorEl = document.getElementById('nameError');
+
+          if (!name) {
+            errorEl.textContent = 'Name is required';
+            errorEl.classList.remove('hidden');
+            return false;
+          }
+
+          if (name.length < 2) {
+            errorEl.textContent = 'Name is too short';
+            errorEl.classList.remove('hidden');
+            return false;
+          }
+
+          errorEl.classList.add('hidden');
+        }
+
+        return true;
+      },
+
+      selectLang(lang) {
+        this.language = lang;
+        const kwBtn = document.getElementById('langKw');
+        const enBtn = document.getElementById('langEn');
+
+        kwBtn.classList.toggle('active', lang === 'kinyarwanda');
+        enBtn.classList.toggle('active', lang === 'english');
+      },
+
+      previewAvatar(input) {
+        if (input.files && input.files[0]) {
+          this.avatarFile = input.files[0];
+
+          if (this.avatarFile.size > 5 * 1024 * 1024) {
+            this.showError('Photo must be under 5MB');
+            input.value = '';
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            document.getElementById('avatarPreview').innerHTML = `<img src="${e.target.result}" alt="Avatar">`;
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      },
+
+      toggleVoice() {
+        const btn = document.getElementById('voiceRecBtn');
+        const status = document.getElementById('voiceStatus');
+
+        if (!this.isRecording) {
+          this.isRecording = true;
+          btn.classList.add('recording');
+          btn.innerHTML = '<span class="material-symbols-outlined">stop</span>';
+          status.textContent = 'Recording... Tap to stop';
+          status.classList.add('recording');
+        } else {
+          this.isRecording = false;
+          btn.classList.remove('recording');
+          btn.innerHTML = '<span class="material-symbols-outlined">play_arrow</span>';
+          status.textContent = 'Voice intro recorded!';
+          status.classList.remove('recording');
+        }
+      },
+
+      getSelectedTags(containerId) {
+        return Array.from(document.querySelectorAll('#' + containerId + ' .selected')).map(b => b.dataset.tag);
+      },
+
+      showError(message) {
+        const el = document.getElementById('errorMsg');
+        el.textContent = message;
+        el.classList.remove('hidden');
+      },
+
+      hideError() {
+        document.getElementById('errorMsg').classList.add('hidden');
+      },
+
+      setLoading(loading) {
+        const btn = document.getElementById('nextBtn');
+        btn.disabled = loading;
+        btn.textContent = loading ? 'Saving...' : (this.currentStep === 3 ? 'Complete Setup' : 'Continue');
+        btn.style.opacity = loading ? '0.7' : '1';
+      },
+
+      async handleSubmit(e) {
+        if (e) e.preventDefault();
+
+        if (!this.validateStep(this.currentStep)) return;
+        if (this.currentStep < 3) {
+          this.nextStep();
+          return;
+        }
+
+        this.setLoading(true);
+        this.hideError();
+
+        try {
+          const data = {
+            full_name: document.getElementById('ob_name').value.trim(),
+            role: Auth.getUser()?.role || 'youth',
+            language_pref: this.language,
+            region: document.getElementById('ob_region').value || null,
+            cultural_background: this.getSelectedTags('culturalTags'),
+            interests: this.getSelectedTags('interestTags'),
+            clan: document.getElementById('ob_clan').value.trim() || null,
+            bio: document.getElementById('ob_bio').value.trim() || null,
+          };
+
+          let avatarUrl = null;
+          if (this.avatarFile) {
+            avatarUrl = await this.uploadAvatar(this.avatarFile);
+          }
+
+          if (avatarUrl) {
+            await API.updateProfile({ avatar_url: avatarUrl });
+          }
+
+          const result = await API.completeOnboarding(data);
+
+          if (result && result.onboarding_status === true) {
+            Auth.setUser(result);
+            const role = result.role || 'youth';
+            window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+          } else {
+            this.showError('Failed to complete setup. Please try again.');
+          }
+        } catch (err) {
+          this.showError(err.message || 'Failed to complete setup');
+        } finally {
+          this.setLoading(false);
+        }
+      },
+
+      async uploadAvatar(file) {
+        const formData = new FormData();
+        formData.append('avatar', file);
+
+        const response = await fetch('/api/users/avatar', {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + API.getToken() },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Avatar upload failed');
+        }
+
+        const result = await response.json();
+        return result.avatar_url;
+      },
+
+      skip() {
+        const role = Auth.getUser()?.role || 'youth';
+        window.location.href = role === 'elder' ? '/elder-dashboard.html' : '/youth-dashboard.html';
+      },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => OnboardingUI.init());
   </script>
 </body>
 </html>

@@ -1,0 +1,271 @@
+'use strict';
+
+const TOKEN_KEY = 'inkomoko_token';
+const USER_KEY = 'inkomoko_user';
+
+const Auth = {
+  _user: null,
+
+  init() {
+    this._user = this._loadUser();
+
+    if (this.isLoggedIn()) {
+      this._startTokenRefreshTimer();
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  },
+
+  _loadUser() {
+    try {
+      const raw = localStorage.getItem(USER_KEY);
+
+      if (!raw || raw === 'undefined' || raw === 'null') {
+        return null;
+      }
+
+      const parsed = JSON.parse(raw);
+
+      if (parsed && typeof parsed === 'object' && parsed.id && parsed.role) {
+        return parsed;
+      }
+
+      this.clear();
+      return null;
+    } catch {
+      this.clear();
+      return null;
+    }
+  },
+
+  _saveUser(user) {
+    if (user && typeof user === 'object') {
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      this._user = user;
+    }
+  },
+
+  _startTokenRefreshTimer() {
+    const REFRESH_INTERVAL = 24 * 60 * 60 * 1000;
+
+    this._refreshTimer = setInterval(async () => {
+      if (!this.isLoggedIn()) {
+        clearInterval(this._refreshTimer);
+        return;
+      }
+
+      try {
+        const result = await API.post('/auth/refresh');
+
+        if (result && result.token) {
+          API.setToken(result.token);
+          this._saveUser(result.user);
+        }
+      } catch {
+        this.clear();
+        window.location.href = '/auth.html';
+      }
+    }, REFRESH_INTERVAL);
+  },
+
+  isLoggedIn() {
+    return !!(this._user && this._user.id && API.getToken());
+  },
+
+  isElder() {
+    return this._user && this._user.role === 'elder';
+  },
+
+  isYouth() {
+    return this._user && this._user.role === 'youth';
+  },
+
+  isOnboarded() {
+    return this._user && this._user.onboarding_status === true;
+  },
+
+  getUser() {
+    return this._user;
+  },
+
+  setUser(user) {
+    this._saveUser(user);
+
+    if (user) {
+      this._startTokenRefreshTimer();
+    }
+  },
+
+  setSession(user, token) {
+    API.setToken(token);
+    this.setUser(user);
+  },
+
+  clear() {
+    this._user = null;
+    localStorage.removeItem(USER_KEY);
+    API.setToken(null);
+
+    if (this._refreshTimer) {
+      clearInterval(this._refreshTimer);
+      this._refreshTimer = null;
+    }
+  },
+
+  logout() {
+    this.clear();
+    window.location.href = '/';
+  },
+
+  redirectToAuth() {
+    window.location.href = '/auth.html';
+  },
+
+  requireAuth() {
+    if (!this.isLoggedIn()) {
+      this.redirectToAuth();
+      return false;
+    }
+    return true;
+  },
+
+  requireOnboarding() {
+    if (this.isLoggedIn() && !this.isOnboarded()) {
+      window.location.href = '/onboarding.html';
+      return false;
+    }
+    return true;
+  },
+
+  redirectAfterAuth() {
+    if (!this.isLoggedIn()) {
+      this.redirectToAuth();
+      return;
+    }
+
+    if (!this.isOnboarded()) {
+      window.location.href = '/onboarding.html';
+      return;
+    }
+
+    const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
+    window.location.href = target;
+  },
+
+  formatDuration(seconds) {
+    if (!seconds || seconds <= 0) return '0:00';
+
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+
+    if (h > 0) {
+      return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    return `${m}:${String(s).padStart(2, '0')}`;
+  },
+
+  timeAgo(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+
+    return date.toLocaleDateString('en-RW', { month: 'short', year: 'numeric' });
+  },
+
+  showToast(message, type = 'info') {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.style.cssText = `
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      max-width: 90vw;
+      text-align: center;
+      background: ${type === 'error' ? '#f8d7da' : type === 'success' ? '#d4edda' : '#fff'};
+      color: ${type === 'error' ? '#721c24' : type === 'success' ? '#155724' : '#333'};
+      animation: slideDown 0.3s ease-out;
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 3000);
+  },
+
+  setupOnlineIndicator() {
+    window.addEventListener('offline', () => {
+      this.showToast('You are offline. Changes will sync when reconnected.', 'info');
+    });
+
+    window.addEventListener('online', () => {
+      this.showToast('Back online!', 'success');
+      API.processOfflineQueue();
+    });
+  },
+
+  avatarUrl(user) {
+    if (user?.avatar_url && !user.avatar_url.startsWith('/uploads/avatars/')) {
+      return user.avatar_url;
+    }
+
+    const name = user?.full_name || 'User';
+    const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <rect width="100" height="100" fill="#c2410c" rx="50"/>
+      <text x="50" y="55" text-anchor="middle" dy=".1em" fill="white" font-family="sans-serif" font-size="36" font-weight="bold">${initials}</text>
+    </svg>`;
+
+    return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  },
+};
+
+function el(tag, attrs = {}, ...children) {
+  const element = document.createElement(tag);
+
+  for (const [key, val] of Object.entries(attrs)) {
+    if (key === 'className') {
+      element.className = val;
+    } else if (key === 'style' && typeof val === 'object') {
+      Object.assign(element.style, val);
+    } else if (key.startsWith('on')) {
+      element.addEventListener(key.slice(2).toLowerCase(), val);
+    } else {
+      element.setAttribute(key, val);
+    }
+  }
+
+  for (const child of children) {
+    if (typeof child === 'string') {
+      element.appendChild(document.createTextNode(child));
+    } else if (child) {
+      element.appendChild(child);
+    }
+  }
+
+  return element;
+}
+
+document.addEventListener('DOMContentLoaded', () => Auth.init());

@@ -499,7 +499,7 @@ function handleInsert(sql, params) {
   }
 
   if (lower.includes('into otp_verifications')) {
-    const otp = { id: generateId(), identifier: params[0], otp_code: params[1], purpose: params[2], expires_at: params[3], created_at: now() };
+    const otp = { id: generateId(), identifier: params[0], user_id: params[4] || null, otp_code: params[1], purpose: params[2], expires_at: params[3], created_at: now() };
     store.otp_verifications.push(otp);
     return { rows: [otp], rowCount: 1 };
   }
@@ -539,6 +539,17 @@ function handleUpdate(sql, params) {
       user.is_verified = true;
       user.updated_at = now();
       return { rows: [{ ...user }], rowCount: 1 };
+    }
+    return { rows: [], rowCount: 0 };
+  }
+
+  if (lower.includes('update users') && lower.includes('avatar_url') && lower.includes('where id = $')) {
+    const userId = params[1];
+    const user = store.users.find(u => u.id === userId);
+    if (user) {
+      user.avatar_url = params[0];
+      user.updated_at = now();
+      return { rows: [{ id: user.id, avatar_url: user.avatar_url }], rowCount: 1 };
     }
     return { rows: [], rowCount: 0 };
   }
