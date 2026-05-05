@@ -4,6 +4,11 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 const { authenticateToken } = require('../middleware/auth');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
+
+const apiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 30 });
+
+router.use(apiRateLimiter);
 
 router.get('/elder', authenticateToken, async (req, res, next) => {
   try {

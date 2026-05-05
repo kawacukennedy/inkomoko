@@ -3,8 +3,13 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { authenticateToken } = require('../middleware/auth');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
 
 const router = express.Router();
+
+const aiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 10 });
+
+router.use(aiRateLimiter);
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -33,7 +38,7 @@ Return a JSON object with this exact structure:
 }
 `;
 
-router.post('/enhance-story', authenticateToken, async (req, res) => {
+router.post('/enhance-story', authenticateToken, async (req, res, next) => {
   try {
     const { text } = req.body;
 
@@ -63,9 +68,7 @@ router.post('/enhance-story', authenticateToken, async (req, res) => {
     res.json(jsonResponse);
   } catch (err) {
     console.error('AI enhancement error:', err.message);
-    res.status(500).json({
-      error: 'AI processing failed. Please try again or fill in manually.',
-    });
+    next(err);
   }
 });
 

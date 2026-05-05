@@ -6,8 +6,13 @@ const path = require('path');
 const crypto = require('crypto');
 const db = require('../config/database');
 const { authenticateToken } = require('../middleware/auth');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
 
 const router = express.Router();
+
+const apiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 60 });
+
+router.use(apiRateLimiter);
 
 const avatarStorage = multer.diskStorage({
   destination: path.join(__dirname, '..', 'uploads', 'avatars'),

@@ -4,8 +4,13 @@ const crypto = require('crypto');
 const express = require('express');
 const db = require('../config/database');
 const { authenticateToken } = require('../middleware/auth');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
 
 const router = express.Router();
+
+const apiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 60 });
+
+router.use(apiRateLimiter);
 
 function generateFamilyCode() {
   const randomPart = crypto.randomBytes(2).toString('hex').toUpperCase();

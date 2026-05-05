@@ -3,8 +3,13 @@
 const express = require('express');
 const db = require('../config/database');
 const { optionalAuth } = require('../middleware/auth');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
 
 const router = express.Router();
+
+const apiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 120 });
+
+router.use(apiRateLimiter);
 
 router.get('/featured', async (req, res, next) => {
   try {

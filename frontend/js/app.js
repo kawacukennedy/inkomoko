@@ -2,6 +2,7 @@
 
 const App = {
   currentUser: null,
+  _refreshTimer: null,
 
   init() {
     this.loadUser();
@@ -9,13 +10,17 @@ const App = {
 
     if (window.location.protocol.startsWith('chrome-error')) return;
 
+    if (this.isLoggedIn()) {
+      this._startTokenRefreshTimer();
+    }
+
     const path = this.normalizePath(window.location.pathname);
     const publicPages = ['/', '/index.html', '/welcome', '/welcome.html'];
     const authPages = ['/auth.html', '/onboarding.html'];
 
     if (!publicPages.includes(path) && !authPages.includes(path)) {
       if (!this.isLoggedIn()) {
-        window.location.replace('/welcome.html');
+        window.location.replace('/auth.html');
         return;
       }
 
@@ -75,10 +80,22 @@ const App = {
     }
   },
 
+  setSession(user, token) {
+    API.setToken(token);
+    this.setUser(user);
+    if (user) {
+      this._startTokenRefreshTimer();
+    }
+  },
+
   clearSession() {
     this.currentUser = null;
     localStorage.removeItem('inkomoko_user');
     localStorage.removeItem('inkomoko_token');
+    if (this._refreshTimer) {
+      clearInterval(this._refreshTimer);
+      this._refreshTimer = null;
+    }
   },
 
   isLoggedIn() {
@@ -93,10 +110,68 @@ const App = {
     return this.currentUser && this.currentUser.role === 'youth';
   },
 
+  isOnboarded() {
+    return this.currentUser && this.currentUser.onboarding_status === true;
+  },
+
+  requireAuth() {
+    if (!this.isLoggedIn()) {
+      window.location.href = '/auth.html';
+      return false;
+    }
+    return true;
+  },
+
+  requireOnboarding() {
+    if (this.isLoggedIn() && !this.isOnboarded()) {
+      window.location.href = '/onboarding.html';
+      return false;
+    }
+    return true;
+  },
+
+  redirectAfterAuth() {
+    if (!this.isLoggedIn()) {
+      window.location.href = '/auth.html';
+      return;
+    }
+
+    if (!this.isOnboarded()) {
+      window.location.href = '/onboarding.html';
+      return;
+    }
+
+    const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
+    window.location.href = target;
+  },
+
   logout() {
     API.setToken(null);
     this.clearSession();
     window.location.href = '/';
+  },
+
+  _startTokenRefreshTimer() {
+    const REFRESH_INTERVAL = 24 * 60 * 60 * 1000;
+
+    this._refreshTimer = setInterval(async () => {
+      if (!this.isLoggedIn()) {
+        clearInterval(this._refreshTimer);
+        return;
+      }
+
+      try {
+        const result = await API.post('/auth/refresh');
+
+        if (result && result.token) {
+          API.setToken(result.token);
+          this.setUser(result.user);
+        }
+      } catch {
+        this.clearSession();
+        window.location.href = '/auth.html';
+      }
+    }, REFRESH_INTERVAL);
   },
 
   formatDuration(seconds) {
@@ -186,6 +261,8 @@ const App = {
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
   },
 };
+
+const Auth = App;
 
 function el(tag, attrs = {}, ...children) {
   const element = document.createElement(tag);

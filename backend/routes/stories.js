@@ -5,8 +5,18 @@ const multer = require('multer');
 const path = require('path');
 const db = require('../config/database');
 const { authenticateToken, optionalAuth } = require('../middleware/auth');
+const { sanitize } = require('../utils/validation');
+const { createIpRateLimiter } = require('../utils/rate-limiter');
 
 const router = express.Router();
+
+const ALLOWED_CATEGORIES = ['story', 'tradition', 'song', 'proverb', 'culture'];
+const TITLE_MAX_LENGTH = 200;
+const DESCRIPTION_MAX_LENGTH = 500;
+
+const apiRateLimiter = createIpRateLimiter({ windowMs: 60 * 1000, max: 60 });
+
+router.use(apiRateLimiter);
 
 const ALLOWED_AUDIO_TYPES = ['.mp3', '.wav', '.ogg', '.m4a', '.webm', '.aac'];
 const MAX_AUDIO_SIZE = parseInt(process.env.MAX_FILE_SIZE, 10) || 50 * 1024 * 1024;
@@ -268,20 +278,38 @@ router.post('/', authenticateToken, async (req, res, next) => {
   try {
     const { title, description, text_content, category, language, visibility, status, era, tags } = req.body;
 
-    if (!title) {
+    if (!title || title.trim().length === 0) {
       return res.status(400).json({ error: 'Title is required' });
     }
+
+    const cleanTitle = sanitize(title);
+
+    if (cleanTitle.length > TITLE_MAX_LENGTH) {
+      return res.status(400).json({ error: `Title must be under ${TITLE_MAX_LENGTH} characters` });
+    }
+
+    const cleanCategory = category || 'story';
+    if (!ALLOWED_CATEGORIES.includes(cleanCategory)) {
+      return res.status(400).json({ error: `Invalid category. Allowed: ${ALLOWED_CATEGORIES.join(', ')}` });
+    }
+
+    const cleanDescription = description ? sanitize(description) : null;
+    if (cleanDescription && cleanDescription.length > DESCRIPTION_MAX_LENGTH) {
+      return res.status(400).json({ error: `Description must be under ${DESCRIPTION_MAX_LENGTH} characters` });
+    }
+
+    const cleanTextContent = text_content ? sanitize(text_content) : null;
 
     const result = await db.query(
       `INSERT INTO stories (title, description, text_content, author_id, category, language, visibility, status, era)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING *`,
       [
-        title,
-        description || null,
-        text_content || null,
+        cleanTitle,
+        cleanDescription,
+        cleanTextContent,
         req.user.id,
-        category || 'story',
+        cleanCategory,
         language || 'kinyarwanda',
         visibility || 'public',
         status || 'draft',
@@ -320,6 +348,23 @@ router.put('/:id', authenticateToken, async (req, res, next) => {
       transcript_english,
     } = req.body;
 
+    if (title !== undefined) {
+      const cleanTitle = sanitize(title);
+      if (cleanTitle.length === 0) {
+        return res.status(400).json({ error: 'Title cannot be empty' });
+      }
+      if (cleanTitle.length > TITLE_MAX_LENGTH) {
+        return res.status(400).json({ error: `Title must be under ${TITLE_MAX_LENGTH} characters` });
+      }
+    }
+
+    if (category !== undefined && !ALLOWED_CATEGORIES.includes(category)) {
+      return res.status(400).json({ error: `Invalid category. Allowed: ${ALLOWED_CATEGORIES.join(', ')}` });
+    }
+
+    const cleanDescription = description !== undefined ? sanitize(description) : undefined;
+    const cleanTextContent = text_content !== undefined ? sanitize(text_content) : undefined;
+
     const result = await db.query(
       `UPDATE stories SET
          title = COALESCE($1, title),
@@ -335,9 +380,9 @@ router.put('/:id', authenticateToken, async (req, res, next) => {
        WHERE id = $11 AND author_id = $12
        RETURNING *`,
       [
-        title,
-        description,
-        text_content,
+        title !== undefined ? sanitize(title) : undefined,
+        cleanDescription,
+        cleanTextContent,
         category,
         language,
         visibility,
@@ -382,7 +427,10 @@ router.post('/:id/audio', authenticateToken, upload.single('audio'), async (req,
 
     res.json(result.rows[0]);
   } catch (err) {
-    if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({ error: 'File too large' });
+    }
+    if (err.message && err.message.startsWith('Invalid audio format')) {
       return res.status(400).json({ error: err.message });
     }
     next(err);
