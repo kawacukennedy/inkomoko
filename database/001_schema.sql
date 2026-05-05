@@ -1,5 +1,5 @@
 -- ============================================================
--- Inkomoko — The Living Archive
+-- Inkomoko - The Living Archive
 -- Database Schema (PostgreSQL)
 -- ============================================================
 
@@ -180,7 +180,8 @@ CREATE TABLE followers (
     follower_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     followed_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at      TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE(follower_id, followed_id)
+    UNIQUE(follower_id, followed_id),
+    CHECK (follower_id != followed_id)
 );
 
 CREATE INDEX idx_followers_followed ON followers(followed_id);
@@ -194,14 +195,14 @@ CREATE TABLE notifications (
     type            VARCHAR(50) NOT NULL,
     title           VARCHAR(255),
     message         TEXT,
-    read            BOOLEAN DEFAULT FALSE,
+    is_read         BOOLEAN DEFAULT FALSE,
     reference_id    UUID,
     reference_type  VARCHAR(50),
     created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX idx_notifications_user ON notifications(user_id);
-CREATE INDEX idx_notifications_read ON notifications(user_id, read);
+CREATE INDEX idx_notifications_read ON notifications(user_id, is_read);
 
 -- ============================================================
 -- 12. USER SETTINGS
@@ -252,3 +253,18 @@ CREATE TRIGGER update_stories_updated_at
 CREATE TRIGGER update_settings_updated_at
     BEFORE UPDATE ON user_settings
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================================
+-- AUTO-CREATE user_settings on user creation
+-- ============================================================
+CREATE OR REPLACE FUNCTION create_user_settings()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO user_settings (user_id) VALUES (NEW.id);
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER after_user_insert
+    AFTER INSERT ON users
+    FOR EACH ROW EXECUTE FUNCTION create_user_settings();
