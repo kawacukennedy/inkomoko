@@ -1,39 +1,50 @@
+'use strict';
+
 const express = require('express');
 const db = require('../config/database');
+const { authenticateToken } = require('../middleware/auth');
+
 const router = express.Router();
 
-// 🚨 DANGER: This route wipes all user data for a clean start.
-// In a real production app, this would be highly protected.
-router.post('/wipe', async (req, res) => {
-    try {
-        console.log('--- NUCLEAR WIPE INITIATED ---');
-        
-        // Disable triggers/constraints temporarily if needed, 
-        // but TRUNCATE CASCADE usually works best.
-        const tables = [
-            'otp_verifications',
-            'comments',
-            'play_history',
-            'gratitudes',
-            'bookmarks',
-            'stories',
-            'family_members',
-            'families',
-            'notifications',
-            'user_settings',
-            'users'
-        ];
+const WIPE_SECRET = process.env.WIPE_SECRET || 'inkomoko-wipe-2024';
 
-        for (const table of tables) {
-            await db.query(`TRUNCATE ${table} CASCADE;`);
-        }
+router.post('/wipe', authenticateToken, async (req, res, next) => {
+  try {
+    const { secret } = req.body;
 
-        console.log('--- WIPE COMPLETE ---');
-        res.json({ message: 'Database wiped successfully. You have a clean slate.' });
-    } catch (err) {
-        console.error('Wipe failed:', err);
-        res.status(500).json({ error: 'Database wipe failed', details: err.message });
+    if (secret !== WIPE_SECRET) {
+      return res.status(403).json({ error: 'Unauthorized' });
     }
+
+    console.log('--- DATABASE WIPE INITIATED ---');
+
+    const tables = [
+      'otp_verifications',
+      'comments',
+      'play_history',
+      'gratitudes',
+      'bookmarks',
+      'story_tags',
+      'stories',
+      'family_members',
+      'families',
+      'notifications',
+      'user_settings',
+      'followers',
+      'users',
+    ];
+
+    for (const table of tables) {
+      await db.query(`TRUNCATE ${table} CASCADE`);
+    }
+
+    console.log('--- DATABASE WIPE COMPLETE ---');
+
+    res.json({ message: 'Database wiped successfully' });
+  } catch (err) {
+    console.error('Wipe failed:', err);
+    next(err);
+  }
 });
 
 module.exports = router;
