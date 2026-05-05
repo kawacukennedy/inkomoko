@@ -358,8 +358,11 @@
         if (e) e.preventDefault();
         if (document.getElementById('submitBtn').disabled) return;
 
-        const btnText = document.getElementById('submitBtn').textContent;
-        this.setLoading(true, btnText);
+        const btn = document.getElementById('submitBtn');
+        const btnText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Please wait...';
+        btn.style.opacity = '0.7';
         this.hideError();
 
         try {
@@ -384,9 +387,10 @@
               break;
           }
         } catch (err) {
+          btn.disabled = false;
+          btn.textContent = btnText;
+          btn.style.opacity = '1';
           this.showError(err.message || 'Something went wrong. Please try again.');
-        } finally {
-          this.setLoading(false, btnText);
         }
       },
 

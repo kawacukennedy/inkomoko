@@ -133,6 +133,7 @@ router.post('/signup', authRateLimiter, async (req, res, next) => {
       message: 'Verification code sent',
       identifier,
       purpose: 'signup',
+      otp_required: true,
     });
   } catch (err) {
     next(err);
@@ -174,6 +175,7 @@ router.post('/login', authRateLimiter, async (req, res, next) => {
       message: 'Verification code sent',
       identifier,
       purpose: 'login',
+      otp_required: true,
     });
   } catch (err) {
     next(err);

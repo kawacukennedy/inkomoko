@@ -33,12 +33,17 @@ async function sendEmail(to, subject, html) {
   }
 
   try {
-    const info = await mailer.sendMail({
-      from: process.env.EMAIL_FROM || '"Inkomoko" <no-reply@inkomoko.app>',
-      to,
-      subject,
-      html,
-    });
+    const info = await Promise.race([
+      mailer.sendMail({
+        from: process.env.EMAIL_FROM || '"Inkomoko" <no-reply@inkomoko.app>',
+        to,
+        subject,
+        html,
+      }),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Email send timeout')), 5000)
+      ),
+    ]);
 
     console.log(`Email sent: ${info.messageId}`);
     return true;
