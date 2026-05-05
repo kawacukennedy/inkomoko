@@ -359,7 +359,7 @@
         if (document.getElementById('submitBtn').disabled) return;
 
         const btn = document.getElementById('submitBtn');
-        const btnText = btn.textContent;
+        const originalText = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Please wait...';
         btn.style.opacity = '0.7';
@@ -375,23 +375,24 @@
             case 'login':
             case 'signup':
               await this.handleAuthStep(emailPhone, password);
-              break;
+              return;
             case 'otp':
               await this.handleOtpStep(otpCode);
-              break;
+              return;
             case 'forgot':
               await this.handleForgotStep(emailPhone);
-              break;
+              return;
             case 'reset':
               await this.handleResetStep(otpCode, newPassword);
-              break;
+              return;
           }
         } catch (err) {
-          btn.disabled = false;
-          btn.textContent = btnText;
-          btn.style.opacity = '1';
           this.showError(err.message || 'Something went wrong. Please try again.');
         }
+
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
       },
 
       async handleAuthStep(identifier, password) {
@@ -417,8 +418,13 @@
         const result = this.mode === 'signup' ? await API.signup(data) : await API.login(data);
 
         if (result.otp_required) {
-          document.getElementById('targetIdentifier').textContent = identifier;
           this.otpContext = { identifier, purpose: result.purpose || this.mode };
+
+          if (result.dev_otp) {
+            this.showDevOtp(result.dev_otp);
+          }
+
+          document.getElementById('targetIdentifier').textContent = identifier;
           this.switchMode('otp');
           return;
         }
@@ -427,6 +433,27 @@
           Auth.setSession(result.user, result.token);
           Auth.redirectAfterAuth();
         }
+      },
+
+      showDevOtp(code) {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = false;
+        btn.style.opacity = '1';
+
+        const existing = document.querySelector('.dev-otp-banner');
+        if (existing) existing.remove();
+
+        const banner = document.createElement('div');
+        banner.className = 'dev-otp-banner';
+        banner.style.cssText = `
+          background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px;
+          padding: 16px; margin-bottom: 16px; text-align: center; font-weight: 600;
+          color: #92400e; font-size: 14px; animation: slideDown 0.3s ease-out;
+        `;
+        banner.innerHTML = `<span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8;">Dev Mode OTP</span><br/><span style="font-size: 24px; font-family: monospace; letter-spacing: 4px;">${code}</span>`;
+
+        const form = document.getElementById('authForm');
+        form.insertBefore(banner, form.firstChild);
       },
 
       async handleOtpStep(code) {

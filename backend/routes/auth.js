@@ -124,16 +124,19 @@ router.post('/signup', authRateLimiter, async (req, res, next) => {
     const otpCode = OTP.generateCode();
     const user = await findUser(identifier);
 
-    await Promise.all([
+    await Promise.allSettled([
       OTP.save(identifier, otpCode, 'signup', user.id),
       OTP.send(identifier, otpCode, 'signup'),
     ]);
+
+    const isDev = process.env.NODE_ENV !== 'production';
 
     res.status(201).json({
       message: 'Verification code sent',
       identifier,
       purpose: 'signup',
       otp_required: true,
+      ...(isDev && { dev_otp: otpCode }),
     });
   } catch (err) {
     next(err);
@@ -166,16 +169,19 @@ router.post('/login', authRateLimiter, async (req, res, next) => {
     const OTP = require('../utils/otp');
     const otpCode = OTP.generateCode();
 
-    await Promise.all([
+    await Promise.allSettled([
       OTP.save(identifier, otpCode, 'login', user.id),
       OTP.send(identifier, otpCode, 'login'),
     ]);
+
+    const isDev = process.env.NODE_ENV !== 'production';
 
     res.json({
       message: 'Verification code sent',
       identifier,
       purpose: 'login',
       otp_required: true,
+      ...(isDev && { dev_otp: otpCode }),
     });
   } catch (err) {
     next(err);
