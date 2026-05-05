@@ -6,19 +6,31 @@ const App = {
 
   init() {
     this.loadUser();
-    this.setupOnlineIndicator();
 
     if (window.location.protocol.startsWith('chrome-error')) return;
+
+    const path = this.normalizePath(window.location.pathname);
+    const authPages = ['/auth.html'];
+    const onboardingPages = ['/onboarding.html'];
+
+    if (authPages.includes(path) || onboardingPages.includes(path)) {
+      if (this.isLoggedIn() && this.isOnboarded()) {
+        const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
+        window.location.replace(target);
+        return;
+      }
+      return;
+    }
+
+    this.setupOnlineIndicator();
 
     if (this.isLoggedIn()) {
       this._startTokenRefreshTimer();
     }
 
-    const path = this.normalizePath(window.location.pathname);
     const publicPages = ['/', '/index.html', '/welcome', '/welcome.html'];
-    const authPages = ['/auth.html', '/onboarding.html'];
 
-    if (!publicPages.includes(path) && !authPages.includes(path)) {
+    if (!publicPages.includes(path)) {
       if (!this.isLoggedIn()) {
         window.location.replace('/auth.html');
         return;
@@ -132,17 +144,17 @@ const App = {
 
   redirectAfterAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = '/auth.html';
+      window.location.replace('/auth.html');
       return;
     }
 
     if (!this.isOnboarded()) {
-      window.location.href = '/onboarding.html';
+      window.location.replace('/onboarding.html');
       return;
     }
 
     const target = this.isElder() ? '/elder-dashboard.html' : '/youth-dashboard.html';
-    window.location.href = target;
+    window.location.replace(target);
   },
 
   logout() {
@@ -152,6 +164,10 @@ const App = {
   },
 
   _startTokenRefreshTimer() {
+    if (this._refreshTimer) {
+      clearInterval(this._refreshTimer);
+    }
+
     const REFRESH_INTERVAL = 24 * 60 * 60 * 1000;
 
     this._refreshTimer = setInterval(async () => {
