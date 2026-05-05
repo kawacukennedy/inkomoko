@@ -1,308 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elder Profile — Inkomoko</title>
-  <meta name="description" content="Explore the stories and legacy of a community elder.">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#9b2f00">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Elder Profile — The Living Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
+                        "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+                        "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+                        "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694", "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e", "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4", "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a", "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+                        "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600", "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
                 }
             }
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .terracotta-gradient { background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%); }
+        .organic-leaf { border-radius: 2rem 0.5rem 2rem 0.5rem; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
 </head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
-      }
-    }catch(e){}
-  }, 100);
-</script>
-
-  <main style="min-height:100vh;padding-bottom:120px">
-    <!-- Hero Portrait -->
-    <div style="position:relative;height:60vh;min-height:400px;max-height:560px;overflow:hidden;background:linear-gradient(135deg,#351000,#832600)" id="heroPortrait">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(53,16,0,0.95) 0%,rgba(53,16,0,0.4) 50%,transparent 100%)"></div>
-      <div style="position:absolute;bottom:0;left:0;width:100%;padding:2rem 1.5rem;z-index:1">
-        <div style="display:flex;align-items:end;gap:1.5rem;max-width:48rem;margin:0 auto">
-          <div style="width:100px;height:100px;border-radius:50%;border:4px solid var(--primary-fixed);overflow:hidden;flex-shrink:0" id="elderAvatar">
-          </div>
-          <div style="flex:1;padding-bottom:0.5rem">
-            <span style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(255,181,157,0.2);color:var(--primary-fixed);border-radius:9999px;font-size:10px;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.5rem">Keeper of Tradition</span>
-            <h1 style="font-family:var(--font-headline);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:900;color:white;margin-bottom:0.25rem" id="elderName">Loading...</h1>
-            <p style="color:rgba(255,255,255,0.7);font-size:0.875rem" id="elderMeta"></p>
-          </div>
+<body class="bg-background text-on-surface font-body min-h-screen pb-32">
+    <header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+        <div class="flex justify-between items-center w-full px-6 py-4">
+            <div class="flex items-center gap-4">
+                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='/'; }" class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full">menu</button>
+                <h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full" onclick="window.location.href='/explore.html'">search</button>
+                <img id="navProfileImg" alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzK8qfg8VBZS3WOvgDkGFW41IeN2tCQESaMQ624Op1JAoWAo508mZUmHF1Txd18zHwX43j6oNxx6czxm-Bmmsf5P-wUqrg-sHxdFH1CsH_a_N-oriZwM9jZd0TdMc1hEe53b6RJMpp80XVDkIEeBxR5oInCyzsCWpa-ob3hfPIYVwk006G49zxbAMjqlM6B4ZlWasxLec_1u9ppDAUh7ib0HgWOvxgMktVEhEfLeOnNgK_YqTVuEcepg6qDjqng-QH-LHEbDi68a5w"/>
+            </div>
         </div>
-      </div>
-    </div>
+    </header>
+    <script>
+        setTimeout(() => { try { if(window.App && App.currentUser) { document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser); } } catch(e){} }, 100);
+    </script>
+    <main class="pt-20">
+        <section class="relative w-full h-[530px] md:h-[618px] overflow-hidden" id="heroPortrait">
+            <img alt="Elder Portrait" class="w-full h-full object-cover" id="heroImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRdSffgUDN1AJMbgQm0cUJvJpjKuCUv-gIh2XHppqlnei86ZjMKbcSRIqeFWsKkD-zAtH0HNMpeKIpiPJyCDS0Trynu5aGCr_4ilBR6zwzhzWxL3Wak38FmPgW7lr40pkaadri6sxkDqRzOD4KXwOhbQbnSXkBN039wSyc3WquHPEUtnk3nEUmCjI5qAtpU1gsbyzqJYv4eZHl_Bd9wB-yTeA-krGH84OcE1s3vghp9HsC9vu6EAcNr-u44GmSQH_DKvv0FVAFCAwL"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-on-surface via-transparent to-transparent opacity-80"></div>
+            <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 space-y-2">
+                <h2 class="font-headline text-5xl md:text-7xl font-black text-surface-bright tracking-tight" id="elderName">Loading...</h2>
+                <div class="flex flex-wrap items-center gap-4 text-surface-container-lowest font-medium text-lg md:text-xl" id="elderMeta">
+                </div>
+            </div>
+        </section>
 
-    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
-      <!-- Follow Button + Stats -->
-      <section style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15);gap:1rem">
-        <button onclick="toggleFollow()" id="followBtn" class="btn-primary" style="gap:0.5rem">
-          <span class="material-symbols-outlined" id="followIcon">person_add</span>
-          <span id="followText">Follow Elder</span>
-        </button>
-        <div style="display:flex;gap:2rem" id="profileStats">
-          <!-- Populated by JS -->
+        <section class="px-6 md:px-12 py-12 grid grid-cols-1 md:grid-cols-12 gap-12 max-w-7xl mx-auto">
+            <div class="md:col-span-8 space-y-8">
+                <div class="bg-surface-container-low p-8 organic-leaf shadow-sm" id="bioCard">
+                    <div class="space-y-6">
+                        <span class="material-symbols-outlined text-primary text-4xl">format_quote</span>
+                        <div class="space-y-4">
+                            <p class="font-headline text-2xl md:text-3xl italic text-on-surface-variant leading-relaxed" id="elderBio"></p>
+                            <p class="font-body text-lg text-secondary leading-relaxed border-l-2 border-outline-variant pl-6 italic" id="elderBioTranslation"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-headline text-2xl font-bold text-primary">About</h3>
+                    <p class="font-body text-lg text-on-surface leading-loose" id="elderAbout"></p>
+                </div>
+            </div>
+            <div class="md:col-span-4 space-y-6">
+                <div class="bg-surface-container-high p-8 rounded-[2.5rem] sticky top-32">
+                    <h4 class="font-headline text-xl font-bold text-on-surface mb-4">Stay Connected</h4>
+                    <p class="text-sm text-on-surface-variant mb-8">Follow to receive notifications when new oral histories are added.</p>
+                    <button class="w-full h-14 terracotta-gradient text-on-primary-container font-bold organic-leaf flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all" id="followBtn" onclick="toggleFollow()">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+                        <span id="followText">Follow Archive</span>
+                    </button>
+                    <div class="mt-12 space-y-4" id="profileStats">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-6 md:px-12 py-12 max-w-7xl mx-auto space-y-8">
+            <div class="flex items-center justify-between">
+                <h3 class="font-headline text-3xl font-black text-primary">Their Archive</h3>
+                <button class="flex items-center gap-2 text-secondary font-bold hover:underline">
+                    View All <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="elderStories">
+            </div>
+        </section>
+    </main>
+
+    <nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] h-[88px] bg-[#fdf9e9]/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+        <div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/'">
+                <span class="material-symbols-outlined">history_edu</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
+            </div>
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/library.html'">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+            </div>
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/record.html'">
+                <span class="material-symbols-outlined">mic_none</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+            </div>
+            <div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg" onclick="window.location.href='/settings.html'">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+            </div>
         </div>
-      </section>
+    </nav>
 
-      <!-- Bio -->
-      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="bioSection">
-        <!-- Populated by JS -->
-      </section>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+    <script>
+        const elderId = new URLSearchParams(window.location.search).get('id');
+        let isFollowing = false;
 
-      <!-- Stories -->
-      <section style="padding:1.5rem 0">
-        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:1rem">Shared Archives</h3>
-        <div style="display:grid;gap:1.5rem" id="elderStories">
-          <!-- Loading -->
-          <div style="padding:1.5rem;background:var(--surface-container-lowest);border-radius:1.5rem">
-            <div class="skeleton" style="height:16px;width:50%;margin-bottom:1rem"></div>
-            <div class="skeleton" style="height:24px;width:80%"></div>
-          </div>
-        </div>
-      </section>
+        async function loadProfile() {
+            if (!elderId) { window.location.href = '/explore.html'; return; }
+            try {
+                const elder = await API.getUserPublic(elderId);
+                document.title = `${elder.full_name} — The Living Archive`;
+                document.getElementById('elderName').textContent = elder.full_name;
+                const metaParts = [elder.age ? `${elder.age} Years` : '', elder.region || ''].filter(Boolean);
+                document.getElementById('elderMeta').innerHTML = metaParts.map(p => `<span class="bg-primary/30 backdrop-blur-sm px-4 py-1 rounded-full border border-surface-container-low/20">${p}</span>`).join('');
 
-      <!-- Preservation Indicator -->
-      <section style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;text-align:center;border:1px solid rgba(225,191,181,0.15);margin-top:1rem">
-        <span class="material-symbols-outlined filled" style="font-size:2rem;color:var(--primary);margin-bottom:0.5rem;display:block">verified</span>
-        <h4 style="font-family:var(--font-headline);font-weight:700;margin-bottom:0.25rem">Verified Elder</h4>
-        <p style="font-size:0.875rem;color:var(--on-surface-variant)">This elder's stories are preserved in the Living Archive</p>
-      </section>
-    </div>
-  </main>
+                document.getElementById('elderBio').textContent = elder.bio || '';
+                document.getElementById('elderAbout').textContent = elder.bio || `${elder.full_name} is a keeper of oral traditions, sharing stories and wisdom for future generations.`;
 
-  <nav class="bottom-nav">
-    <a href="/" class="bottom-nav-item">
-      <span class="material-symbols-outlined">history_edu</span>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="/library" class="bottom-nav-item">
-      <span class="material-symbols-outlined">menu_book</span>
-      <span class="nav-label">Library</span>
-    </a>
-    <a href="/explore" class="bottom-nav-item">
-      <span class="material-symbols-outlined">explore</span>
-      <span class="nav-label">Explore</span>
-    </a>
-    <a href="/settings" class="bottom-nav-item">
-      <span class="material-symbols-outlined">person</span>
-      <span class="nav-label">Profile</span>
-    </a>
-  </nav>
+                document.getElementById('profileStats').innerHTML = `
+                    <div class="flex items-center justify-between text-sm font-medium border-b border-outline-variant/20 pb-4">
+                        <span class="text-on-surface-variant uppercase tracking-widest">Stories Shared</span>
+                        <span class="text-primary font-bold text-lg">${elder.story_count || 0}</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm font-medium border-b border-outline-variant/20 pb-4">
+                        <span class="text-on-surface-variant uppercase tracking-widest">Listeners</span>
+                        <span class="text-primary font-bold text-lg">${elder.follower_count || 0}</span>
+                    </div>`;
 
-  <script src="/js/api.js"></script>
-  <script src="/js/app.js"></script>
-  <script src="/js/components.js"></script>
-  <script>
-    const elderId = new URLSearchParams(window.location.search).get('id');
-    let isFollowing = false;
-
-    async function loadProfile() {
-      if (!elderId) { window.location.href = '/explore.html'; return; }
-
-      try {
-        const elder = await API.getUserPublic(elderId);
-        const avatar = App.avatarUrl(elder);
-
-        document.title = `${elder.full_name} — Inkomoko`;
-        document.getElementById('elderAvatar').innerHTML = `<img src="${avatar}" style="width:100%;height:100%;object-fit:cover" loading="lazy">`;
-        document.getElementById('elderName').textContent = elder.full_name;
-        document.getElementById('elderMeta').textContent = [elder.clan, elder.region, elder.age ? `Age ${elder.age}` : ''].filter(Boolean).join(' · ');
-
-        // Stats
-        document.getElementById('profileStats').innerHTML = `
-          <div style="text-align:center">
-            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.story_count || 0}</p>
-            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Stories</p>
-          </div>
-          <div style="text-align:center">
-            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.follower_count || 0}</p>
-            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Followers</p>
-          </div>
-          <div style="text-align:center">
-            <p style="font-family:var(--font-headline);font-weight:700;font-size:1.25rem">${elder.total_plays || 0}</p>
-            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Plays</p>
-          </div>
-        `;
-
-        // Bio
-        document.getElementById('bioSection').innerHTML = elder.bio
-          ? `<blockquote style="font-family:var(--font-headline);font-size:1.125rem;font-style:italic;color:var(--on-surface);line-height:1.8;border-left:4px solid var(--primary);padding-left:1.5rem">${elder.bio}</blockquote>`
-          : '';
-
-        // Stories
-        const storiesResult = await API.getStories({ author_id: elderId, limit: 20 });
-        const grid = document.getElementById('elderStories');
-        if (window.innerWidth >= 768) grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
-
-        if (storiesResult.stories.length === 0) {
-          grid.innerHTML = '<p style="text-align:center;color:var(--on-surface-variant);padding:2rem">No stories published yet</p>';
-        } else {
-          grid.innerHTML = storiesResult.stories.map(s => Components.storyCard(s)).join('');
+                const storiesResult = await API.getStories({ author_id: elderId, limit: 20 });
+                const grid = document.getElementById('elderStories');
+                if (storiesResult.stories.length === 0) {
+                    grid.innerHTML = '<p class="col-span-3 text-center text-on-surface-variant py-8">No stories published yet</p>';
+                } else {
+                    grid.innerHTML = storiesResult.stories.map((s, i) => {
+                        if (i === 0) return `<div class="md:col-span-2 group relative overflow-hidden bg-surface-container-lowest rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow border border-outline-variant/10 cursor-pointer" onclick="window.location.href='/story.html?id=${s.id}'">
+                            <div class="aspect-[16/9] overflow-hidden">
+                                <img alt="${s.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDwJrlelvshFopaH33DLYLSK9fhbPSJFd37axgURk7g-Qc2BJK8XFon2uE1T_YYiH6fwaRPkXjTGkfVsTRc-1LpSh6sVVwvpR20M-9X6c6q8S5RzaZuGaa6LkuBijmqfm_34R4p2mcE9XjTizA5MVzVQrnN2vk5fNWDyNEZo6Um88tsW-UdP_9-Uzvh67vSX9QnT8j5IKl5kOjk84YJNHL0cz8i08ysxk5dOVXprFY4hEkwJScSnNOsEIKERohGuzSWDYbdTHN2q9p"/>
+                            </div>
+                            <div class="p-8 space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-primary-container font-bold text-xs uppercase tracking-widest">${s.category || 'Oral History'}</span>
+                                    <span class="w-1 h-1 bg-outline rounded-full"></span>
+                                    <span class="text-on-surface-variant text-sm">${App.formatDuration(s.duration_seconds)} audio</span>
+                                </div>
+                                <h4 class="font-headline text-2xl font-bold text-on-surface group-hover:text-primary transition-colors">${s.title}</h4>
+                                <p class="text-on-surface-variant line-clamp-2">${s.description || ''}</p>
+                                <div class="flex items-center gap-4 pt-4">
+                                    <button class="h-12 w-12 flex items-center justify-center rounded-full bg-primary-fixed text-on-primary-fixed hover:bg-primary hover:text-white transition-colors" onclick="event.stopPropagation(); window.location.href='/story.html?id=${s.id}'">
+                                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                    </button>
+                                    <span class="font-medium">Listen to History</span>
+                                </div>
+                            </div>
+                        </div>`;
+                        return `<div class="group relative overflow-hidden bg-surface-container-low rounded-[2.5rem] shadow-sm border border-outline-variant/10 cursor-pointer" onclick="window.location.href='/story.html?id=${s.id}'">
+                            <div class="p-8 space-y-6 flex flex-col h-full justify-between">
+                                <div class="space-y-4">
+                                    <div class="w-12 h-12 bg-secondary-container/20 rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-secondary">mic</span>
+                                    </div>
+                                    <h4 class="font-headline text-xl font-bold text-on-surface">${s.title}</h4>
+                                    <p class="text-on-surface-variant text-sm">${s.description || ''}</p>
+                                </div>
+                                <button class="flex items-center gap-2 text-primary font-bold text-sm">EXPLORE <span class="material-symbols-outlined">north_east</span></button>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            } catch(e) {
+                document.getElementById('elderName').textContent = 'Elder not found';
+            }
         }
-      } catch(e) {
-        document.getElementById('elderName').textContent = 'Elder not found';
-      }
-    }
 
-    async function toggleFollow() {
-      if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
-      try {
-        if (isFollowing) {
-          await API.unfollowUser(elderId);
-          isFollowing = false;
-        } else {
-          await API.followUser(elderId);
-          isFollowing = true;
+        async function toggleFollow() {
+            if (!App.isLoggedIn()) { window.location.href = '/auth.html'; return; }
+            try {
+                if (isFollowing) { await API.unfollowUser(elderId); isFollowing = false; }
+                else { await API.followUser(elderId); isFollowing = true; }
+                document.getElementById('followText').textContent = isFollowing ? 'Following' : 'Follow Archive';
+            } catch(e) {}
         }
-        updateFollowBtn();
-      } catch(e) {}
-    }
 
-    function updateFollowBtn() {
-      const btn = document.getElementById('followBtn');
-      const icon = document.getElementById('followIcon');
-      const text = document.getElementById('followText');
-      if (isFollowing) {
-        btn.style.background = 'var(--surface-container-highest)';
-        btn.style.color = 'var(--on-surface)';
-        btn.style.boxShadow = 'none';
-        icon.textContent = 'check';
-        text.textContent = 'Following';
-      } else {
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.style.boxShadow = '';
-        icon.textContent = 'person_add';
-        text.textContent = 'Follow Elder';
-      }
-    }
-
-    // Scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('profileHeader');
-      if (window.scrollY > 300) {
-        header.style.background = 'rgba(253,249,233,0.8)';
-        header.style.backdropFilter = 'blur(12px)';
-        header.querySelectorAll('button').forEach(b => { b.style.color = 'var(--primary)'; b.style.background = 'transparent'; });
-      } else {
-        header.style.background = 'transparent';
-        header.style.backdropFilter = 'none';
-        header.querySelectorAll('button').forEach(b => { b.style.color = 'white'; b.style.background = 'rgba(0,0,0,0.3)'; });
-      }
-    });
-
-    loadProfile();
-  </script>
+        loadProfile();
+    </script>
 </body>
 </html>

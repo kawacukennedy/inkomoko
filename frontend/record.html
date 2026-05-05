@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Record a Story — Inkomoko</title>
-  <meta name="description" content="Record, upload, or write a new oral history for The Living Archive.">
-  <link rel="stylesheet" href="/css/styles.css?v=4">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#9b2f00">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Record — The Living Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -79,390 +77,287 @@
             }
         }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+        .leaf-shape {
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
         }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
+        .glass-nav {
             backdrop-filter: blur(12px);
         }
-</style>
+        .waveform-bar {
+            width: 4px;
+            background: #9b2f00;
+            border-radius: 2px;
+            margin: 0 2px;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
 </head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
-      }
-    }catch(e){}
-  }, 100);
-</script>
-
-  <main style="min-height:100vh;padding:80px 0 120px">
-    <div style="max-width:40rem;margin:0 auto;padding:0 1.5rem">
-      <!-- Tab Switcher -->
-      <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px;margin-bottom:2rem">
-        <button onclick="switchTab('record')" id="tabRecord"
-                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
-          <span class="material-symbols-outlined" style="font-size:1.25rem">mic</span> Record
-        </button>
-        <button onclick="switchTab('upload')" id="tabUpload"
-                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
-          <span class="material-symbols-outlined" style="font-size:1.25rem">upload_file</span> Upload
-        </button>
-        <button onclick="switchTab('write')" id="tabWrite"
-                style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.5rem">
-          <span class="material-symbols-outlined" style="font-size:1.25rem">edit_note</span> Write
-        </button>
-      </div>
-
-      <!-- Record Tab -->
-      <div id="recordPanel" class="tab-panel">
-        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:3rem 2rem;text-align:center;border:1px solid rgba(225,191,181,0.15)">
-          <!-- Timer -->
-          <div style="font-family:var(--font-headline);font-size:3rem;font-weight:300;color:var(--on-surface);margin-bottom:2rem;letter-spacing:0.05em" id="timer">0:00</div>
-
-          <!-- Waveform Visualization -->
-          <div style="display:flex;align-items:center;justify-content:center;gap:3px;height:64px;margin-bottom:2rem" id="waveformVis">
-            ${Array.from({length: 30}, (_, i) => `<div style="width:4px;height:${8 + Math.random() * 24}px;background:var(--outline-variant);border-radius:2px;transition:height 0.15s" class="wave-bar"></div>`).join('')}
-          </div>
-
-          <!-- Record Button -->
-          <button id="recordBtn" onclick="toggleRecording()"
-                  style="width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-container));color:white;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(155,47,0,0.3);transition:all 0.3s;position:relative">
-            <span class="material-symbols-outlined filled" style="font-size:2.5rem" id="recordIcon">mic</span>
-          </button>
-          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="recordStatus">Tap to start recording</p>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+    <header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5 flex justify-between items-center px-6 py-4">
+        <div class="flex items-center gap-4">
+            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='/'; }" class="material-symbols-outlined text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-full active:scale-90">menu</button>
+            <h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
         </div>
-      </div>
-
-      <!-- Upload Tab -->
-      <div id="uploadPanel" class="tab-panel" style="display:none">
-        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:3rem 2rem;text-align:center;border:2px dashed var(--outline-variant);cursor:pointer" onclick="document.getElementById('audioFile').click()">
-          <span class="material-symbols-outlined" style="font-size:4rem;color:var(--outline);margin-bottom:1rem;display:block">cloud_upload</span>
-          <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700;margin-bottom:0.5rem">Upload Audio File</h3>
-          <p style="color:var(--on-surface-variant);font-size:0.875rem;margin-bottom:1rem">MP3, WAV, OGG, M4A, AAC — Max 50MB</p>
-          <div id="uploadedFile" style="display:none;padding:1rem;background:var(--surface-container-highest);border-radius:0.75rem;margin-top:1rem"></div>
-          <input type="file" id="audioFile" accept="audio/*" style="display:none" onchange="handleFileUpload(this)">
+        <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+            <img id="navProfileImg" alt="Elder Portrait" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG7R1jtlcqudHKqgOLtFcCmSbuYmQ3ikIXMImso1Pcp1VHVKDcgHzCdYFmlms6-_SIWWj6b7iu6KQcXWo8t5NJ-Os2MkMlOfM4CuHV4ufPYMa1vWdJOjiQWqjo--8Q1WIelGKLrT8ScJwx-CNRpZCeGVSnOZW3KERibO0atYds_8BS4aSsqk7M43Z6vaWEE4uymumf53HczHzCWbrrX7NNIFkXR7E4uykkGtnYld2tGPzF6tzPSGJp5-jW3IWLvdkZ7DCbbd--7StH"/>
         </div>
-      </div>
-
-      <!-- Write Tab -->
-      <div id="writePanel" class="tab-panel" style="display:none">
-        <div style="background:var(--surface-container-low);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;border:1px solid rgba(225,191,181,0.15)">
-          <textarea id="textContent" class="form-input" style="height:240px;resize:none;padding:1.5rem;background:transparent;border:none;font-size:1.125rem;line-height:1.8"
-                    placeholder="Write your story here... Let the words carry the memories of your ancestors."></textarea>
-        </div>
-      </div>
-
-      <!-- Story Details -->
-      <section style="margin-top:2rem;display:flex;flex-direction:column;gap:1.5rem">
-        <h3 style="font-family:var(--font-headline);font-size:1.25rem;font-weight:700">Story Details</h3>
-
-        <!-- Title -->
-        <div>
-          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Title</label>
-          <input type="text" id="storyTitle" class="form-input" placeholder="Give your story a title">
-        </div>
-
-        <!-- Description -->
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
-            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant)">Description / Hook</label>
-            <button type="button" onclick="enhanceWithAI()" id="aiBtn" style="font-size:0.75rem;color:var(--primary);font-weight:700;display:flex;align-items:center;gap:0.4rem;padding:0.25rem 0.75rem;background:var(--primary-fixed);border-radius:9999px;border:none;cursor:pointer;transition:all 0.3s">
-              <span class="material-symbols-outlined" style="font-size:1rem" id="aiIcon">magic_button</span>
-              <span id="aiText">Enhance with AI</span>
+    </header>
+    <script>
+        setTimeout(() => {
+            try {
+                if(window.App && App.currentUser) {
+                    document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
+                }
+            } catch(e){}
+        }, 100);
+    </script>
+    <main class="pt-24 px-4 max-w-2xl mx-auto">
+        <div class="flex gap-2 mb-8 bg-surface-container-low p-2 rounded-2xl">
+            <button id="tabRecord" class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white shadow-md active:scale-95 duration-300" onclick="switchTab('record')">
+                <span class="material-symbols-outlined" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+                <span class="font-label text-xs font-medium uppercase tracking-wider">Record</span>
             </button>
-          </div>
-          <textarea id="storyDesc" class="form-input" style="height:100px;resize:none;padding:1rem 1.5rem" placeholder="Briefly describe this story"></textarea>
+            <button id="tabUpload" class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-95 duration-300" onclick="switchTab('upload')">
+                <span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+                <span class="font-label text-xs font-medium uppercase tracking-wider">Upload File</span>
+            </button>
+            <button id="tabWrite" class="flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-95 duration-300" onclick="switchTab('write')">
+                <span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                <span class="font-label text-xs font-medium uppercase tracking-wider">Write Text</span>
+            </button>
         </div>
 
-        <!-- Category -->
-        <div>
-          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Category</label>
-          <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="categoryChips">
-            <button type="button" class="chip chip-active" onclick="selectCategory(this, 'story')" data-cat="story">📖 Story</button>
-            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'tradition')" data-cat="tradition">🏺 Tradition</button>
-            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'song')" data-cat="song">🎵 Song</button>
-            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'proverb')" data-cat="proverb">💬 Proverb</button>
-            <button type="button" class="chip chip-inactive" onclick="selectCategory(this, 'culture')" data-cat="culture">🏛 Culture</button>
-          </div>
-        </div>
-
-        <!-- Language -->
-        <div>
-          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.75rem;display:block">Language</label>
-          <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px">
-            <button type="button" onclick="selectLanguage('kinyarwanda')" id="recLangKw" style="flex:1;height:44px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:var(--primary);color:white;transition:all 0.3s">Kinyarwanda</button>
-            <button type="button" onclick="selectLanguage('english')" id="recLangEn" style="flex:1;height:44px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;background:transparent;color:var(--on-surface-variant);transition:all 0.3s">English</button>
-          </div>
-        </div>
-
-        <!-- Visibility -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-top:1px solid rgba(225,191,181,0.15)">
-          <div>
-            <p style="font-weight:600">Family Only</p>
-            <p style="font-size:0.75rem;color:var(--on-surface-variant)">Only family members can listen</p>
-          </div>
-          <div class="toggle-switch" id="visibilityToggle" onclick="toggleVisibility()"></div>
-        </div>
-
-        <!-- Era -->
-        <div>
-          <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Time Period / Era (optional)</label>
-          <input type="text" id="storyEra" class="form-input" placeholder="e.g., 1974, Pre-colonial, 1960s">
-        </div>
-      </section>
-
-      <!-- Publish Button -->
-      <button onclick="publishStory()" class="btn-primary" style="width:100%;margin-top:2rem;height:56px;font-size:1rem">
-        <span class="material-symbols-outlined">publish</span>
-        Publish Story
-      </button>
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <a href="/elder-dashboard" class="bottom-nav-item">
-      <span class="material-symbols-outlined">history_edu</span>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="/library" class="bottom-nav-item">
-      <span class="material-symbols-outlined">menu_book</span>
-      <span class="nav-label">Library</span>
-    </a>
-    <a href="/record" class="bottom-nav-item active">
-      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">mic_none</span>
-      <span class="nav-label">Record</span>
-    </a>
-    <a href="/settings" class="bottom-nav-item">
-      <span class="material-symbols-outlined">person</span>
-      <span class="nav-label">Profile</span>
-    </a>
-  </nav>
-
-  <script src="/js/api.js?v=4"></script>
-  <script src="/js/app.js?v=4"></script>
-  <script src="/js/components.js?v=4"></script>
-  <script>
-    let currentTab = 'record';
-    let selectedCategory = 'story';
-    let selectedLanguage = 'kinyarwanda';
-    let visibility = 'public';
-    let isRecording = false;
-    let recordingSeconds = 0;
-    let timerInterval = null;
-    let uploadedAudioFile = null;
-
-    function switchTab(tab) {
-      currentTab = tab;
-      ['record', 'upload', 'write'].forEach(t => {
-        document.getElementById(t + 'Panel').style.display = t === tab ? 'block' : 'none';
-        const tabBtn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
-        tabBtn.style.background = t === tab ? 'var(--primary)' : 'transparent';
-        tabBtn.style.color = t === tab ? 'white' : 'var(--on-surface-variant)';
-      });
-    }
-
-    function selectCategory(btn, cat) {
-      selectedCategory = cat;
-      document.querySelectorAll('#categoryChips .chip').forEach(c => {
-        c.classList.remove('chip-active');
-        c.classList.add('chip-inactive');
-      });
-      btn.classList.remove('chip-inactive');
-      btn.classList.add('chip-active');
-    }
-
-    function selectLanguage(lang) {
-      selectedLanguage = lang;
-      document.getElementById('recLangKw').style.background = lang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
-      document.getElementById('recLangKw').style.color = lang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
-      document.getElementById('recLangEn').style.background = lang === 'english' ? 'var(--primary)' : 'transparent';
-      document.getElementById('recLangEn').style.color = lang === 'english' ? 'white' : 'var(--on-surface-variant)';
-    }
-
-    function toggleVisibility() {
-      const toggle = document.getElementById('visibilityToggle');
-      toggle.classList.toggle('active');
-      visibility = toggle.classList.contains('active') ? 'family' : 'public';
-    }
-
-    function toggleRecording() {
-      const btn = document.getElementById('recordBtn');
-      const icon = document.getElementById('recordIcon');
-      const status = document.getElementById('recordStatus');
-
-      if (!isRecording) {
-        isRecording = true;
-        icon.textContent = 'stop';
-        btn.style.boxShadow = '0 0 0 16px rgba(155,47,0,0.15), 0 8px 30px rgba(155,47,0,0.3)';
-        status.textContent = 'Recording... Tap to stop';
-        status.style.color = 'var(--primary)';
-
-        // Animate waveform
-        const bars = document.querySelectorAll('.wave-bar');
-        timerInterval = setInterval(() => {
-          recordingSeconds++;
-          const m = Math.floor(recordingSeconds / 60);
-          const s = recordingSeconds % 60;
-          document.getElementById('timer').textContent = `${m}:${String(s).padStart(2, '0')}`;
-          bars.forEach(bar => {
-            bar.style.height = (8 + Math.random() * 48) + 'px';
-            bar.style.background = 'var(--primary)';
-          });
-        }, 1000);
-      } else {
-        isRecording = false;
-        clearInterval(timerInterval);
-        icon.textContent = 'play_arrow';
-        btn.style.boxShadow = '0 8px 30px rgba(155,47,0,0.3)';
-        status.textContent = `Recorded ${App.formatDuration(recordingSeconds)}`;
-        status.style.color = 'var(--primary)';
-        document.querySelectorAll('.wave-bar').forEach((bar, i) => {
-          bar.style.height = (8 + (i % 5) * 10) + 'px';
-          bar.style.background = i < 15 ? 'var(--primary)' : 'var(--outline-variant)';
-        });
-      }
-    }
-
-    function handleFileUpload(input) {
-      if (input.files && input.files[0]) {
-        uploadedAudioFile = input.files[0];
-        document.getElementById('uploadedFile').style.display = 'block';
-        document.getElementById('uploadedFile').innerHTML = `
-          <div style="display:flex;align-items:center;gap:1rem">
-            <span class="material-symbols-outlined" style="color:var(--primary)">audio_file</span>
-            <div style="flex:1;text-align:left">
-              <p style="font-weight:600;font-size:0.875rem">${uploadedAudioFile.name}</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${(uploadedAudioFile.size / 1048576).toFixed(1)} MB</p>
+        <section id="recordPanel" class="bg-surface-container-lowest rounded-[3rem] p-8 shadow-xl shadow-on-surface/5 flex flex-col items-center text-center space-y-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-primary-container to-primary"></div>
+            <div>
+                <h2 class="font-headline text-3xl font-bold text-primary mb-2">Share Your Voice</h2>
+                <p class="text-on-surface-variant text-lg">Your story is a gift for the future.</p>
             </div>
-            <span class="material-symbols-outlined" style="color:var(--primary)">check_circle</span>
-          </div>`;
-      }
-    }
+            <div class="space-y-4 w-full">
+                <div class="font-mono text-5xl font-black text-on-surface tracking-widest" id="timer">00:00:00</div>
+                <div class="flex items-center justify-center h-16 w-full opacity-60" id="waveformVis">
+                    <div class="waveform-bar h-4"></div>
+                    <div class="waveform-bar h-8"></div>
+                    <div class="waveform-bar h-12"></div>
+                    <div class="waveform-bar h-6"></div>
+                    <div class="waveform-bar h-14"></div>
+                    <div class="waveform-bar h-10"></div>
+                    <div class="waveform-bar h-16"></div>
+                    <div class="waveform-bar h-8"></div>
+                    <div class="waveform-bar h-12"></div>
+                    <div class="waveform-bar h-6"></div>
+                    <div class="waveform-bar h-4"></div>
+                </div>
+            </div>
+            <button id="recordBtn" class="w-32 h-32 rounded-full bg-primary-container flex items-center justify-center shadow-2xl shadow-primary/40 active:scale-90 transition-transform duration-300 border-8 border-surface-container-low group" onclick="toggleRecording()">
+                <div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-5xl" id="recordIcon" style="font-variation-settings: 'FILL' 1;">mic</span>
+                </div>
+            </button>
+            <p class="font-label font-bold text-primary tracking-widest uppercase" id="recordStatus">Tap to Record</p>
+        </section>
 
-    async function saveDraft() {
-      const title = document.getElementById('storyTitle').value || 'Untitled Draft';
-      try {
-        const story = await API.createStory({
-          title,
-          description: document.getElementById('storyDesc').value,
-          text_content: document.getElementById('textContent').value,
-          category: selectedCategory,
-          language: selectedLanguage,
-          visibility,
-          status: 'draft',
-          era: document.getElementById('storyEra').value,
-        });
-        App.showToast('Draft saved!', 'success');
-      } catch (err) {
-        App.showToast(err.message || 'Failed to save draft', 'error');
-      }
-    }
+        <section id="uploadPanel" class="hidden bg-surface-container-lowest rounded-[3rem] p-8 shadow-xl shadow-on-surface/5 flex flex-col items-center text-center space-y-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-primary-container to-primary"></div>
+            <div>
+                <h2 class="font-headline text-3xl font-bold text-primary mb-2">Upload Recording</h2>
+                <p class="text-on-surface-variant text-lg">Share an existing audio file.</p>
+            </div>
+            <div class="w-full border-2 border-dashed border-outline-variant/30 rounded-3xl p-12 cursor-pointer hover:bg-surface-container-high/50 transition-colors" onclick="document.getElementById('audioFile').click()">
+                <span class="material-symbols-outlined text-6xl text-outline mb-4">cloud_upload</span>
+                <p class="font-bold text-on-surface">Drop audio file here</p>
+                <p class="text-sm text-on-surface-variant mt-1">MP3, WAV, OGG — Max 50MB</p>
+                <input type="file" id="audioFile" accept="audio/*" class="hidden" onchange="handleFileUpload(this)">
+            </div>
+            <div id="uploadedFile" class="hidden w-full p-4 bg-surface-container-highest rounded-2xl"></div>
+        </section>
 
-    async function publishStory() {
-      const title = document.getElementById('storyTitle').value;
-      if (!title) { App.showToast('Please add a title', 'error'); return; }
+        <section id="writePanel" class="hidden bg-surface-container-lowest rounded-[3rem] p-8 shadow-xl shadow-on-surface/5 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-primary-container to-primary"></div>
+            <h2 class="font-headline text-3xl font-bold text-primary mb-6">Write Your Story</h2>
+            <textarea id="textContent" class="w-full h-64 px-6 py-4 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary text-lg font-body placeholder:text-on-surface-variant/40 resize-none" placeholder="Write your story here... Let the words carry the memories of your ancestors."></textarea>
+        </section>
 
-      try {
-        const story = await API.createStory({
-          title,
-          description: document.getElementById('storyDesc').value,
-          text_content: document.getElementById('textContent').value,
-          category: selectedCategory,
-          language: selectedLanguage,
-          visibility,
-          status: 'published',
-          era: document.getElementById('storyEra').value,
-        });
+        <form class="mt-12 space-y-8" onsubmit="event.preventDefault(); publishStory();">
+            <div class="space-y-3">
+                <label class="block font-label text-lg font-bold text-on-surface ml-2">What is this story about?</label>
+                <input class="w-full h-16 px-6 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary text-lg font-body placeholder:text-on-surface-variant/40" id="storyTitle" placeholder="E.g., How we made banana beer in 1960" type="text"/>
+            </div>
+            <div class="space-y-3">
+                <label class="block font-label text-lg font-bold text-on-surface ml-2">Category</label>
+                <div class="flex flex-wrap gap-3">
+                    <button class="px-6 py-3 rounded-full bg-primary-container text-on-primary-container font-label font-medium shadow-sm active:scale-95 duration-300" data-cat="story" onclick="selectCategory(this, 'story')" type="button">Story</button>
+                    <button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" data-cat="tradition" onclick="selectCategory(this, 'tradition')" type="button">Tradition</button>
+                    <button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" data-cat="song" onclick="selectCategory(this, 'song')" type="button">Song</button>
+                    <button class="px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300" data-cat="culture" onclick="selectCategory(this, 'culture')" type="button">Culture</button>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <label class="block font-label text-lg font-bold text-on-surface ml-2">Language Spoken</label>
+                <div class="relative">
+                    <select class="w-full h-16 px-6 pr-12 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary appearance-none text-lg font-body" id="storyLanguage">
+                        <option>Kinyarwanda</option>
+                        <option>English</option>
+                        <option>French</option>
+                        <option>Swahili</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-6 top-5 pointer-events-none text-primary">expand_more</span>
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-6 rounded-3xl flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined" data-icon="public">public</span>
+                    </div>
+                    <div>
+                        <span class="block font-label font-bold text-lg">Public Archive</span>
+                        <span class="block text-sm text-on-surface-variant">Visible to all community members</span>
+                    </div>
+                </div>
+                <button class="w-14 h-8 bg-primary rounded-full relative flex items-center px-1" id="visibilityToggle" onclick="toggleVisibility()" type="button">
+                    <div class="w-6 h-6 bg-white rounded-full ml-auto shadow-md transition-all"></div>
+                </button>
+            </div>
+            <button class="w-full h-[72px] leaf-shape bg-primary text-white text-xl font-bold font-headline shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-[0.98] transition-all" type="submit">
+                Save to the Archive
+                <span class="material-symbols-outlined" data-icon="auto_stories" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+            </button>
+        </form>
+    </main>
 
-        if (uploadedAudioFile) {
-          const formData = new FormData();
-          formData.append('audio', uploadedAudioFile);
-          await API.uploadAudio(story.id, formData);
+    <nav class="fixed bottom-0 w-full z-50 bg-[#fdf9e9]/90 backdrop-blur-xl rounded-t-[2rem] h-[88px] flex justify-around items-center px-4 pb-safe shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+        <a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="/elder-dashboard.html">
+            <span class="material-symbols-outlined">history_edu</span>
+            <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="/library.html">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg scale-105" href="/record.html">
+            <span class="material-symbols-outlined">mic_none</span>
+            <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" href="/settings.html">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+        </a>
+    </nav>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+    <script>
+        let currentTab = 'record';
+        let selectedCategory = 'story';
+        let visibility = 'public';
+        let isRecording = false;
+        let recordingSeconds = 0;
+        let timerInterval = null;
+        let uploadedAudioFile = null;
+
+        function switchTab(tab) {
+            currentTab = tab;
+            ['record', 'upload', 'write'].forEach(t => {
+                document.getElementById(t + 'Panel').classList.toggle('hidden', t !== tab);
+            });
+            const tabs = { record: 'tabRecord', upload: 'tabUpload', write: 'tabWrite' };
+            Object.entries(tabs).forEach(([key, id]) => {
+                const btn = document.getElementById(id);
+                if (key === tab) {
+                    btn.className = 'flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white shadow-md active:scale-95 duration-300';
+                } else {
+                    btn.className = 'flex-1 py-4 px-2 rounded-xl flex flex-col items-center gap-1 text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-95 duration-300';
+                }
+            });
         }
 
-        App.showToast('Story published! 🎉', 'success');
-        setTimeout(() => window.location.href = '/elder-dashboard.html', 1000);
-      } catch (err) {
-        App.showToast(err.message || 'Failed to publish', 'error');
-      }
-    }
-
-    async function enhanceWithAI() {
-      const text = document.getElementById('textContent').value;
-      if (!text || text.length < 50) {
-        App.showToast('Please write more of your story first so the AI can understand it!', 'error');
-        return;
-      }
-
-      const btn = document.getElementById('aiBtn');
-      const icon = document.getElementById('aiIcon');
-      const textSpan = document.getElementById('aiText');
-
-      try {
-        // Loading state
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-        icon.classList.add('rotating');
-        textSpan.textContent = 'AI is listening...';
-
-        const result = await API.AI.enhanceStory(text);
-        
-        // Auto-fill
-        if (result.title) document.getElementById('storyTitle').value = result.title;
-        if (result.summary) document.getElementById('storyDesc').value = result.summary;
-        if (result.category) {
-          const chip = document.querySelector(`#categoryChips [data-cat="${result.category}"]`);
-          if (chip) selectCategory(chip, result.category);
-        }
-        if (result.tags) {
-          document.getElementById('storyEra').value = result.tags.join(', ');
+        function selectCategory(btn, cat) {
+            selectedCategory = cat;
+            document.querySelectorAll('[data-cat]').forEach(c => {
+                c.className = 'px-6 py-3 rounded-full bg-surface-container-highest text-on-surface-variant font-label font-medium hover:bg-outline-variant/20 active:scale-95 duration-300';
+            });
+            btn.className = 'px-6 py-3 rounded-full bg-primary-container text-on-primary-container font-label font-medium shadow-sm active:scale-95 duration-300';
         }
 
-        App.showToast('Story enhanced! ✨', 'success');
-      } catch (err) {
-        App.showToast(err.message || 'AI Enhancement failed', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        icon.classList.remove('rotating');
-        textSpan.textContent = 'Enhance with AI';
-      }
-    }
-  </script>
-  <style>
-    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .rotating { animation: rotate 2s linear infinite; }
-  </style>
+        function toggleVisibility() {
+            const toggle = document.getElementById('visibilityToggle');
+            const knob = toggle.querySelector('div');
+            visibility = visibility === 'public' ? 'family' : 'public';
+            if (visibility === 'family') {
+                toggle.className = 'w-14 h-8 bg-surface-container-highest rounded-full relative flex items-center px-1';
+                knob.className = 'w-6 h-6 bg-white rounded-full shadow-md transition-all';
+            } else {
+                toggle.className = 'w-14 h-8 bg-primary rounded-full relative flex items-center px-1';
+                knob.className = 'w-6 h-6 bg-white rounded-full ml-auto shadow-md transition-all';
+            }
+        }
+
+        function toggleRecording() {
+            const icon = document.getElementById('recordIcon');
+            const status = document.getElementById('recordStatus');
+            if (!isRecording) {
+                isRecording = true;
+                icon.textContent = 'stop';
+                status.textContent = 'Recording... Tap to stop';
+                const bars = document.querySelectorAll('#waveformVis .waveform-bar');
+                timerInterval = setInterval(() => {
+                    recordingSeconds++;
+                    const h = Math.floor(recordingSeconds / 3600);
+                    const m = Math.floor((recordingSeconds % 3600) / 60);
+                    const s = recordingSeconds % 60;
+                    document.getElementById('timer').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                    bars.forEach(bar => {
+                        bar.style.height = (8 + Math.random() * 48) + 'px';
+                    });
+                }, 1000);
+            } else {
+                isRecording = false;
+                clearInterval(timerInterval);
+                icon.textContent = 'play_arrow';
+                status.textContent = `Recorded ${App.formatDuration(recordingSeconds)}`;
+            }
+        }
+
+        function handleFileUpload(input) {
+            if (input.files && input.files[0]) {
+                uploadedAudioFile = input.files[0];
+                const el = document.getElementById('uploadedFile');
+                el.classList.remove('hidden');
+                el.innerHTML = `<div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary">audio_file</span><div class="flex-1 text-left"><p class="font-bold text-sm">${uploadedAudioFile.name}</p><p class="text-xs text-on-surface-variant">${(uploadedAudioFile.size / 1048576).toFixed(1)} MB</p></div><span class="material-symbols-outlined text-primary">check_circle</span></div>`;
+            }
+        }
+
+        async function publishStory() {
+            const title = document.getElementById('storyTitle').value;
+            if (!title) { App.showToast('Please add a title', 'error'); return; }
+            try {
+                const story = await API.createStory({
+                    title,
+                    description: '',
+                    text_content: document.getElementById('textContent')?.value || '',
+                    category: selectedCategory,
+                    language: document.getElementById('storyLanguage').value,
+                    visibility,
+                    status: 'published',
+                });
+                if (uploadedAudioFile) {
+                    const formData = new FormData();
+                    formData.append('audio', uploadedAudioFile);
+                    await API.uploadAudio(story.id, formData);
+                }
+                App.showToast('Story published!', 'success');
+                setTimeout(() => window.location.href = '/elder-dashboard.html', 1000);
+            } catch (err) {
+                App.showToast(err.message || 'Failed to publish', 'error');
+            }
+        }
+    </script>
 </body>
 </html>

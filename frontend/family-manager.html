@@ -1,390 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Manager — Inkomoko</title>
-  <meta name="description" content="Manage your family circle — invite members, approve requests, and assign roles.">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#9b2f00">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Family Manager — The Living Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
+                        "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+                        "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+                        "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694", "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e", "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4", "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a", "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+                        "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600", "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
                 }
             }
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .asymmetric-leaf { border-radius: 2rem 0.5rem 2rem 0.5rem; }
+        .tap-target { min-height: 56px; min-width: 56px; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
 </head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
-      }
-    }catch(e){}
-  }, 100);
-</script>
-
-  <main style="min-height:100vh;padding:80px 0 120px">
-    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem">
-
-      <!-- Create / Join Family (shown if no family) -->
-      <div id="noFamilySection" style="display:none">
-        <section style="padding:2rem 0;text-align:center">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--primary-fixed);margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center">
-            <span class="material-symbols-outlined" style="color:var(--primary);font-size:2rem">groups</span>
-          </div>
-          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">Start Your Family Circle</h2>
-          <p style="color:var(--on-surface-variant);margin-bottom:2rem">Create a new family or join an existing one with a code</p>
-
-          <!-- Create -->
-          <div style="background:var(--surface-container-lowest);border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:2rem;margin-bottom:1.5rem;text-align:left;border:1px solid rgba(225,191,181,0.15)">
-            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Create New Family</h3>
-            <input type="text" id="newFamilyName" class="form-input" placeholder="Family name (e.g., Umuryango Wacu)" style="margin-bottom:1rem">
-            <button onclick="createFamily()" class="btn-primary" style="width:100%">Create Family Circle</button>
-          </div>
-
-          <!-- Join -->
-          <div style="background:var(--surface-container-lowest);border-radius:0.5rem 1.5rem 0.5rem 1.5rem;padding:2rem;text-align:left;border:1px solid rgba(225,191,181,0.15)">
-            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Join with Code</h3>
-            <input type="text" id="joinCode" class="form-input" placeholder="Enter family code (e.g., INKOMOKO-AB12)" style="margin-bottom:1rem;text-transform:uppercase">
-            <button onclick="joinFamily()" class="btn-secondary" style="width:100%">Join Family</button>
-          </div>
-        </section>
-      </div>
-
-      <!-- Family Management (shown if has family) -->
-      <div id="familyManagement" style="display:none">
-        <!-- Family Info & Code -->
-        <section style="padding:2rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
-          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700;margin-bottom:1rem" id="mgFamilyName"></h2>
-
-          <!-- Invite Code Card -->
-          <div style="background:linear-gradient(135deg,var(--primary),var(--primary-container));border-radius:1.5rem 0.5rem 1.5rem 0.5rem;padding:1.5rem;color:white;display:flex;align-items:center;justify-content:space-between;gap:1rem">
-            <div>
-              <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.7;font-family:var(--font-label);margin-bottom:0.25rem">Family Invite Code</p>
-              <p style="font-family:var(--font-headline);font-size:1.5rem;font-weight:900;letter-spacing:0.1em" id="familyCode">----</p>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+    <header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+        <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-4">
+                <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='/'; }" class="material-symbols-outlined text-[#9b2f00] tap-target hover:bg-[#f8f4e4] rounded-full transition-colors duration-300">menu</button>
+                <h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
             </div>
-            <button onclick="copyCode()" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:white">
-              <span class="material-symbols-outlined">content_copy</span>
+            <div class="flex items-center gap-4">
+                <nav class="hidden md:flex gap-6 items-center">
+                    <a class="font-label text-sm font-medium uppercase tracking-wider text-[#9b2f00]" href="/">Home</a>
+                    <a class="font-label text-sm font-medium uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="/library.html">Library</a>
+                    <a class="font-label text-sm font-medium uppercase tracking-wider text-[#1c1c13]/60 hover:text-[#9b2f00]" href="/record.html">Record</a>
+                </nav>
+                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+                    <img id="navProfileImg" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG3MeJZ7k5Bmw8zN9MjER2q8rKMEdGUAUSgnIdBn6Gx7oFw6iGHXM54DeldYOOPX82r-LIxqj2rqFUV9zQXPigP_EW11r2Kjl27nYLnBlxmrmPxZYQI_O3qm4dT618T8chdjzwYfVkz3BxhmZWc2YdbgDDON_Limdja82xvgvuvfYR_fllfblx3LBq7Xhrr6Jiy3q6X-bri9mDASNWG4RPP5-xTocguo0od0op67Ae-nV"/>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script>
+        setTimeout(() => { try { if(window.App && App.currentUser) { document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser); } } catch(e){} }, 100);
+    </script>
+    <main class="pt-24 pb-32 px-6 max-w-5xl mx-auto space-y-8">
+        <header class="space-y-2">
+            <h2 class="font-headline text-3xl font-bold tracking-tight text-primary">Family Manager</h2>
+            <p class="text-on-surface-variant font-body">Manage your Inkomoko lineage and archive contributors.</p>
+        </header>
+
+        <div id="noFamilySection" class="hidden">
+            <section class="text-center py-8">
+                <div class="w-20 h-20 rounded-full bg-primary-fixed mx-auto mb-6 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+                </div>
+                <h2 class="font-headline text-2xl font-bold mb-2">Start Your Family Circle</h2>
+                <p class="text-on-surface-variant mb-8">Create a new family or join an existing one with a code</p>
+                <div class="bg-surface-container-lowest asymmetric-leaf p-8 mb-4 text-left">
+                    <h3 class="font-headline text-xl font-bold mb-4">Create New Family</h3>
+                    <input type="text" id="newFamilyName" class="w-full h-14 px-6 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary text-lg font-body mb-4" placeholder="Family name"/>
+                    <button onclick="createFamily()" class="w-full h-14 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-full shadow-lg active:scale-95 transition-all">Create Family Circle</button>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[0.5rem_2rem_0.5rem_2rem] p-8 text-left">
+                    <h3 class="font-headline text-xl font-bold mb-4">Join with Code</h3>
+                    <input type="text" id="joinCode" class="w-full h-14 px-6 rounded-2xl bg-surface-container-high border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary text-lg font-body uppercase mb-4" placeholder="INKOMOKO-AB12"/>
+                    <button onclick="joinFamily()" class="w-full h-14 bg-surface-container-highest text-on-surface-variant font-bold rounded-full active:scale-95 transition-all">Join Family</button>
+                </div>
+            </section>
+        </div>
+
+        <div id="familyManagement" class="hidden space-y-8">
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 bg-surface-container-low p-8 asymmetric-leaf flex flex-col justify-between space-y-6">
+                    <div>
+                        <label class="font-label text-xs font-bold uppercase tracking-widest text-primary mb-2 block">Your Unique Connection String</label>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <span class="font-headline text-4xl font-black tracking-tighter text-on-surface bg-surface-container-lowest px-6 py-4 rounded-xl shadow-sm" id="familyCode">----</span>
+                            <button onclick="copyCode()" class="bg-gradient-to-br from-primary to-primary-container text-white px-8 h-[56px] rounded-full font-bold flex items-center gap-2 shadow-lg active:scale-95 transition-all duration-300">
+                                <span class="material-symbols-outlined">share</span> Share Code
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Invite family members to join the <span class="italic">Umuryango Wacu</span>. They will need this code to request access to your private archives.</p>
+                </div>
+                <div class="bg-secondary-container/20 p-8 asymmetric-leaf relative overflow-hidden flex flex-col justify-center">
+                    <div class="relative z-10">
+                        <h3 class="font-headline text-xl font-bold text-on-secondary-container mb-2">Heritage Security</h3>
+                        <p class="text-sm text-on-secondary-container/80">Only approved members can listen to shared oral histories or view the family tree.</p>
+                    </div>
+                    <div class="absolute -right-4 -bottom-4 opacity-10">
+                        <span class="material-symbols-outlined text-[120px]">shield_moon</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-4" id="pendingSection">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-headline text-xl font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">person_add</span> Pending Requests
+                        <span class="bg-primary-container text-on-primary-container text-xs px-2 py-1 rounded-full" id="pendingBadge">0</span>
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="pendingList"></div>
+            </section>
+
+            <section class="space-y-4">
+                <h3 class="font-headline text-xl font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">groups</span> Active Family Members
+                </h3>
+                <div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm shadow-[#1c1c13]/5">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-surface-container-high">
+                                <tr>
+                                    <th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Member</th>
+                                    <th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Joined</th>
+                                    <th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Role</th>
+                                    <th class="px-6 py-4 font-label text-xs uppercase tracking-widest text-on-surface-variant">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-surface-container" id="membersTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 w-full z-50 bg-[#fdf9e9]/90 backdrop-blur-xl rounded-t-[2rem] h-[88px] shadow-[0_-4px_20px_rgba(28,28,19,0.06)] md:hidden">
+        <div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+            <button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/'">
+                <span class="material-symbols-outlined">history_edu</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Home</span>
             </button>
-          </div>
-        </section>
+            <button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/library.html'">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Library</span>
+            </button>
+            <button class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity" onclick="window.location.href='/record.html'">
+                <span class="material-symbols-outlined">mic_none</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Record</span>
+            </button>
+            <button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg" onclick="window.location.href='/settings.html'">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider">Profile</span>
+            </button>
+        </div>
+    </nav>
 
-        <!-- Pending Requests -->
-        <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)" id="pendingSection">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-            <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700">Pending Requests</h3>
-            <span style="background:var(--primary);color:white;font-size:0.75rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:9999px;font-family:var(--font-label)" id="pendingBadge">0</span>
-          </div>
-          <div id="pendingList" style="display:flex;flex-direction:column;gap:0.75rem">
-            <!-- Populated by JS -->
-          </div>
-        </section>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+    <script>
+        if (!App.isLoggedIn()) window.location.href = '/auth.html';
+        let currentFamily = null;
 
-        <!-- Members List -->
-        <section style="padding:1.5rem 0">
-          <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Members</h3>
-          <div id="membersList" style="display:flex;flex-direction:column;gap:0.5rem">
-            <!-- Populated by JS -->
-          </div>
-        </section>
-
-        <!-- Invite More -->
-        <section style="padding:1rem 0">
-          <button onclick="shareInvite()" class="btn-primary" style="width:100%;gap:0.5rem">
-            <span class="material-symbols-outlined">person_add</span>
-            Invite Family Member
-          </button>
-        </section>
-      </div>
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <a href="/" class="bottom-nav-item">
-      <span class="material-symbols-outlined">history_edu</span>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="/library" class="bottom-nav-item">
-      <span class="material-symbols-outlined">menu_book</span>
-      <span class="nav-label">Library</span>
-    </a>
-    <a href="/record" class="bottom-nav-item">
-      <span class="material-symbols-outlined">mic_none</span>
-      <span class="nav-label">Record</span>
-    </a>
-    <a href="/settings" class="bottom-nav-item">
-      <span class="material-symbols-outlined">person</span>
-      <span class="nav-label">Profile</span>
-    </a>
-  </nav>
-
-  <script src="/js/api.js"></script>
-  <script src="/js/app.js"></script>
-  <script src="/js/components.js"></script>
-  <script>
-    if (!App.isLoggedIn()) window.location.href = '/auth.html';
-
-    let currentFamily = null;
-
-    async function loadFamilyManager() {
-      try {
-        const families = await API.getMyFamilies();
-        if (families.length === 0) {
-          document.getElementById('noFamilySection').style.display = 'block';
-          document.getElementById('familyManagement').style.display = 'none';
-          return;
+        async function loadFamilyManager() {
+            try {
+                const families = await API.getMyFamilies();
+                if (families.length === 0) {
+                    document.getElementById('noFamilySection').classList.remove('hidden');
+                    document.getElementById('familyManagement').classList.add('hidden');
+                    return;
+                }
+                currentFamily = families[0];
+                document.getElementById('noFamilySection').classList.add('hidden');
+                document.getElementById('familyManagement').classList.remove('hidden');
+                document.getElementById('familyCode').textContent = currentFamily.code;
+                loadPending();
+                loadMembers();
+            } catch(e) {
+                document.getElementById('noFamilySection').classList.remove('hidden');
+            }
         }
 
-        currentFamily = families[0];
-        document.getElementById('noFamilySection').style.display = 'none';
-        document.getElementById('familyManagement').style.display = 'block';
-        document.getElementById('mgFamilyName').textContent = currentFamily.name;
-        document.getElementById('familyCode').textContent = currentFamily.code;
-
-        loadPending();
-        loadMembers();
-      } catch(e) {
-        document.getElementById('noFamilySection').style.display = 'block';
-      }
-    }
-
-    async function loadPending() {
-      try {
-        const pending = await API.getFamilyPending(currentFamily.id);
-        document.getElementById('pendingBadge').textContent = pending.length;
-
-        if (pending.length === 0) {
-          document.getElementById('pendingList').innerHTML = '<p style="color:var(--on-surface-variant);font-size:0.875rem;padding:0.5rem 0">No pending requests</p>';
-          return;
+        async function loadPending() {
+            try {
+                const pending = await API.getFamilyPending(currentFamily.id);
+                document.getElementById('pendingBadge').textContent = pending.length;
+                if (pending.length === 0) {
+                    document.getElementById('pendingList').innerHTML = '<p class="text-on-surface-variant text-sm col-span-2">No pending requests</p>';
+                    return;
+                }
+                document.getElementById('pendingList').innerHTML = pending.map(m => `
+                    <div class="bg-surface-container-low p-6 rounded-2xl flex items-center justify-between transition-all hover:bg-surface-container">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl overflow-hidden shadow-sm">
+                                <img class="w-full h-full object-cover" src="${App.avatarUrl({ full_name: m.full_name })}"/>
+                            </div>
+                            <div>
+                                <p class="font-bold text-on-surface">${m.full_name}</p>
+                                <p class="text-xs text-on-surface-variant font-label uppercase">Requested ${App.timeAgo(m.joined_at)}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="rejectMember('${m.id}')" class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-error/10 text-error hover:bg-error hover:text-white transition-colors duration-300">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                            <button onclick="approveMember('${m.id}')" class="tap-target w-12 h-12 flex items-center justify-center rounded-xl bg-primary-container text-white shadow-md active:scale-90 transition-all duration-300">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check</span>
+                            </button>
+                        </div>
+                    </div>`).join('');
+            } catch(e) {}
         }
 
-        document.getElementById('pendingList').innerHTML = pending.map(m => {
-          const avatar = App.avatarUrl({ full_name: m.full_name });
-          return `
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface-container-lowest);border-radius:1rem;border:1px solid rgba(225,191,181,0.15)">
-            <img src="${avatar}" style="width:44px;height:44px;border-radius:50%;object-fit:cover" loading="lazy">
-            <div style="flex:1">
-              <p style="font-weight:600">${m.full_name}</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${m.user_role} · ${App.timeAgo(m.joined_at)}</p>
-            </div>
-            <button onclick="approveMember('${m.id}')" style="width:44px;height:44px;border-radius:50%;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;color:#16a34a">
-              <span class="material-symbols-outlined">check</span>
-            </button>
-            <button onclick="rejectMember('${m.id}')" style="width:44px;height:44px;border-radius:50%;background:rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;color:var(--error)">
-              <span class="material-symbols-outlined">close</span>
-            </button>
-          </div>`;
-        }).join('');
-      } catch(e) {}
-    }
+        async function loadMembers() {
+            try {
+                const members = await API.getFamilyMembers(currentFamily.id);
+                const approved = members.filter(m => m.status === 'approved');
+                document.getElementById('membersTable').innerHTML = approved.map(m => `
+                    <tr class="hover:bg-surface-container-low transition-colors">
+                        <td class="px-6 py-5 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/10">
+                                <img class="w-full h-full object-cover" src="${App.avatarUrl({ full_name: m.full_name })}"/>
+                            </div>
+                            <span class="font-medium text-on-surface">${m.full_name}</span>
+                        </td>
+                        <td class="px-6 py-5 text-sm text-on-surface-variant">${App.timeAgo(m.joined_at)}</td>
+                        <td class="px-6 py-5">
+                            <select onchange="changeMemberRole('${m.id}', this.value)" class="bg-surface-container-low border-none rounded-lg text-sm font-medium py-2 px-4 focus:ring-2 focus:ring-primary-container cursor-pointer tap-target">
+                                <option value="admin" ${m.role === 'admin' ? 'selected' : ''}>Admin</option>
+                                <option value="member" ${m.role === 'member' ? 'selected' : ''}>Member</option>
+                                <option value="youth" ${m.role === 'youth' ? 'selected' : ''}>Youth</option>
+                            </select>
+                        </td>
+                        <td class="px-6 py-5">
+                            <button class="text-on-surface-variant hover:text-primary transition-colors duration-300 tap-target flex items-center justify-center">
+                                <span class="material-symbols-outlined">more_vert</span>
+                            </button>
+                        </td>
+                    </tr>`).join('');
+            } catch(e) {}
+        }
 
-    async function loadMembers() {
-      try {
-        const members = await API.getFamilyMembers(currentFamily.id);
-        const approved = members.filter(m => m.status === 'approved');
+        async function createFamily() {
+            const name = document.getElementById('newFamilyName').value.trim();
+            if (!name) { App.showToast('Please enter a family name', 'error'); return; }
+            try { await API.createFamily({ name }); App.showToast('Family created!', 'success'); loadFamilyManager(); }
+            catch(e) { App.showToast(e.message || 'Failed', 'error'); }
+        }
 
-        document.getElementById('membersList').innerHTML = approved.map(m => {
-          const avatar = App.avatarUrl({ full_name: m.full_name });
-          const isAdmin = m.role === 'admin';
-          const isMe = App.currentUser && m.user_id === App.currentUser.id;
-          return `
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--surface-container-lowest);border-radius:1rem;border:1px solid rgba(225,191,181,0.15)">
-            <img src="${avatar}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid ${isAdmin ? 'var(--primary-container)' : 'transparent'}" loading="lazy">
-            <div style="flex:1">
-              <div style="display:flex;align-items:center;gap:0.5rem">
-                <p style="font-weight:600">${m.full_name}</p>
-                ${isMe ? '<span style="font-size:0.625rem;background:var(--primary-fixed);color:var(--primary);padding:2px 6px;border-radius:9999px;font-weight:700">YOU</span>' : ''}
-              </div>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">${m.user_role} · ${m.email || ''}</p>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.5rem">
-              ${isAdmin ? '<span style="font-size:0.75rem;background:var(--primary);color:white;padding:0.25rem 0.75rem;border-radius:9999px;font-family:var(--font-label);font-weight:700">Admin</span>' : `
-                <select onchange="changeMemberRole('${m.id}', this.value)" style="padding:0.25rem 0.5rem;border-radius:0.5rem;border:1px solid var(--outline-variant);background:var(--surface-container-low);font-size:0.75rem;font-family:var(--font-label)">
-                  <option value="member" ${m.role === 'member' ? 'selected' : ''}>Member</option>
-                  <option value="youth" ${m.role === 'youth' ? 'selected' : ''}>Youth</option>
-                  <option value="admin" ${m.role === 'admin' ? 'selected' : ''}>Admin</option>
-                </select>
-              `}
-            </div>
-          </div>`;
-        }).join('');
-      } catch(e) {}
-    }
+        async function joinFamily() {
+            const code = document.getElementById('joinCode').value.trim();
+            if (!code) { App.showToast('Please enter a family code', 'error'); return; }
+            try { await API.joinFamily(code); App.showToast('Join request sent!', 'success'); loadFamilyManager(); }
+            catch(e) { App.showToast(e.message || 'Invalid code', 'error'); }
+        }
 
-    async function createFamily() {
-      const name = document.getElementById('newFamilyName').value.trim();
-      if (!name) { App.showToast('Please enter a family name', 'error'); return; }
-      try {
-        await API.createFamily({ name });
-        App.showToast('Family created! 🎉', 'success');
+        async function approveMember(id) { try { await API.approveMember(currentFamily.id, id); App.showToast('Approved!', 'success'); loadPending(); loadMembers(); } catch(e) {} }
+        async function rejectMember(id) { try { await API.rejectMember(currentFamily.id, id); App.showToast('Rejected', 'info'); loadPending(); } catch(e) {} }
+        async function changeMemberRole(id, role) { try { await API.updateMember(currentFamily.id, id, { role }); App.showToast('Role updated', 'success'); } catch(e) {} }
+        function copyCode() { navigator.clipboard.writeText(currentFamily.code); App.showToast('Code copied!', 'success'); }
+
         loadFamilyManager();
-      } catch(e) {
-        App.showToast(e.message || 'Failed to create family', 'error');
-      }
-    }
-
-    async function joinFamily() {
-      const code = document.getElementById('joinCode').value.trim();
-      if (!code) { App.showToast('Please enter a family code', 'error'); return; }
-      try {
-        await API.joinFamily(code);
-        App.showToast('Join request sent!', 'success');
-        loadFamilyManager();
-      } catch(e) {
-        App.showToast(e.message || 'Invalid code or already a member', 'error');
-      }
-    }
-
-    async function approveMember(memberId) {
-      try {
-        await API.approveMember(currentFamily.id, memberId);
-        App.showToast('Member approved!', 'success');
-        loadPending();
-        loadMembers();
-      } catch(e) {
-        App.showToast('Failed to approve', 'error');
-      }
-    }
-
-    async function rejectMember(memberId) {
-      try {
-        await API.rejectMember(currentFamily.id, memberId);
-        App.showToast('Request rejected', 'info');
-        loadPending();
-      } catch(e) {
-        App.showToast('Failed to reject', 'error');
-      }
-    }
-
-    async function changeMemberRole(memberId, role) {
-      try {
-        await API.updateMember(currentFamily.id, memberId, { role });
-        App.showToast('Role updated', 'success');
-      } catch(e) {
-        App.showToast('Failed to update role', 'error');
-        loadMembers();
-      }
-    }
-
-    function copyCode() {
-      navigator.clipboard.writeText(currentFamily.code);
-      App.showToast('Code copied!', 'success');
-    }
-
-    function shareInvite() {
-      const text = `Join our family on Inkomoko — The Living Archive!\nUse code: ${currentFamily.code}\nhttps://inkomoko.rw`;
-      if (navigator.share) {
-        navigator.share({ title: 'Join our family on Inkomoko', text });
-      } else {
-        navigator.clipboard.writeText(text);
-        App.showToast('Invite text copied!', 'success');
-      }
-    }
-
-    loadFamilyManager();
-  </script>
+    </script>
 </body>
 </html>

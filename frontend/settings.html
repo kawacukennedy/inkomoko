@@ -1,354 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings — Inkomoko</title>
-  <meta name="description" content="Manage your profile, language, notifications, and privacy settings.">
-  <link rel="stylesheet" href="/css/styles.css?v=4">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#9b2f00">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Settings — The Living Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "inverse-surface": "#323126",
-                        "surface-dim": "#dedacb",
-                        "tertiary-fixed": "#eae0e6",
-                        "surface": "#fdf9e9",
-                        "on-secondary-fixed-variant": "#6d391e",
-                        "secondary-fixed": "#ffdbcc",
-                        "on-surface": "#1c1c13",
-                        "outline-variant": "#e1bfb5",
-                        "on-secondary": "#ffffff",
-                        "inverse-primary": "#ffb59d",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#cec4ca",
-                        "on-primary-container": "#ffece7",
-                        "primary-container": "#c2410c",
-                        "secondary-container": "#feb28f",
-                        "background": "#fdf9e9",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f5f1e1",
-                        "surface-tint": "#ac3400",
-                        "primary": "#9b2f00",
-                        "secondary": "#895033",
-                        "on-primary": "#ffffff",
-                        "on-tertiary-container": "#f8edf3",
-                        "secondary-fixed-dim": "#ffb694",
-                        "surface-container-highest": "#e6e3d3",
-                        "on-tertiary-fixed": "#1f1a1e",
-                        "surface-variant": "#e6e3d3",
-                        "on-secondary-container": "#794227",
-                        "primary-fixed-dim": "#ffb59d",
-                        "surface-container-low": "#f8f4e4",
-                        "primary-fixed": "#ffdbd0",
-                        "on-surface-variant": "#59413a",
-                        "surface-container": "#f2eede",
-                        "on-primary-fixed": "#390c00",
-                        "on-secondary-fixed": "#351000",
-                        "outline": "#8d7168",
-                        "on-background": "#1c1c13",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#726b70",
-                        "on-tertiary-fixed-variant": "#4b454a",
-                        "tertiary": "#5a5358",
-                        "on-primary-fixed-variant": "#832600",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#fdf9e9",
-                        "surface-container-high": "#ece8d9"
+                        "inverse-surface": "#323126", "surface-dim": "#dedacb", "tertiary-fixed": "#eae0e6",
+                        "surface": "#fdf9e9", "on-secondary-fixed-variant": "#6d391e", "secondary-fixed": "#ffdbcc",
+                        "on-surface": "#1c1c13", "outline-variant": "#e1bfb5", "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb59d", "error-container": "#ffdad6", "tertiary-fixed-dim": "#cec4ca",
+                        "on-primary-container": "#ffece7", "primary-container": "#c2410c", "secondary-container": "#feb28f",
+                        "background": "#fdf9e9", "on-error-container": "#93000a", "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff", "inverse-on-surface": "#f5f1e1", "surface-tint": "#ac3400",
+                        "primary": "#9b2f00", "secondary": "#895033", "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f8edf3", "secondary-fixed-dim": "#ffb694", "surface-container-highest": "#e6e3d3",
+                        "on-tertiary-fixed": "#1f1a1e", "surface-variant": "#e6e3d3", "on-secondary-container": "#794227",
+                        "primary-fixed-dim": "#ffb59d", "surface-container-low": "#f8f4e4", "primary-fixed": "#ffdbd0",
+                        "on-surface-variant": "#59413a", "surface-container": "#f2eede", "on-primary-fixed": "#390c00",
+                        "on-secondary-fixed": "#351000", "outline": "#8d7168", "on-background": "#1c1c13",
+                        "error": "#ba1a1a", "tertiary-container": "#726b70", "on-tertiary-fixed-variant": "#4b454a",
+                        "tertiary": "#5a5358", "on-primary-fixed-variant": "#832600", "on-error": "#ffffff",
+                        "surface-bright": "#fdf9e9", "surface-container-high": "#ece8d9"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Noto Serif"],
-                        "body": ["Lexend"],
-                        "label": ["Lexend"]
-                    }
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "fontFamily": { "headline": ["Noto Serif"], "body": ["Lexend"], "label": ["Lexend"] }
                 }
             }
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
-        .leaf-radius {
-            border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
-        }
-        .terracotta-glow {
-            background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%);
-        }
-        .glass-header {
-            background: rgba(253, 249, 233, 0.8);
-            backdrop-filter: blur(12px);
-        }
-</style>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Lexend', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .terracotta-glow { background: linear-gradient(135deg, #9b2f00 0%, #c2410c 100%); }
+        .asymmetric-leaf { border-radius: 1.5rem 0.5rem 1.5rem 0.5rem; }
+        .tap-target { min-height: 56px; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
 </head>
-<body>
-  <header class="fixed top-0 w-full z-50 glass-header shadow-sm shadow-on-surface/5" id="topAppBar">
-<div class="flex justify-between items-center w-full px-6 py-4">
-<div class="flex items-center gap-4">
-<button onclick="if(window.history.length > 1 && window.location.pathname !== '/') { window.history.back(); } else { Components.toggleDrawer(); }" class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h1 class="font-headline text-2xl font-black text-primary tracking-tight" style="cursor:pointer" onclick="window.location.href='/'">The Living Archive</h1>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<nav class="flex gap-6 font-label text-sm font-medium uppercase tracking-wider">
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/library">Oral Histories</a>
-<a class="text-on-surface/60 hover:text-primary transition-colors" href="/welcome">Family Tree</a>
-</nav>
-<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
-<img id="navProfileImg" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIj-47I1LlWVmIAjspjAHdMHwDA3polca1tKTcuZO3ffFwTFMlIXFoFSpjY7RAfqg1AWn5zdPOB-DlD-0uBcEG9CvXzMotCnwMVUYohQOaRKDmppwOvsE_k5yqws9HDU3T0AGrbqMrGfzB5LM374qGPUIhLCyj5GXRRaR3yO_-LVjfhE4KgZ140W_GCJ8SGUEF4CNipizSGL6ZZS77Qh7pKc5q_nMMuth2fQynCqvtc6A4pRaL9KLeESYNDASmYe5oZUqHd8B5-ZY">
-</div>
-</div>
-</div>
-</header>
-<script>
-  setTimeout(() => {
-    try {
-      if(window.App && App.currentUser) {
-        document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser);
-      }
-    }catch(e){}
-  }, 100);
-</script>
-
-  <main style="min-height:100vh;padding:80px 0 120px">
-    <div style="max-width:40rem;margin:0 auto;padding:0 1.5rem">
-      <!-- Profile Header -->
-      <section style="padding:2rem 0;display:flex;align-items:center;gap:1.5rem;border-bottom:1px solid rgba(225,191,181,0.15)">
-        <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid var(--primary-container);flex-shrink:0" id="settingsAvatar">
-        </div>
-        <div style="flex:1">
-          <h2 style="font-family:var(--font-headline);font-size:1.5rem;font-weight:700" id="settingsName">Loading...</h2>
-          <p style="font-size:0.875rem;color:var(--on-surface-variant)" id="settingsRole"></p>
-          <p style="font-size:0.75rem;color:var(--primary);font-family:var(--font-label);font-weight:600;margin-top:0.25rem" id="settingsSince"></p>
-        </div>
-      </section>
-
-      <!-- Profile Details -->
-      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1.5rem">Profile Details</h3>
-
-        <div style="display:flex;flex-direction:column;gap:1.25rem">
-          <div>
-            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Full Name</label>
-            <input type="text" id="setName" class="form-input">
-          </div>
-          <div>
-            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Email</label>
-            <input type="email" id="setEmail" class="form-input" readonly style="opacity:0.6;cursor:not-allowed">
-          </div>
-          <div>
-            <label style="font-family:var(--font-label);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);margin-bottom:0.5rem;display:block">Phone</label>
-            <input type="tel" id="setPhone" class="form-input" readonly style="opacity:0.6;cursor:not-allowed">
-          </div>
-          <button onclick="saveProfile()" class="btn-primary" style="width:100%">Save Changes</button>
-        </div>
-      </section>
-
-      <!-- Language -->
-      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Language</h3>
-        <div style="display:flex;background:var(--surface-container-highest);border-radius:9999px;padding:4px">
-          <button onclick="setLanguage('kinyarwanda')" id="setLangKw"
-                  style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;transition:all 0.3s">
-            Kinyarwanda
-          </button>
-          <button onclick="setLanguage('english')" id="setLangEn"
-                  style="flex:1;height:48px;border-radius:9999px;font-family:var(--font-label);font-weight:600;font-size:0.875rem;transition:all 0.3s">
-            English
-          </button>
-        </div>
-      </section>
-
-      <!-- Notifications -->
-      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Notifications</h3>
-
-        <div style="display:flex;flex-direction:column;gap:0.25rem">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
-            <div>
-              <p style="font-weight:600">Daily Remembrances</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Get daily reminders of ancestral stories</p>
+<body class="bg-surface text-on-surface selection:bg-secondary-container">
+    <header class="fixed top-0 w-full z-50 bg-[#fdf9e9]/80 backdrop-blur-md shadow-sm shadow-[#1c1c13]/5">
+        <div class="flex justify-between items-center w-full px-6 py-4">
+            <button onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href='/'; }" class="text-[#9b2f00] hover:bg-[#f8f4e4] transition-colors duration-300 p-2 rounded-xl scale-95 active:scale-90 ease-in-out">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <h1 class="font-['Noto_Serif'] text-2xl font-black text-[#9b2f00]">The Living Archive</h1>
+            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shadow-sm">
+                <img id="navProfileImg" alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ieSDrXEd1GMROEzEHPI7GZTvx4WLtfL40pwYCoFVSufHzjk6Pig_T-4JyqK-nKAIFn70484-b0ZaWc3R502zed475djcBSEVb2UVNpCbOUYiYQw7nFJrD2KrhgrZkViHZ6esvf0-SDbVgs_6NhKlaMg7XmgwrwkNslfmuI87m_5-BbS5oX6xnIfLN5s9b8EhxIkDPUnWbW-cxiy5RakbXpeFpEhj36cA2SXR-ZWuTYj1V1uzHA78WEqFFTDDg8TWJ3GB_W1l7w7R"/>
             </div>
-            <div class="toggle-switch" id="toggleRemembrance" onclick="toggleSetting('toggleRemembrance', 'daily_remembrances')"></div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
-            <div>
-              <p style="font-weight:600">Family Tree Updates</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">When new members join your family</p>
-            </div>
-            <div class="toggle-switch" id="toggleFamilyUpdates" onclick="toggleSetting('toggleFamilyUpdates', 'family_tree_updates')"></div>
-          </div>
         </div>
-      </section>
-
-      <!-- Privacy -->
-      <section style="padding:1.5rem 0;border-bottom:1px solid rgba(225,191,181,0.15)">
-        <h3 style="font-family:var(--font-headline);font-size:1.125rem;font-weight:700;margin-bottom:1rem">Privacy</h3>
-
-        <div style="display:flex;flex-direction:column;gap:0.25rem">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
-            <div>
-              <p style="font-weight:600">Listening History Visible</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Others can see what you've listened to</p>
-            </div>
-            <div class="toggle-switch" id="toggleListeningHistory" onclick="toggleSetting('toggleListeningHistory', 'listening_history_visible')"></div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0">
-            <div>
-              <p style="font-weight:600">Family Tree Visible</p>
-              <p style="font-size:0.75rem;color:var(--on-surface-variant)">Show your family connections publicly</p>
-            </div>
-            <div class="toggle-switch" id="toggleFamilyTree" onclick="toggleSetting('toggleFamilyTree', 'family_tree_visible')"></div>
-          </div>
+    </header>
+    <script>
+        setTimeout(() => { try { if(window.App && App.currentUser) { document.getElementById("navProfileImg").src = App.avatarUrl(App.currentUser); } } catch(e){} }, 100);
+    </script>
+    <main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+        <div class="mb-10">
+            <h2 class="text-4xl font-bold text-primary tracking-tight mb-2">Settings</h2>
+            <p class="text-on-surface-variant font-light">Komeza urugendo rwawe &bull; Continue your journey</p>
         </div>
-      </section>
 
-      <!-- Account Actions -->
-      <section style="padding:2rem 0">
-        <div style="display:flex;flex-direction:column;gap:1rem">
-          <button onclick="App.logout()" class="btn-secondary" style="width:100%;color:var(--error);border-color:rgba(186,26,26,0.2);gap:0.5rem">
-            <span class="material-symbols-outlined">logout</span> Sign Out
-          </button>
-          <button onclick="confirmDeleteAccount()" style="width:100%;padding:1rem;color:var(--error);font-family:var(--font-label);font-weight:600;font-size:0.875rem;text-align:center;opacity:0.7">
-            Delete Account
-          </button>
+        <div class="space-y-12">
+            <section>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary-container">person_outline</span> Profile Details
+                </h3>
+                <div class="bg-surface-container-low asymmetric-leaf p-6 space-y-4">
+                    <div class="flex items-center justify-between tap-target group cursor-pointer hover:bg-surface-container transition-colors p-2 rounded-xl">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase tracking-widest text-on-surface-variant font-semibold">Full Name</span>
+                            <span class="text-lg font-medium" id="settingsName">Loading...</span>
+                        </div>
+                        <span class="material-symbols-outlined text-outline">chevron_right</span>
+                    </div>
+                    <div class="flex items-center justify-between tap-target group cursor-pointer hover:bg-surface-container transition-colors p-2 rounded-xl">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase tracking-widest text-on-surface-variant font-semibold">Email</span>
+                            <span class="text-lg font-medium" id="settingsEmail"></span>
+                        </div>
+                        <span class="material-symbols-outlined text-outline">chevron_right</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary-container">translate</span> Language Preference
+                </h3>
+                <div class="grid grid-cols-2 gap-4 p-1 bg-surface-container-high rounded-2xl">
+                    <button class="tap-target font-semibold text-lg flex items-center justify-center rounded-xl bg-surface-container-lowest shadow-sm text-primary transition-all" id="setLangEn" onclick="setLanguage('english')">English</button>
+                    <button class="tap-target font-semibold text-lg flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container transition-all" id="setLangKw" onclick="setLanguage('kinyarwanda')">Kinyarwanda</button>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary-container">notifications_active</span> Notifications
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between tap-target bg-surface-container-lowest p-5 asymmetric-leaf shadow-sm border border-outline-variant/10">
+                        <span class="text-lg font-medium">Daily Remembrances</span>
+                        <div class="w-14 h-8 bg-primary-container rounded-full relative flex items-center px-1 cursor-pointer" id="toggleRemembrance" onclick="toggleSetting('toggleRemembrance', 'daily_remembrances')">
+                            <div class="w-6 h-6 bg-white rounded-full translate-x-6 shadow-sm transition-all"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between tap-target bg-surface-container-low p-5 asymmetric-leaf">
+                        <span class="text-lg font-medium">Family Tree Updates</span>
+                        <div class="w-14 h-8 bg-surface-container-highest rounded-full relative flex items-center px-1 cursor-pointer" id="toggleFamilyUpdates" onclick="toggleSetting('toggleFamilyUpdates', 'family_tree_updates')">
+                            <div class="w-6 h-6 bg-white rounded-full shadow-sm transition-all"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary-container">security</span> Privacy Controls
+                    </h3>
+                </div>
+                <div class="space-y-1">
+                    <div class="bg-surface-container-low p-6 rounded-t-3xl border-b border-outline-variant/20">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="text-lg font-bold">Listening History</p>
+                                <p class="text-sm text-on-surface-variant leading-snug">Allow family to see your archival listening journey</p>
+                            </div>
+                            <div class="w-14 h-8 bg-primary-container rounded-full relative flex items-center px-1 cursor-pointer" id="toggleListeningHistory" onclick="toggleSetting('toggleListeningHistory', 'listening_history_visible')">
+                                <div class="w-6 h-6 bg-white rounded-full translate-x-6 shadow-sm transition-all"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-6 rounded-b-3xl">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="text-lg font-bold">Family Tree Visibility</p>
+                                <p class="text-sm text-on-surface-variant leading-snug">Make your direct branch visible to distant relatives</p>
+                            </div>
+                            <div class="w-14 h-8 bg-primary-container rounded-full relative flex items-center px-1 cursor-pointer" id="toggleFamilyTree" onclick="toggleSetting('toggleFamilyTree', 'family_tree_visible')">
+                                <div class="w-6 h-6 bg-white rounded-full translate-x-6 shadow-sm transition-all"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="pt-8 space-y-4">
+                <button onclick="App.logout()" class="w-full tap-target flex items-center justify-center gap-3 border-2 border-error/20 text-error font-bold uppercase tracking-widest text-sm asymmetric-leaf hover:bg-error/5 transition-colors">
+                    <span class="material-symbols-outlined">logout</span> Leave Family Circle
+                </button>
+                <button onclick="confirmDeleteAccount()" class="w-full tap-target flex items-center justify-center gap-3 bg-error text-on-error font-bold uppercase tracking-widest text-sm asymmetric-leaf shadow-lg shadow-error/20 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined">delete_forever</span> Delete My Account
+                </button>
+                <p class="text-center text-on-surface-variant text-xs mt-10 italic">Version 2.4.0 &bull; Crafted with love for Umuryango Wacu</p>
+            </footer>
         </div>
-      </section>
+    </main>
 
-      <!-- App Version -->
-      <div style="text-align:center;padding:1rem 0;font-size:0.75rem;color:rgba(28,28,19,0.3);font-family:var(--font-label);letter-spacing:0.1em">
-        INKOMOKO v1.0 · THE LIVING ARCHIVE
-      </div>
-    </div>
-  </main>
+    <nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] h-[88px] bg-[#fdf9e9]/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(28,28,19,0.06)]">
+        <div class="flex justify-around items-center px-4 pb-safe w-full h-full">
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" onclick="window.location.href='/'">
+                <span class="material-symbols-outlined">history_edu</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Home</span>
+            </div>
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" onclick="window.location.href='/library.html'">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Library</span>
+            </div>
+            <div class="flex flex-col items-center justify-center text-[#1c1c13]/70 min-h-[56px] p-2 hover:opacity-80 transition-opacity active:scale-95 duration-300" onclick="window.location.href='/record.html'">
+                <span class="material-symbols-outlined">mic_none</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Record</span>
+            </div>
+            <div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#9b2f00] to-[#c2410c] text-white rounded-[24px_8px_24px_8px] min-w-[64px] min-h-[56px] p-2 shadow-lg active:scale-95 duration-300">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                <span class="font-['Lexend'] text-xs font-medium uppercase tracking-wider mt-1">Profile</span>
+            </div>
+        </div>
+    </nav>
 
-  <nav class="bottom-nav">
-    <a href="/" class="bottom-nav-item">
-      <span class="material-symbols-outlined">history_edu</span>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="/library" class="bottom-nav-item">
-      <span class="material-symbols-outlined">menu_book</span>
-      <span class="nav-label">Library</span>
-    </a>
-    <a href="/record" class="bottom-nav-item">
-      <span class="material-symbols-outlined">mic_none</span>
-      <span class="nav-label">Record</span>
-    </a>
-    <a href="/settings" class="bottom-nav-item active">
-      <span class="material-symbols-outlined filled" style="font-variation-settings:'FILL' 1">person</span>
-      <span class="nav-label">Profile</span>
-    </a>
-  </nav>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+    <script>
+        if (!App.isLoggedIn()) window.location.href = '/auth.html';
+        let currentLang = 'english';
+        let settings = {};
 
-  <script src="/js/api.js?v=4"></script>
-  <script src="/js/app.js?v=4"></script>
-  <script src="/js/components.js?v=4"></script>
-  <script>
-    if (!App.isLoggedIn()) window.location.href = '/auth.html';
-
-    let currentLang = 'kinyarwanda';
-    let settings = {};
-
-    async function loadSettings() {
-      // Profile data
-      const user = App.currentUser;
-      if (user) {
-        const avatar = App.avatarUrl(user);
-        document.getElementById('settingsAvatar').innerHTML = `<img src="${avatar}" style="width:100%;height:100%;object-fit:cover">`;
-        document.getElementById('settingsName').textContent = user.full_name;
-        document.getElementById('settingsRole').textContent = user.role === 'elder' ? 'Elder · Storyteller' : 'Youth · Listener';
-        document.getElementById('settingsSince').textContent = `Member since ${new Date(user.created_at).toLocaleDateString('en-RW', { month: 'long', year: 'numeric' })}`;
-        document.getElementById('setName').value = user.full_name || '';
-        document.getElementById('setEmail').value = user.email || '';
-        document.getElementById('setPhone').value = user.phone || '';
-        currentLang = user.language_pref || 'kinyarwanda';
-        updateLangUI();
-      }
-
-      // Settings
-      try {
-        settings = await API.getSettings();
-        if (settings.daily_remembrances) document.getElementById('toggleRemembrance').classList.add('active');
-        if (settings.family_tree_updates) document.getElementById('toggleFamilyUpdates').classList.add('active');
-        if (settings.listening_history_visible) document.getElementById('toggleListeningHistory').classList.add('active');
-        if (settings.family_tree_visible) document.getElementById('toggleFamilyTree').classList.add('active');
-      } catch(e) {}
-    }
-
-    function updateLangUI() {
-      const kw = document.getElementById('setLangKw');
-      const en = document.getElementById('setLangEn');
-      kw.style.background = currentLang === 'kinyarwanda' ? 'var(--primary)' : 'transparent';
-      kw.style.color = currentLang === 'kinyarwanda' ? 'white' : 'var(--on-surface-variant)';
-      en.style.background = currentLang === 'english' ? 'var(--primary)' : 'transparent';
-      en.style.color = currentLang === 'english' ? 'white' : 'var(--on-surface-variant)';
-    }
-
-    async function setLanguage(lang) {
-      currentLang = lang;
-      updateLangUI();
-      try {
-        await API.updateSettings({ language_pref: lang });
-        if (App.currentUser) {
-          App.currentUser.language_pref = lang;
-          App.setUser(App.currentUser);
+        async function loadSettings() {
+            const user = App.currentUser;
+            if (user) {
+                document.getElementById('settingsName').textContent = user.full_name;
+                document.getElementById('settingsEmail').textContent = user.email || '';
+                currentLang = user.language_pref || 'english';
+                updateLangUI();
+            }
+            try {
+                settings = await API.getSettings();
+                if (settings.daily_remembrances) activateToggle('toggleRemembrance');
+                if (settings.family_tree_updates) activateToggle('toggleFamilyUpdates');
+                if (settings.listening_history_visible) activateToggle('toggleListeningHistory');
+                if (settings.family_tree_visible) activateToggle('toggleFamilyTree');
+            } catch(e) {}
         }
-        App.showToast('Language updated', 'success');
-      } catch(e) {}
-    }
 
-    async function toggleSetting(toggleId, settingKey) {
-      const toggle = document.getElementById(toggleId);
-      toggle.classList.toggle('active');
-      const value = toggle.classList.contains('active');
-      try {
-        await API.updateSettings({ [settingKey]: value });
-      } catch(e) {
-        toggle.classList.toggle('active'); // revert
-      }
-    }
-
-    async function saveProfile() {
-      const name = document.getElementById('setName').value.trim();
-      if (!name) { App.showToast('Name is required', 'error'); return; }
-
-      try {
-        const result = await API.updateProfile({ full_name: name });
-        App.setUser({ ...App.currentUser, full_name: name });
-        document.getElementById('settingsName').textContent = name;
-        App.showToast('Profile updated!', 'success');
-      } catch(e) {
-        App.showToast(e.message || 'Failed to update', 'error');
-      }
-    }
-
-    function confirmDeleteAccount() {
-      if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-        if (confirm('This will permanently delete all your stories and data. Are you absolutely sure?')) {
-          App.showToast('Account deletion requested. We will process this shortly.', 'info');
-          setTimeout(() => App.logout(), 2000);
+        function activateToggle(id) {
+            const el = document.getElementById(id);
+            el.querySelector('div').className = 'w-6 h-6 bg-white rounded-full translate-x-6 shadow-sm transition-all';
+            el.classList.replace('bg-surface-container-highest', 'bg-primary-container');
         }
-      }
-    }
 
-    loadSettings();
-  </script>
+        function updateLangUI() {
+            const en = document.getElementById('setLangEn');
+            const kw = document.getElementById('setLangKw');
+            if (currentLang === 'english') {
+                en.className = 'tap-target font-semibold text-lg flex items-center justify-center rounded-xl bg-surface-container-lowest shadow-sm text-primary transition-all';
+                kw.className = 'tap-target font-semibold text-lg flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container transition-all';
+            } else {
+                kw.className = 'tap-target font-semibold text-lg flex items-center justify-center rounded-xl bg-surface-container-lowest shadow-sm text-primary transition-all';
+                en.className = 'tap-target font-semibold text-lg flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container transition-all';
+            }
+        }
+
+        async function setLanguage(lang) {
+            currentLang = lang;
+            updateLangUI();
+            try {
+                await API.updateSettings({ language_pref: lang });
+                if (App.currentUser) { App.currentUser.language_pref = lang; App.setUser(App.currentUser); }
+                App.showToast('Language updated', 'success');
+            } catch(e) {}
+        }
+
+        async function toggleSetting(id, key) {
+            const el = document.getElementById(id);
+            const knob = el.querySelector('div');
+            const isOn = knob.classList.contains('translate-x-6');
+            if (isOn) {
+                knob.className = 'w-6 h-6 bg-white rounded-full shadow-sm transition-all';
+                el.className = el.className.replace('bg-primary-container', 'bg-surface-container-highest');
+            } else {
+                knob.className = 'w-6 h-6 bg-white rounded-full translate-x-6 shadow-sm transition-all';
+                el.className = el.className.replace('bg-surface-container-highest', 'bg-primary-container');
+            }
+            try { await API.updateSettings({ [key]: !isOn }); } catch(e) { toggleSetting(id, key); }
+        }
+
+        function confirmDeleteAccount() {
+            if (confirm('Delete your account permanently?')) {
+                App.showToast('Account deletion requested.', 'info');
+                setTimeout(() => App.logout(), 2000);
+            }
+        }
+
+        loadSettings();
+    </script>
 </body>
 </html>

@@ -9,7 +9,7 @@ const PASSWORD_MAX_LENGTH = 128;
 
 function sanitize(str) {
   if (typeof str !== 'string') return str;
-  return str.trim().replace(/\s+/g, '');
+  return str.trim().replace(/\s+/g, ' ');
 }
 
 function validateEmail(email) {
