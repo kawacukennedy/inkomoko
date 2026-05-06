@@ -10,10 +10,13 @@ function getTransporter() {
       return null;
     }
 
+    const port = parseInt(process.env.SMTP_PORT, 10) || 465; // Default to 465 for cloud compatibility
+    const isSecure = port === 465;
+
     transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: process.env.SMTP_PORT === '465',
+      port: port,
+      secure: isSecure, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -33,6 +36,9 @@ async function sendEmail(to, subject, html) {
   }
 
   try {
+    // Verify connection configuration before sending
+    await mailer.verify();
+    
     const info = await Promise.race([
       mailer.sendMail({
         from: process.env.EMAIL_FROM || '"Inkomoko" <no-reply@inkomoko.app>',
@@ -41,14 +47,17 @@ async function sendEmail(to, subject, html) {
         html,
       }),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Email send timeout')), 5000)
+        setTimeout(() => reject(new Error('Email send timeout')), 8000)
       ),
     ]);
 
-    console.log(`Email sent: ${info.messageId}`);
+    console.log(`[EMAIL SUCCESS] Message sent: ${info.messageId} to ${to}`);
     return true;
   } catch (error) {
-    console.error('Email send failed:', error.message);
+    console.error(`[EMAIL FAILED] To: ${to} | Error: ${error.message}`);
+    if (error.code === 'ENETUNREACH' || error.message.includes('timeout')) {
+       console.error('[EMAIL TROUBLESHOOT] If on Render, ensure SMTP_PORT is set to 465. Port 587 is blocked.');
+    }
     return false;
   }
 }
